@@ -11,7 +11,7 @@ function addCSSFile () {
 addCSSFile();
 
 function createMainContainer(){
-    const searchContainer = createContainer("searchContainer", "searchContainer");
+    const searchContainer = createContainer("", "searchContainer");
     const storesContainer = createContainer("storesContainer", "innerContainer");
     const categoriesContainer = createContainer("categoriesContainer", "innerContainer");
     const mainContainer = createContainer("mainContainer", "mainContainer");
@@ -22,9 +22,11 @@ function createMainContainer(){
     document.body.appendChild(mainContainer);
 }
 
-function createContainer(id, cssClass){
+function createContainer(id = "", cssClass){
     const container = document.createElement("div");
-    container.setAttribute("id", id);
+    if(id != ""){
+        container.setAttribute("id", id);
+    }    
     container.setAttribute("class", cssClass);
     return container;
 }
