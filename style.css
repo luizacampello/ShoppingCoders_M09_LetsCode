@@ -11,3 +11,7 @@
     margin: 2vw;
 }
 
+.activeInnerContainer{
+    display:flex;
+}
+
