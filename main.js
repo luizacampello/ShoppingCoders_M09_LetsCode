@@ -12,8 +12,8 @@ addCSSFile();
 
 function createMainContainer() {
     const searchContainer = createHtmlTag("div", "searchContainer", "searchContainer");
-    const storesContainer = createHtmlTag("div", "storesContainer", "innerContainer");
-    const categoriesContainer = createHtmlTag("div", "categoriesContainer", "innerContainer");
+    const storesContainer = createHtmlTag("div", "innerContainer", "storesContainer", );
+    const categoriesContainer = createHtmlTag("div", "innerContainer", "categoriesContainer");
     const mainContainer = createHtmlTag("div", "mainContainer", "mainContainer");
 
     mainContainer.appendChild(searchContainer);
@@ -22,7 +22,7 @@ function createMainContainer() {
     document.body.appendChild(mainContainer);
 }
 
-function createHtmlTag(tag, id = "", cssClass) {
+function createHtmlTag(tag, cssClass, id = "") {
     const container = document.createElement(tag);
 
     if (id != "") {
