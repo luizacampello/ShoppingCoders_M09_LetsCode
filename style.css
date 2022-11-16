@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  position: fixed;
+  width: 100vw;
+  background-color: aqua;
+  height: 5vw;
+}
+
+header nav {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Noto Serif', serif;
+  padding: 2rem;
+}
+
+.logo {
+  cursor: pointer;
+  font-size: 1.3rem;
+}
+
+nav .menu {
+  display: flex;
+  width: 25%;
+  justify-content: space-around;
+}
+
+.lojas,
+.categorias {
+  align-items: center;
+  cursor: pointer;
+  text-align: center;
+}
+
+.lojas ul,
+.categorias ul {
+  display: none;
+  padding: 0.5rem;
+  border-radius: 0.4rem;
+}
+.lojas ul li,
+.categorias ul li {
+  list-style: none;
+  margin-top: 0.7rem;
+  margin-bottom: 0.4rem;
+  cursor: pointer;
+}
+
+.lojas ul li:hover,
+.categorias ul li:hover {
+  font-weight: bold;
+}
+
+.lojas:hover,
+.categorias:hover {
+  font-size: 1rem;
+}
+
+.lojas:hover > ul,
+.categorias:hover > ul {
+  display: block;
+  background-color: cadetblue;
+}
