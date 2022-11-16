@@ -9,3 +9,22 @@ function addCSSFile () {
 }
 
 addCSSFile();
+
+function createMainContainer() {
+    const storesContainer = createContainer("storesContainer", "innerContainer");
+    const categoriesContainer = createContainer("categoriesContainer", "innerContainer");
+    const mainContainer = createContainer("mainContainer", "mainContainer")
+
+    mainContainer.appendChild(storesContainer);
+    mainContainer.appendChild(categoriesContainer);
+    document.body.appendChild(mainContainer);
+}
+
+function createContainer(id, cssClass) {
+    const container = document.createElement("div");
+    container.setAttribute("id", id);
+    container.setAttribute("class", cssClass);
+    return container;
+}
+
+createMainContainer();
