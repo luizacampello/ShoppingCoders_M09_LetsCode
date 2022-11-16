@@ -11,10 +11,12 @@ function addCSSFile () {
 addCSSFile();
 
 function createMainContainer(){
+    const searchContainer = createContainer("searchContainer", "searchContainer");
     const storesContainer = createContainer("storesContainer", "innerContainer");
     const categoriesContainer = createContainer("categoriesContainer", "innerContainer");
-    const mainContainer = createContainer("mainContainer", "mainContainer")
+    const mainContainer = createContainer("mainContainer", "mainContainer");
 
+    mainContainer.appendChild(searchContainer);
     mainContainer.appendChild(storesContainer);
     mainContainer.appendChild(categoriesContainer);
     document.body.appendChild(mainContainer);
@@ -29,7 +31,6 @@ function createContainer(id, cssClass){
 
 createMainContainer();
 
-
 function displayInnerContainer(containerId){
     const innerContainers = document.getElementsByClassName("innerContainer");
     
@@ -40,7 +41,7 @@ function displayInnerContainer(containerId){
             container.classList.remove("activeInnerContainer");
         } 
     }
-    
+
     const activeContainer = document.getElementById(containerId);
     activeContainer.classList.add("activeInnerContainer")
 }
