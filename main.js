@@ -1,14 +1,27 @@
-const MockStore = 
-{
-    category : 'Alimentação',
-    name: 'McDonalds'
-}
+(()=>{
+    addCSSFile();
+    for (const file of ['assets/CardFactory.js', 'styles/CardStyle.js']) {
+        const script = document.createElement('script');
+        script.setAttribute('src', `scripts/${file}`);
+        document.body.appendChild(script);
+    }
 
-const MockCategory = 
-{
-    categoryName : 'Alimentação',
-    categoryId: 001
-}
+    window.addEventListener('load',() =>{
+        const main = document.createElement('main');
+        document.body.appendChild(main);
+
+        main.appendChild(CardFactory.CardStore({
+            category: 'Eletrônicos',
+            name: 'AppleStore'
+        }));
+        main.appendChild(CardFactory.CardCategory({
+            Id: 3,
+            Name: 'Eletrônicos-Eletrodoasdasdasdasdasd',
+            onClickEdit: () =>{window.alert('Click 1')},
+            onClickStores: () =>{window.alert('Click 2')}
+        }))
+    });
+})();
 
 function addCSSFile () {
     const cssLink = document.createElement('link');
@@ -19,56 +32,3 @@ function addCSSFile () {
   
     document.head.appendChild(cssLink);
 }
-
-addCSSFile();
-
-const divCardsContainer = document.createElement('div');
-divCardsContainer.setAttribute('id','CardsContainer');
-
-createCategoryCard(MockCategory);
-createStoreCard(MockStore);
-
-document.body.appendChild(divCardsContainer) // TO DO: Mudar para a div do container geral quando for feito o merge de todas as branches
-
-function createCategoryCard(object){
-    const divCardContent = document.createElement('div');
-    divCardContent.classList.add('card-content');
-
-    const categoryId = document.createElement('h2');
-    categoryId.textContent = object.categoryId;
-    
-    const categoryName = document.createElement('h1');
-    categoryName.textContent = object.categoryName;
-
-    const cardEditButton = document.createElement('button');
-    cardEditButton.textContent = 'Editar';
-    cardEditButton.classList.add('card-button')
-    
-    const cardStoresButton = document.createElement('button');
-    cardStoresButton.textContent = 'Lojas';
-    cardStoresButton.classList.add('card-button')
-    
-    divCardContent.appendChild(categoryId);
-    divCardContent.appendChild(categoryName);
-    divCardContent.appendChild(cardStoresButton);
-    divCardContent.appendChild(cardEditButton);
-
-    divCardsContainer.appendChild(divCardContent);
-}
-
-function createStoreCard(object){
-    const divCardContent = document.createElement('div');
-    divCardContent.classList.add('card-content');
-
-    const storeCategory = document.createElement('h2');
-    storeCategory.textContent = object.category;
-    
-    const storeName = document.createElement('h1');
-    storeName.textContent = object.name;
-
-    divCardContent.appendChild(storeCategory);
-    divCardContent.appendChild(storeName);
-
-    divCardsContainer.appendChild(divCardContent);
-}
-
