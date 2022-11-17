@@ -10,6 +10,14 @@ function addCSSFile() {
 
 addCSSFile();
 
+function createHtmlTagAndSetContent(tag, tagContennt) {
+    const container = document.createElement(tag);
+
+    container.textContent = tagContennt;
+
+    return container;
+}
+
 function addHeader() {
     const body = document.querySelector('body');
 
@@ -17,47 +25,36 @@ function addHeader() {
 
     const headerNav = document.createElement('nav');
 
-    const logo = document.createElement('div');
-    logo.className = 'logo';
+    const logo = createHtmlTag('div', 'logo');
 
-    const logoText = document.createElement('h3');
-    logoText.textContent = 'Shopping Coders'
+    const logoText = createHtmlTagAndContent('h3', 'Shopping Coders');
 
-    const menu = document.createElement('div');
-    menu.className = 'menu';
+    const menu = createHtmlTag('div', 'menu');
 
-        const lojas = document.createElement('div');
-        lojas.className = 'lojas';
+        const lojas = createHtmlTag('div', 'lojas');
 
-        const lojash3 = document.createElement('h3');
-        lojash3.textContent = 'Lojas'
+        const lojash3 = createHtmlTagAndContent('h3','Lojas');
 
         const lojasUl = document.createElement('ul');
 
-        const lojasLi1 = document.createElement('li');
-        lojasLi1.textContent = '+Nova Loja'
+        const lojasLi1 = createHtmlTagAndContent('li','+Nova Loja');
 
-        const lojasLi2 = document.createElement('li');
-        lojasLi2.textContent = 'Todas as Lojas'
+        const lojasLi2 = createHtmlTagAndContent('li', 'Todas as Lojas');
 
             lojasUl.appendChild(lojasLi1);
             lojasUl.appendChild(lojasLi2);
             lojas.appendChild(lojash3);
             lojas.appendChild(lojasUl);
 
-        const categorias = document.createElement('div');
-        categorias.className = 'categorias';
+        const categorias = createHtmlTag('div', 'categorias');
 
-        const categoriash3 = document.createElement('h3');
-        categoriash3.textContent = 'Categorias';
+        const categoriash3 = createHtmlTagAndContent('h3', 'Categorias');
 
         const categoriasUl = document.createElement('ul');
 
-        const categoriasLi1 = document.createElement('li');
-        categoriasLi1.textContent = '+Nova Categoria';
+        const categoriasLi1 = createHtmlTagAndContent('li', '+Nova Categoria');
 
-        const categoriasLi2 = document.createElement('li');
-        categoriasLi2.textContent = 'Todas as Categorias';
+        const categoriasLi2 = createHtmlTagAndContent('li', 'Todas as Categorias');
 
             categoriasUl.appendChild(categoriasLi1);
             categoriasUl.appendChild(categoriasLi2);
@@ -74,3 +71,6 @@ function addHeader() {
 }
 
 addHeader();
+
+
+
