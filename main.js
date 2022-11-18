@@ -15,8 +15,8 @@
                 category: storeObject.category,
                 name: storeObject.name,
                 onClickCard: () => {
-                    newPopUpContainer(storeObject)
-                    showHidePage("popUpContainer");
+                    newPopUpContainer(storeObject);
+                    addClearPageEventTo("popUpContainer");
                 },
                 
             })
@@ -137,9 +137,8 @@ function saveButton() {
     return bSave;
 }
 
-function showHidePage(containerId) {
+function addClearPageEventTo(containerId) {
     const pageCard = document.getElementById(containerId);
-    console.log(pageCard);
     pageCard.classList.add("show");
     pageCard.addEventListener("click", (e) => {
         if (e.target.id == containerId || e.target.id == "close") {
@@ -238,22 +237,10 @@ function formPage(store) {
 }
 
 function newPopUpContainer(storeObject) {
-    // const popUpContainer = document.createElement("div");
-    // popUpContainer.setAttribute("class", "popUp-container");
-    // popUpContainer.setAttribute("id", "popUp-container");
-
     const popUpContainer = document.getElementById("popUpContainer");
     popUpContainer.appendChild(infoPage(storeObject));
     popUpContainer.appendChild(formPage(storeObject));
-
-    // document.body.appendChild(popUpContainer);
 }
-
-
-// const showStore = document.querySelector("SEU BOTÃO/IMAGEM");
-// showPage.addEventListener('click', function(){
-//     showHidePage(".popUp-container");
-// })
 
 function createMainContainer() {
     const searchContainer = createHtmlTag(
@@ -318,5 +305,5 @@ function displayInnerContainer(containerId) {
 }
 
 createMainContainer();
-// showHidePage("popUpContainer"); //Para ver o container
+
 
