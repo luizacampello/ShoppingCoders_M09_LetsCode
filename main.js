@@ -148,12 +148,13 @@ function addClearPageEventTo(containerId) {
     });
 }
 
-function populateFormCategory(defaultCategory, categoryForm) {
+async function populateFormCategory(defaultCategory, categoryForm) {
+
+    const categoriesList = await getCategoriesList();
+
     let defaultOption = newCategoryOption(defaultCategory);
     categoryForm.add(defaultOption);
     categoryForm.selectedIndex = 0;
-
-    const categoriesList = getCategoriesListFromAPI();
 
     for (let index = 0; index < categoriesList.length; index++) {
         const categoryOption = categoriesList[index].name;
@@ -169,23 +170,6 @@ function newCategoryOption(option) {
     return newOption;
 }
 
-function getCategoriesListFromAPI() {
-    // Add API Connection
-    const categoriesListMock = [
-        {
-            uid: "ac92aeee-3c67-4171-9916-7e4100ebb3a8",
-            code: "124",
-            name: "AAAAA",
-        },
-        {
-            uid: "ee10427c-1f88-4bbf-868e-ccb18bea2793",
-            code: "123",
-            name: "asjnA",
-        },
-    ];
-
-    return categoriesListMock;
-}
 
 function formPage(store) {
     const formContainer = document.createElement("div");
@@ -279,7 +263,7 @@ function createMainContainer() {
 function createHtmlTag(tag, cssClass, id = "") {
     const container = document.createElement(tag);
 
-    if (id != "") {
+    if (id) {
         container.setAttribute("id", id);
     }
 
@@ -305,5 +289,72 @@ function displayInnerContainer(containerId) {
 }
 
 createMainContainer();
+
+
+const BASE_URL = "http://estabelecimentos.letscode.dev.netuno.org:25390/services";
+
+const uidGroupDefinition = {
+    "group": {
+        "uid": "0da148be-b828-46b7-b1e7-906e3846a521"
+    }
+} 
+
+function postRequisition(url, body) {
+    return new Promise(function (resolve, reject) {
+        let request = new XMLHttpRequest();
+        request.open("POST", url, true);
+        request.setRequestHeader("Content-type", "application/json")
+        request.send(JSON.stringify(body));
+
+        request.onload = function () {
+            console.log("Requisition status:", this.status);
+            if (this.status >= 200 && this.status < 300) {
+                resolve(this.responseText);
+            } else {
+                reject({
+                    status: this.status,
+                    statusText: request.statusText
+                });
+            }
+        };
+        
+        request.onerror = function () {
+            reject({
+                status: this.status,
+                statusText: xhr.statusText
+            });
+        };
+    });
+}
+
+async function getCategoriesList(keyword) {
+    let url = BASE_URL + "/category/list";
+
+    let body =  uidGroupDefinition;
+    body.text = keyword;
+
+    let data = await postRequisition(url, body);
+    const categories = JSON.parse(data);
+
+    return categories;
+}
+
+async function getStoresList(keyWord, uidCategory) {
+    let url = BASE_URL + "/establishment/list";
+
+    let body = uidGroupDefinition;
+    body.text = keyWord;
+
+    if (uidCategory) {
+        body.category = {"uid": uidCategory};        
+    }    
+
+    let data = await postRequisition(url, body);
+    const stores = JSON.parse(data);
+
+    return stores;
+}
+
+getStoresList();
 
 
