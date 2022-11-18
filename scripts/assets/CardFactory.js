@@ -1,6 +1,6 @@
 
 window.CardFactory = {
-    CardStore: ({category, name}) =>{
+    CardStore: ({category, name, onClickCard = () =>{}}) =>{
         const CardStoreElement = document.createElement('div');
         CardStoreElement.classList.add('card-content');
         CardStoreElement.classList.add('card-store');
@@ -10,7 +10,7 @@ window.CardFactory = {
         
         const storeName = document.createElement('h2');
         storeName.textContent = `${name}`;
-        
+        CardStoreElement.addEventListener('click', onClickCard)
         CardStoreElement.appendChild(storeCategory);
         CardStoreElement.appendChild(storeName);
         return CardStoreElement;
