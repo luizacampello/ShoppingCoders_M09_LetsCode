@@ -327,7 +327,7 @@ function postRequisition(url, body) {
     });
 }
 
-async function getCategoriesList(keyword) {
+async function getCategoriesList(keyword = "") {
     let url = BASE_URL + "/category/list";
 
     let body =  uidGroupDefinition;
