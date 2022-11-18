@@ -22,7 +22,6 @@ function infoPage(storeObject) {
     const infoContainer = document.createElement('div');
     infoContainer.setAttribute("id", "infoContainer");
 
-
     //DIVISÃO COM AS INFORMAÇÕES
     const divInfo = document.createElement('div');
     divInfo.setAttribute("class", "divInfo");
@@ -104,7 +103,6 @@ function saveButton (){
     return bSave;
 }
 
-
 function showHidePage (containerId){
     const pageCard = document.getElementById(containerId);
     pageCard.classList.add("show");
@@ -117,6 +115,46 @@ function showHidePage (containerId){
     })
 }
 
+function populateFormCategory(defaultCategory, categoryForm){
+    let defaultOption = newCategoryOption(defaultCategory);
+    categoryForm.add(defaultOption);
+    categoryForm.selectedIndex = 0;
+
+    const categoriesList = getCategoriesListFromAPI();
+
+    for (let index = 0; index < categoriesList.length; index++) {
+        const categoryOption = categoriesList[index].name;
+        if (categoryOption != defaultCategory) {
+            categoryForm.add(newCategoryOption(categoryOption));
+        }                
+    }
+}
+
+function newCategoryOption(option){
+    let newOption = document.createElement('option');
+    newOption.text = option;
+    return newOption;
+}
+
+
+function getCategoriesListFromAPI(){
+    // Add API Connection
+    const categoriesListMock = 
+        [
+            {
+            "uid": "ac92aeee-3c67-4171-9916-7e4100ebb3a8",
+            "code": "124",
+            "name": "AAAAA"
+            },
+            {
+            "uid": "ee10427c-1f88-4bbf-868e-ccb18bea2793",
+            "code": "123",
+            "name": "asjnA"
+            }
+        ];
+    
+    return categoriesListMock;  
+}
 
 function formPage(store) {
     const formContainer = document.createElement('div');
@@ -133,8 +171,9 @@ function formPage(store) {
     // name.placeholder = "Nome";
     name.value = store.name;
 
-    const category = document.createElement('select');
-    category.default = store.category;
+    const categoryForm = document.createElement('select');
+    populateFormCategory(store.category, categoryForm);
+
     //ver como colocar a categoria
 
     const address = document.createElement('textArea');
@@ -151,7 +190,7 @@ function formPage(store) {
     phone.value = store.phone;
 
     divForm.appendChild(name);
-    divForm.appendChild(category);
+    divForm.appendChild(categoryForm);
     divForm.appendChild(address);
     divForm.appendChild(postalCode);
     divForm.appendChild(email);
@@ -211,7 +250,6 @@ addCSSFile();
 
 pageContainer(infoPage(storeObject), formPage(storeObject));
 showHidePage("page-container"); //Para ver o container
-
 
 // const showStore = document.querySelector("SEU BOTÃO/IMAGEM");
 // showPage.addEventListener('click', function(){
