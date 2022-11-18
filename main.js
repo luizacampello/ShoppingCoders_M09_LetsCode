@@ -17,7 +17,7 @@
         }));
         main.appendChild(CardFactory.CardCategory({
             Id: 3,
-            Name: 'Eletrônicos-Eletrodoasdasdasdasdasd',
+            Name: 'Eletrônicos-Roboticos',
             onClickEdit: () =>{window.alert('Click 1')},
             onClickStores: () =>{window.alert('Click 2')}
         }))

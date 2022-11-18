@@ -3,6 +3,7 @@ window.CardFactory = {
     CardStore: ({category, name}) =>{
         const CardStoreElement = document.createElement('div');
         CardStoreElement.classList.add('card-content');
+        CardStoreElement.classList.add('card-store');
 
         const storeCategory = document.createElement('h3');
         storeCategory.textContent = `${category}`;
@@ -17,12 +18,13 @@ window.CardFactory = {
     CardCategory: ({Id, Name, onClickEdit = () =>{}, onClickStores = () =>{}}) => {
         const CardStoreElement = document.createElement('div');
         CardStoreElement.classList.add('card-content');
+        CardStoreElement.classList.add('card-category');
 
         const categoryId = document.createElement('h3');
         categoryId.textContent = `${Id}`;
         
         const categoryName = document.createElement('h2');
-        categoryName.textContent = `${Name}`;
+        categoryName.textContent = `${Name}`
         
         const EditButton = document.createElement('button');
         EditButton.textContent = 'Editar';

@@ -8,7 +8,7 @@
             height: 120px;
 
             padding: 0px;
-            margin: 40px;
+            margin: 10px;
 
             background-color: #EBEBEB;
             border: 1px black solid;
@@ -51,6 +51,11 @@
         .card-content:has(button) h2{
             
             margin-bottom: 12px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            flex-wrap: no-wrap;
+            width: 210px;
+            white-space: nowrap;
         }
 
         .card-content:has(button) h3{
