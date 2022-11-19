@@ -17,8 +17,7 @@
                 onClickCard: () => {
                     newPopUpContainer(storeObject);
                     addClearPageEventTo("popUpContainer");
-                },
-                
+                },                
             })
         );
         main.appendChild(
@@ -148,13 +147,12 @@ function addClearPageEventTo(containerId) {
     });
 }
 
-async function populateFormCategory(defaultCategory, categoryForm) {
-
-    const categoriesList = await getCategoriesList();
-
-    let defaultOption = newCategoryOption(defaultCategory);
+async function populateFormCategory(defaultCategory, categoryForm) {   
+    const defaultOption = newCategoryOption(defaultCategory);
     categoryForm.add(defaultOption);
     categoryForm.selectedIndex = 0;
+
+    const categoriesList = await getCategoriesList();
 
     for (let index = 0; index < categoriesList.length; index++) {
         const categoryOption = categoriesList[index].name;
@@ -169,7 +167,6 @@ function newCategoryOption(option) {
     newOption.text = option;
     return newOption;
 }
-
 
 function formPage(store) {
     const formContainer = document.createElement("div");
@@ -290,71 +287,59 @@ function displayInnerContainer(containerId) {
 
 createMainContainer();
 
-
 const BASE_URL = "http://estabelecimentos.letscode.dev.netuno.org:25390/services";
 
 const uidGroupDefinition = {
     "group": {
-        "uid": "0da148be-b828-46b7-b1e7-906e3846a521"
+        "uid": "ee872905-c4e2-4d1f-bbd1-e858b44bd40c"
     }
 } 
 
-function postRequisition(url, body) {
-    return new Promise(function (resolve, reject) {
-        let request = new XMLHttpRequest();
-        request.open("POST", url, true);
-        request.setRequestHeader("Content-type", "application/json")
-        request.send(JSON.stringify(body));
+async function fetchPostRequisition(url, body) {
 
-        request.onload = function () {
-            console.log("Requisition status:", this.status);
-            if (this.status >= 200 && this.status < 300) {
-                resolve(this.responseText);
-            } else {
-                reject({
-                    status: this.status,
-                    statusText: request.statusText
-                });
-            }
-        };
-        
-        request.onerror = function () {
-            reject({
-                status: this.status,
-                statusText: xhr.statusText
-            });
-        };
+    const request = await fetch(url, {     
+        method: "POST",     
+        headers: {       
+            "Content-Type": "application/json",     
+        },     
+        body: JSON.stringify(body)   
+    }).catch((error) => {     
+        console.log("Erro na comunicação:", error);   
     });
+
+    if (!request.ok) {     
+        errorHandler(request);     
+        return [];   
+    }
+
+    console.log("Requisition status:", request.status);
+    
+    return await request.json();
 }
 
 async function getCategoriesList(keyword = "") {
     let url = BASE_URL + "/category/list";
-
     let body =  uidGroupDefinition;
     body.text = keyword;
 
-    let data = await postRequisition(url, body);
-    const categories = JSON.parse(data);
-
+    const categories = await fetchPostRequisition(url, body);
     return categories;
 }
 
 async function getStoresList(keyWord, uidCategory) {
     let url = BASE_URL + "/establishment/list";
-
     let body = uidGroupDefinition;
     body.text = keyWord;
-
+    
     if (uidCategory) {
         body.category = {"uid": uidCategory};        
     }    
 
-    let data = await postRequisition(url, body);
-    const stores = JSON.parse(data);
+    let stores = await fetchPostRequisition(url, body);
 
     return stores;
 }
 
-getStoresList();
+getStoresList("");
 
 
