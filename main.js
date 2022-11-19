@@ -17,8 +17,7 @@
                 onClickCard: () => {
                     newPopUpContainer(storeObject);
                     addClearPageEventTo("popUpContainer");
-                },
-                
+                },                
             })
         );
         main.appendChild(
@@ -148,12 +147,12 @@ function addClearPageEventTo(containerId) {
     });
 }
 
-function populateFormCategory(defaultCategory, categoryForm) {
-    let defaultOption = newCategoryOption(defaultCategory);
+async function populateFormCategory(defaultCategory, categoryForm) {   
+    const defaultOption = newCategoryOption(defaultCategory);
     categoryForm.add(defaultOption);
     categoryForm.selectedIndex = 0;
 
-    const categoriesList = getCategoriesListFromAPI();
+    const categoriesList = await getCategoriesList();
 
     for (let index = 0; index < categoriesList.length; index++) {
         const categoryOption = categoriesList[index].name;
@@ -167,24 +166,6 @@ function newCategoryOption(option) {
     let newOption = document.createElement("option");
     newOption.text = option;
     return newOption;
-}
-
-function getCategoriesListFromAPI() {
-    // Add API Connection
-    const categoriesListMock = [
-        {
-            uid: "ac92aeee-3c67-4171-9916-7e4100ebb3a8",
-            code: "124",
-            name: "AAAAA",
-        },
-        {
-            uid: "ee10427c-1f88-4bbf-868e-ccb18bea2793",
-            code: "123",
-            name: "asjnA",
-        },
-    ];
-
-    return categoriesListMock;
 }
 
 function formPage(store) {
@@ -279,7 +260,7 @@ function createMainContainer() {
 function createHtmlTag(tag, cssClass, id = "") {
     const container = document.createElement(tag);
 
-    if (id != "") {
+    if (id) {
         container.setAttribute("id", id);
     }
 
@@ -305,5 +286,60 @@ function displayInnerContainer(containerId) {
 }
 
 createMainContainer();
+
+const BASE_URL = "http://estabelecimentos.letscode.dev.netuno.org:25390/services";
+
+const uidGroupDefinition = {
+    "group": {
+        "uid": "ee872905-c4e2-4d1f-bbd1-e858b44bd40c"
+    }
+} 
+
+async function fetchPostRequisition(url, body) {
+
+    const request = await fetch(url, {     
+        method: "POST",     
+        headers: {       
+            "Content-Type": "application/json",     
+        },     
+        body: JSON.stringify(body)   
+    }).catch((error) => {     
+        console.log("Erro na comunicação:", error);   
+    });
+
+    if (!request.ok) {     
+        errorHandler(request);     
+        return [];   
+    }
+
+    console.log("Requisition status:", request.status);
+    
+    return await request.json();
+}
+
+async function getCategoriesList(keyword = "") {
+    let url = BASE_URL + "/category/list";
+    let body =  uidGroupDefinition;
+    body.text = keyword;
+
+    const categories = await fetchPostRequisition(url, body);
+    return categories;
+}
+
+async function getStoresList(keyWord, uidCategory) {
+    let url = BASE_URL + "/establishment/list";
+    let body = uidGroupDefinition;
+    body.text = keyWord;
+    
+    if (uidCategory) {
+        body.category = {"uid": uidCategory};        
+    }    
+
+    let stores = await fetchPostRequisition(url, body);
+
+    return stores;
+}
+
+getStoresList("");
 
 
