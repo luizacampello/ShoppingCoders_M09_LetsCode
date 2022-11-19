@@ -1,5 +1,6 @@
 (() => {
-    addCSSFile();
+    addCSSFile();  
+
     for (const file of ["assets/CardFactory.js", "styles/CardStyle.js"]) {
         const script = document.createElement("script");
         script.setAttribute("src", `scripts/${file}`);
@@ -7,19 +8,13 @@
     }
 
     window.addEventListener("load", () => {
-        const main = document.createElement("main");
-        document.body.appendChild(main);
+        createMainContainer();
 
-        main.appendChild(CardFactory.CardStore({
-            category: 'Eletrônicos',
-            name: 'AppleStore'
-        }));
-        main.appendChild(CardFactory.CardCategory({
-            Id: 3,
-            Name: 'Eletrônicos-Roboticos',
-            onClickEdit: () =>{window.alert('Click 1')},
-            onClickStores: () =>{window.alert('Click 2')}
-        }))
+        const storesContainer = document.getElementById('storesContainer');
+        const categoriesContainer = document.getElementById('categoriesContainer');
+
+        populateStoreContainer(storesContainer, '', ''); //TODO: Mudar para receber os parametros da busca
+        populateCategoryContainer(categoriesContainer, ''); //TODO: Mudar para receber os parametros da busca
     });
 })();
 
@@ -32,16 +27,6 @@ function addCSSFile() {
 
     document.head.appendChild(cssLink);
 }
-
-const storeObject = {
-    name: "BubbleKill",
-    category: "Alimentação",
-    address:
-        "Av. Dep. Benedito Matarazzo, 9403 - Jardim Oswaldo Cruz, São José dos Campos - SP",
-    postal_code: "12215-160",
-    email: "scontato@bubblekill.com.br",
-    phone: "(12) 3924-3000",
-};
 
 function infoPage(storeObject) {
     const infoContainer = document.createElement("div");
@@ -59,7 +44,7 @@ function infoPage(storeObject) {
     const phoneStore = document.createElement("p");
 
     nameStore.textContent = storeObject.name;
-    categoryStore.textContent = storeObject.category;
+    categoryStore.textContent = storeObject.category.name;
     addresStore.textContent = storeObject.address;
     cepStore.textContent = storeObject.postal_code;
     emailStore.textContent = storeObject.email;
@@ -189,7 +174,7 @@ function formPage(store) {
     name.value = store.name;
 
     const categoryForm = document.createElement("select");
-    populateFormCategory(store.category, categoryForm);
+    populateFormCategory(store.category.name, categoryForm);
 
     const address = document.createElement("textArea");
     // address.placeholder = "Endereço";
@@ -290,7 +275,89 @@ function displayInnerContainer(containerId) {
     const activeContainer = document.getElementById(containerId);
     activeContainer.classList.add("activeInnerContainer");
 }
+const BASE_URL = "http://estabelecimentos.letscode.dev.netuno.org:25390/services";
 
-createMainContainer();
+const uidGroupDefinition = {
+    "group": {
+        "uid": "ee872905-c4e2-4d1f-bbd1-e858b44bd40c"
+    }
+} 
 
+async function fetchPostRequisition(url, body) {
 
+    const request = await fetch(url, {     
+        method: "POST",     
+        headers: {       
+            "Content-Type": "application/json",     
+        },     
+        body: JSON.stringify(body)   
+    }).catch((error) => {     
+        console.log("Erro na comunicação:", error);   
+    });
+
+    if (!request.ok) {     
+        errorHandler(request);     
+        return [];   
+    }
+
+    console.log("Requisition status:", request.status);
+    
+    return await request.json();
+}
+
+async function getCategoriesList(keyword = "") {
+    let url = BASE_URL + "/category/list";
+    let body =  uidGroupDefinition;
+    body.text = keyword;
+
+    const categories = await fetchPostRequisition(url, body);
+    return categories;
+}
+
+async function getStoresList(keyWord, uidCategory) {
+    let url = BASE_URL + "/establishment/list";
+    let body = uidGroupDefinition;
+    body.text = keyWord;
+    
+    if (uidCategory) {
+        body.category = {"uid": uidCategory};        
+    }    
+
+    let stores = await fetchPostRequisition(url, body);
+
+    return stores;
+}
+
+async function populateStoreContainer(container,keyword='', idCategory=''){
+    const storesList = await getStoresList(keyword, idCategory);
+    for (let index = 0; index < storesList.length; index++) {
+        const store = storesList[index];
+        container.appendChild(
+            CardFactory.CardStore({
+                store: store,
+                onClickCard: () => {
+                    newPopUpContainer(store);
+                    addClearPageEventTo("popUpContainer");
+                },                
+            })
+        );
+    };
+}
+
+async function populateCategoryContainer(container, keyword=''){
+    const categoryList = await getCategoriesList(keyword);
+    for (let index = 0; index < categoryList.length; index++) {
+        const category = categoryList[index];
+        container.appendChild(
+            CardFactory.CardCategory({
+                category: category,
+                onClickEdit: () => {
+                    window.alert("Click 1"); //TODO: Chamar a função de editar 
+                },
+                onClickStores: () => {
+                    window.alert("Click 2"); //TODO: Chamar páginas de lojas com filtro 
+                },             
+            })
+        );
+    };
+}

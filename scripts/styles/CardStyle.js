@@ -18,7 +18,6 @@
             flex-direction: column;
             justify-content: flex-end;
 
-            transform: s
         }
 
         .card-content h2{
@@ -26,18 +25,20 @@
             margin-left: 12px;
             margin-bottom: 12px;
 
-            width: parent;
+            width: 210px;
 
             font-weight: 500;
             font-size: 24px;
-            
+
+            text-overflow: ellipsis;
+            overflow: hidden;            
             flex-wrap: wrap;
         }
 
         .card-content h3{
             margin-left: 12px;
             margin-bottom: 5px;
-            margin-top: 40px;
+            margin-top: 10px;
             
             font-weight: 300;
             font-size: 16px;
