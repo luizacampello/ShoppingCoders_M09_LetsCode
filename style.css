@@ -9,7 +9,7 @@ header {
   position: fixed;
   width: 100vw;
   background-color: aqua;
-  height: 10vw;
+  height: 10vh;
 
 }
 
@@ -119,3 +119,195 @@ nav .menu {
     width: 90%;
   }
 }
+
+.popUpContainer{
+    background-color: rgba(0,0,0,.5);
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+.mainContainer{
+    width:100%;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    /* margin-top: 10vh; */
+    padding-top: 10vh;
+}
+
+.show {
+    display: flex;
+}
+
+#infoContainer {
+    background-color: #F1F1F1;
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+    min-width: 300px;
+    padding: 4%;
+}
+
+.divInfo {
+    /* background-color: aqua; */
+    height: 100%;
+    margin-right: 3%;
+    /* padding: 5%; */
+}
+
+.divInfo h2 {
+    font-size: 3rem;
+    font-weight: bolder;
+    margin-top: 0;
+}
+
+.divInfo h3 {
+    margin-top: -3%;
+    font-size: 1.2rem;
+    color: darkgoldenrod;
+}
+
+.divInfo p {
+    color: #484D52;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin-bottom: -1%;
+}
+
+.divButtons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    margin-left: 3%;
+    /* padding: 4% 2%; */
+}
+
+#bClose {
+    position: relative;
+}
+
+#bEdit {
+}
+
+#close {
+    /* ARRUMAR O CSS DESSE NEGOCIO */
+    padding: 4px;
+    width: 30px;
+    font-weight: bolder;
+    background-color: lightgray;
+    color: #484D52;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    
+}
+
+#edit {
+    padding: 4px 7px; 
+    font-weight: bolder;
+    background-color: lightgray;
+    color: #484D52;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+
+/* ver como colocar o hover no click :)  */
+#edit :hover {
+    color: burlywood;
+    background-color: aliceblue;
+}
+
+
+
+
+#formContainer {
+    background-color: #F1F1F1;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    min-width: 300px;
+    padding: 4%;
+    position: relative;
+}
+
+#divClose {
+    position: absolute;
+    top:  20px;
+    right: 20px;
+}
+
+#formContainer form {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 2% 0;
+
+}
+#formContainer form input, form select{
+    font-size: 15px;
+    margin: 10px 0;
+    height: 38px;
+    border-radius:1.3rem;
+    border: none;
+    padding-left: 20px;
+} 
+
+#formContainer form textarea {
+    font-size: 15px;
+    font-family: sans-serif;
+    margin: 10px 0;
+    height: 45px;
+    border-radius:1.3rem;
+    border: none;
+    padding-top: 10px;
+    padding-left: 20px;
+}
+
+#form {
+    background-color: aqua;
+    width: 100%;
+    display: flex;
+}
+
+#divSave {
+    width: 70%;
+    margin-bottom: 2%;
+}
+
+#save {
+    font-size: 15px;
+    height: 38px;
+    border-radius:20px;
+    border: none;
+    background-color: darkcyan;
+    color: white;
+    width: 100%;
+}
+
+.innerContainer{
+    display:none;
+    margin: 2vw;
+}
+
+.activeInnerContainer{
+    display:flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+}
+
