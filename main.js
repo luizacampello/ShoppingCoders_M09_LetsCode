@@ -1,5 +1,5 @@
 (() => {
-    addCSSFile();  
+    addCSSFile();
 
     for (const file of ["assets/CardFactory.js", "styles/CardStyle.js"]) {
         const script = document.createElement("script");
@@ -120,7 +120,7 @@ function addClearPageEventTo(containerId) {
     });
 }
 
-async function populateFormCategory(defaultCategory, categoryForm) {   
+async function populateFormCategory(defaultCategory, categoryForm) {
     const defaultOption = newCategoryOption(defaultCategory);
     categoryForm.add(defaultOption);
     categoryForm.selectedIndex = 0;
@@ -258,58 +258,58 @@ function displayInnerContainer(containerId) {
     activeContainer.classList.add("activeInnerContainer");
 }
 
-const BASE_URL = "http://estabelecimentos.letscode.dev.netuno.org:25390/services"; 
- 
-const uidGroupDefinition = { 
-    "group": { 
-        "uid": "ee872905-c4e2-4d1f-bbd1-e858b44bd40c" 
-    } 
-}  
- 
-async function fetchPostRequisition(url, body) { 
- 
-    const request = await fetch(url, {      
-        method: "POST",      
-        headers: {        
-            "Content-Type": "application/json",      
-        },      
-        body: JSON.stringify(body)    
-    }).catch((error) => {      
-        console.log("Erro na comunicação:", error);    
-    }); 
- 
-    if (!request.ok) {      
-        errorHandler(request);      
-        return [];    
-    } 
- 
-    console.log("Requisition status:", request.status); 
-     
-    return await request.json(); 
-} 
- 
-async function getCategoriesList(keyword = "") { 
-    let url = BASE_URL + "/category/list"; 
-    let body =  uidGroupDefinition; 
-    body.text = keyword; 
- 
-    const categories = await fetchPostRequisition(url, body); 
-    return categories; 
-} 
- 
-async function getStoresList(keyWord, uidCategory) { 
-    let url = BASE_URL + "/establishment/list"; 
-    let body = uidGroupDefinition; 
-    body.text = keyWord; 
-     
-    if (uidCategory) { 
-        body.category = {"uid": uidCategory};         
-    }     
- 
-    let stores = await fetchPostRequisition(url, body); 
- 
-    return stores; 
-} 
+const BASE_URL = "http://estabelecimentos.letscode.dev.netuno.org:25390/services";
+
+const uidGroupDefinition = {
+    "group": {
+        "uid": "ee872905-c4e2-4d1f-bbd1-e858b44bd40c"
+    }
+}
+
+async function fetchPostRequisition(url, body) {
+
+    const request = await fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body)
+    }).catch((error) => {
+        console.log("Erro na comunicação:", error);
+    });
+
+    if (!request.ok) {
+        errorHandler(request);
+        return [];
+    }
+
+    console.log("Requisition status:", request.status);
+
+    return await request.json();
+}
+
+async function getCategoriesList(keyword = "") {
+    let url = BASE_URL + "/category/list";
+    let body =  uidGroupDefinition;
+    body.text = keyword;
+
+    const categories = await fetchPostRequisition(url, body);
+    return categories;
+}
+
+async function getStoresList(keyWord, uidCategory) {
+    let url = BASE_URL + "/establishment/list";
+    let body = uidGroupDefinition;
+    body.text = keyWord;
+
+    if (uidCategory) {
+        body.category = {"uid": uidCategory};
+    }
+
+    let stores = await fetchPostRequisition(url, body);
+
+    return stores;
+}
 
 async function populateStoreContainer(container,keyword='', idCategory=''){
     const storesList = await getStoresList(keyword, idCategory);
@@ -321,7 +321,7 @@ async function populateStoreContainer(container,keyword='', idCategory=''){
                 onClickCard: () => {
                     newPopUpContainer(store);
                     addClearPageEventTo("popUpContainer");
-                },                
+                },
             })
         );
     };
@@ -335,12 +335,76 @@ async function populateCategoryContainer(container, keyword=''){
             CardFactory.CardCategory({
                 category: category,
                 onClickEdit: () => {
-                    window.alert("Click 1"); //TODO: Chamar a função de editar 
+                    window.alert("Click 1"); //TODO: Chamar a função de editar
                 },
                 onClickStores: () => {
-                    window.alert("Click 2"); //TODO: Chamar páginas de lojas com filtro 
-                },             
+                    window.alert("Click 2"); //TODO: Chamar páginas de lojas com filtro
+                },
             })
         );
     };
 }
+
+function addFooter () {
+	const body = document.querySelector("body");
+
+	const footer = document.createElement("footer");
+	const title = document.createElement("p");
+	title.textContent = 'Categorias';
+	footer.appendChild(title);
+
+	const footerList = document.createElement("ul");
+	footerList.classList.add("footer-list");
+	footer.appendChild(footerList);
+
+	body.appendChild(footer);
+}
+
+addFooter();
+
+//apagar depois
+function mockCategoriesQuantity() {
+	let categoryQuantity = [];
+
+	for(let i = 0; i < 50; i++) {
+		const categoryName = "Category" + i;
+		const quantity = i;
+		categoryQuantity.push({
+			key:categoryName,
+			value:quantity
+		})
+	}
+	localStorage.setItem("CategoriesQuantities", JSON.stringify(categoryQuantity));
+}
+
+mockCategoriesQuantity()
+//até aqui
+
+function updateCategoriesQuantities () {
+	const response = localStorage.getItem("CategoriesQuantities");
+	const categoriesQuantities = JSON.parse(response);
+
+	if (categoriesQuantities == null)
+		return;
+
+	for (let key in categoriesQuantities) {
+		const content = categoriesQuantities[key].key + ": " + categoriesQuantities[key].value;
+		const listItem = document.createElement("li");
+		listItem.classList.add("list-item");
+		listItem.setAttribute("id", categoriesQuantities[key].key);
+		listItem.textContent = content;
+		let list = document.querySelector("ul");
+		list.appendChild(listItem);
+	}
+}
+
+updateCategoriesQuantities();
+
+//adicionar evento para chamar a container store com o filtro de categoria para a categoria selecionada
+let list = document.querySelector(".footer-list");
+list.addEventListener("click", function(event) {
+	if (event.target.tagName == 'LI') {
+		/*chamada para a função de apresentação da section de lojas com a busca da categoria clicada*/
+		//console.log(event.target.id);
+	}
+})
