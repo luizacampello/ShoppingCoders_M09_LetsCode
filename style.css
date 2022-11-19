@@ -9,7 +9,7 @@ header {
   position: fixed;
   width: 100vw;
   background-color: aqua;
-  height: 10%;
+  height: 10vw;
 
 }
 
@@ -70,4 +70,52 @@ nav .menu {
 .categorias:hover > ul {
   display: block;
   background-color: cadetblue;
+}
+
+#iconeMenu{
+  display: none;
+}
+
+@media (max-width: 750px) {
+  #iconeMenu{
+    display: block;
+    align-self: flex-end;
+  }
+
+  header{
+    height: auto;
+  }
+
+  header nav{
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .logo{
+    align-self: center;
+    text-align: center;
+  }
+
+  nav .menu{
+    display: none;
+  }
+  
+  nav .menuHide{
+    display: none;
+  }
+
+  nav .menuShow{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: cadetblue;
+    align-items: center;
+    border-radius: 10px;
+  }
+  
+
+  .lojas,
+  .categorias {
+    width: 90%;
+  }
 }

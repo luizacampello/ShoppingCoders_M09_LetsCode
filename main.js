@@ -5,7 +5,14 @@ function addCSSFile() {
     cssLink.type = 'text/css';
     cssLink.href = 'style.css';
 
+    const cssLinkIcon = document.createElement('link');
+
+    cssLinkIcon.rel =  'stylesheet';
+    cssLinkIcon.type = 'text/css';
+    cssLinkIcon.href = 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200';
+
     document.head.appendChild(cssLink);
+    document.head.appendChild(cssLinkIcon);
 }
 
 addCSSFile();
@@ -28,6 +35,10 @@ function addHeader() {
     const logo = createHtmlTag('div', 'logo');
 
     const logoText = createHtmlTagAndContent('h3', 'Shopping Coders');
+
+    const iconeMenu = createHtmlTag('span', 'material-symbols-outlined', 'iconeMenu');
+    iconeMenu.textContent = 'menu';
+
 
     const menu = createHtmlTag('div', 'menu');
 
@@ -65,9 +76,37 @@ function addHeader() {
     menu.appendChild(lojas);
     menu.appendChild(categorias);
     headerNav.appendChild(logo);
+    headerNav.appendChild(iconMenu);
     headerNav.appendChild(menu);
     header.appendChild(headerNav);
     body.appendChild(header);
+
+    function clickMenu() {
+        const display = window.getComputedStyle(menu, null).display;
+    
+        if (display == 'none') {
+            menu.className = 'menuShow';
+        }
+    
+        if (display == 'flex') {
+            menu.className = 'menuHide';
+        }
+    }
+
+    iconMenu.addEventListener("click", clickMenu);
+
+    function showMenu() {
+        if(document.body.clientWidth > 750){
+            menu.className = 'menu';
+        }
+    
+        if(document.body.clientWidth < 750){
+            menu.className = 'menuHide';
+        }
+    }
+
+    document.body.onresize = () => showMenu();
+    
 }
 
 addHeader();
