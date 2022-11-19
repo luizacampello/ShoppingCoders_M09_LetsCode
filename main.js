@@ -120,13 +120,12 @@ function addClearPageEventTo(containerId) {
     });
 }
 
-function populateFormCategory(defaultCategory, categoryForm) {
-    let defaultOption = newCategoryOption(defaultCategory);
+async function populateFormCategory(defaultCategory, categoryForm) {
+    const defaultOption = newCategoryOption(defaultCategory);
     categoryForm.add(defaultOption);
     categoryForm.selectedIndex = 0;
 
-    const categoriesList = getCategoriesListFromAPI();
-
+    const categoriesList = await getCategoriesList();
     for (let index = 0; index < categoriesList.length; index++) {
         const categoryOption = categoriesList[index].name;
         if (categoryOption != defaultCategory) {
@@ -139,24 +138,6 @@ function newCategoryOption(option) {
     let newOption = document.createElement("option");
     newOption.text = option;
     return newOption;
-}
-
-function getCategoriesListFromAPI() {
-    // Add API Connection
-    const categoriesListMock = [
-        {
-            uid: "ac92aeee-3c67-4171-9916-7e4100ebb3a8",
-            code: "124",
-            name: "AAAAA",
-        },
-        {
-            uid: "ee10427c-1f88-4bbf-868e-ccb18bea2793",
-            code: "123",
-            name: "asjnA",
-        },
-    ];
-
-    return categoriesListMock;
 }
 
 function formPage(store) {
@@ -251,7 +232,7 @@ function createMainContainer() {
 function createHtmlTag(tag, cssClass, id = "") {
     const container = document.createElement(tag);
 
-    if (id != "") {
+    if (id) {
         container.setAttribute("id", id);
     }
 
