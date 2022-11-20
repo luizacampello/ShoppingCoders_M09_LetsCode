@@ -1,14 +1,14 @@
 (() => {
     addCSSFile();
-
-    for (const file of ["assets/CardFactory.js", "styles/CardStyle.js"]) {
+    
+    for (const file of ["assets/serviceAPI.js", "assets/elementFactory.js", "assets/CardFactory.js", "styles/CardStyle.js", "assets/MainContainer.js"]) {
         const script = document.createElement("script");
         script.setAttribute("src", `scripts/${file}`);
         document.body.appendChild(script);
     }
 
     window.addEventListener("load", () => {
-        createMainContainer();
+        MainContainer.createMainContainer();
 
         const storesContainer = document.getElementById('storesContainer');
         const categoriesContainer = document.getElementById('categoriesContainer');
@@ -194,68 +194,6 @@ function newPopUpContainer(storeObject) {
     const popUpContainer = document.getElementById("popUpContainer");
     popUpContainer.appendChild(infoPage(storeObject));
     popUpContainer.appendChild(formPage(storeObject));
-}
-
-function createMainContainer() {
-    const searchContainer = createHtmlTag(
-        "div",
-        "searchContainer",
-        "searchContainer"
-    );
-    const storesContainer = createHtmlTag(
-        "div",
-        "innerContainer",
-        "storesContainer"
-    );
-    const categoriesContainer = createHtmlTag(
-        "div",
-        "innerContainer",
-        "categoriesContainer"
-    );
-    const popUpContainer = createHtmlTag(
-        "div",
-        "popUpContainer",
-        "popUpContainer"
-    );
-    const mainContainer = createHtmlTag(
-        "div",
-        "mainContainer",
-        "mainContainer"
-    );
-
-    mainContainer.appendChild(popUpContainer);
-    mainContainer.appendChild(searchContainer);
-    mainContainer.appendChild(storesContainer);
-    mainContainer.appendChild(categoriesContainer);
-    document.body.appendChild(mainContainer);
-}
-
-function createHtmlTag(tag, cssClass, id = "") {
-    const container = document.createElement(tag);
-
-    if (id) {
-        container.setAttribute("id", id);
-    }
-
-    container.setAttribute("class", cssClass);
-
-    return container;
-}
-
-function displayInnerContainer(containerId) {
-    const innerContainers =
-        document.getElementsByClassName("innerContainer");
-
-    for (let index = 0; index < innerContainers.length; index++) {
-        const container = innerContainers[index];
-
-        if (container.classList.contains("activeInnerContainer")) {
-            container.classList.remove("activeInnerContainer");
-        }
-    }
-
-    const activeContainer = document.getElementById(containerId);
-    activeContainer.classList.add("activeInnerContainer");
 }
 
 const BASE_URL = "http://estabelecimentos.letscode.dev.netuno.org:25390/services";
