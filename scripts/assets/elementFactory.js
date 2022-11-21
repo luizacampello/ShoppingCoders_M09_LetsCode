@@ -22,6 +22,5 @@ window.elementFactory = {
         }
     
         return container;
-    },
-
+    }
 }
