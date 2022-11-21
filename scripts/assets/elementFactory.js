@@ -32,13 +32,14 @@ window.elementFactory = {
         return newOption;
     },
 
-    newButton: ({value, id, onClickFunction = () =>{}}) => {
+    newButton: (value, id, onClickFunction = () => {}) => {
         const buttonBox = elementFactory.createHtmlTag("div", "", `box${id}`);
         const buttonElement = elementFactory.createHtmlTag("input", "", id); 
         buttonElement.type = "button";
         buttonElement.value = value;
 
         buttonElement.addEventListener("click", onClickFunction);
+
         buttonBox.appendChild(buttonElement);
 
         return buttonBox;

@@ -79,15 +79,14 @@ function infoPage(storeObject) {
     // DIVISÃO COM OS BOTÕES
     const divButtons = document.createElement("div");
     divButtons.setAttribute("class", "divButtons");
-    divButtons.appendChild(closeButton());
+    // divButtons.appendChild(closeButton());
     divButtons.appendChild(
-        elementFactory.newButton({
-            value: "Editar",
-            id:"edit",
-            onClickFunction: () => {
-                editButtonOnClick();
-            },
-        }));
+        elementFactory.newButton("X", "close")
+    );
+
+    divButtons.appendChild(
+        elementFactory.newButton("Editar", "edit", editButtonOnClick)
+    );
 
     infoContainer.appendChild(divInfo);
     infoContainer.appendChild(divButtons);
