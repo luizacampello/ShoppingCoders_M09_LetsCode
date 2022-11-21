@@ -14,9 +14,8 @@ window.infra = {
         const activeContainer = document.getElementById(containerId);
         activeContainer.classList.add("activeInnerContainer");
     },
-
     populateStoreContainer: async (container,keyword='', idCategory='') => {
-        const storesList = await getStoresList(keyword, idCategory);
+        const storesList = await serviceAPI.getStoresList(keyword, idCategory);
         for (let index = 0; index < storesList.length; index++) {
             const store = storesList[index];
             container.appendChild(
@@ -32,20 +31,21 @@ window.infra = {
     },
     
     populateCategoryContainer: async (container, keyword='') => {
-        if (defaultCategory){
-            const defaultOption = elementFactory.newCategoryOption(defaultCategory);
-            categoryForm.add(defaultOption);
-            categoryForm.selectedIndex = 0;
-        }
-    
-        const categoriesList = await getCategoriesList();
-    
-        for (let index = 0; index < categoriesList.length; index++) {
-            const categoryOption = categoriesList[index].name;
-            if (categoryOption != defaultCategory) {
-                categoryForm.add(elementFactory.newCategoryOption(categoryOption));
-            }
-        }
+        const categoryList = await serviceAPI.getCategoriesList(keyword); 
+        for (let index = 0; index < categoryList.length; index++) { 
+            const category = categoryList[index]; 
+            container.appendChild( 
+                CardFactory.CardCategory({ 
+                    category: category, 
+                    onClickEdit: () => { 
+                        window.alert("Click 1"); //TODO: Chamar a função de editar 
+                    }, 
+                    onClickStores: () => { 
+                        window.alert("Click 2"); //TODO: Chamar páginas de lojas com filtro 
+                    }, 
+                }) 
+            ); 
+        }; 
     },
 
     updateCategoriesQuantities: () => {
@@ -66,11 +66,13 @@ window.infra = {
         }
     },
 
-    populateFormCategory: async (defaultCategory, categoryForm) => { 
-        const defaultOption = newCategoryOption(defaultCategory); 
-        categoryForm.add(defaultOption); 
-        categoryForm.selectedIndex = 0; 
-     
+    populateFormCategory: async (categoryForm, defaultCategory = "") => { 
+        if (defaultCategory) {
+            const defaultOption = newCategoryOption(defaultCategory); 
+            categoryForm.add(defaultOption); 
+            categoryForm.selectedIndex = 0;
+        }
+
         const categoriesList = await getCategoriesList(); 
      
         for (let index = 0; index < categoriesList.length; index++) { 
