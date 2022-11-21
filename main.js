@@ -2,7 +2,8 @@
     addCSSFile();
     
     for (const file of [
-        "assets/serviceAPI.js", 
+        "assets/serviceAPI.js",
+        "assets/basePage.js", 
         "assets/popUpFactory.js", 
         "assets/infra.js", 
         "assets/elementFactory.js", 

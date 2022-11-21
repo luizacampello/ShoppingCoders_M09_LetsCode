@@ -1,4 +1,20 @@
 window.infra = {
+    displayInnerContainer: (containerId) => {
+        const innerContainers =
+            document.getElementsByClassName("innerContainer");
+    
+        for (let index = 0; index < innerContainers.length; index++) {
+            const container = innerContainers[index];
+    
+            if (container.classList.contains("activeInnerContainer")) {
+                container.classList.remove("activeInnerContainer");
+            }
+        }
+    
+        const activeContainer = document.getElementById(containerId);
+        activeContainer.classList.add("activeInnerContainer");
+    },
+
     populateStoreContainer: async (container,keyword='', idCategory='') => {
         const storesList = await getStoresList(keyword, idCategory);
         for (let index = 0; index < storesList.length; index++) {
@@ -77,6 +93,6 @@ window.infra = {
         }
         localStorage.setItem("CategoriesQuantities", JSON.stringify(categoryQuantity));
     },
-    
+
     
 }
