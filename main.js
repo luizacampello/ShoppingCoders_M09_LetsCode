@@ -205,7 +205,6 @@ const uidGroupDefinition = {
 }
 
 async function fetchPostRequisition(url, body) {
-
     const request = await fetch(url, {
         method: "POST",
         headers: {
@@ -248,6 +247,102 @@ async function getStoresList(keyWord, uidCategory) {
 
     return stores;
 }
+
+
+async function createCategory(catCode, catName) {
+	//validar se code e name são diferentes de vazio, caso contrário abrir notificação na tela
+	//alinhar se concordam c a criação
+
+
+	let url = BASE_URL + "/category";
+	let body = uidGroupDefinition;
+	body.code = catCode;
+	body.name = catName;
+	delete body.text;
+	let categoryUid = await fetchPostRequisition(url, body);
+
+	return categoryUid;
+}
+
+//atualiza, porém aparece com erro de cors
+async function updateCategory(catUid, catCode, catName) {
+	//validar se code e name são diferentes de vazio, caso contrário abrir notificação na tela
+	//validar qual o campo está sendo alterado, buscando o objeto no getlist via uid
+	//fazendo o comparativo no currObj e newObj
+	//alinhar se concordam c a criação
+
+
+	let url = BASE_URL + "/category";
+	let body = uidGroupDefinition;
+	body.uid = catUid;
+	body.code = catCode;
+	body.name = catName;
+	delete body.text;
+
+	let categoryUid = await fetchRequisition("PUT", url, body);
+
+	return categoryUid;
+}
+
+
+async function fetchRequisition(fetchMethod, url, body) {
+	const request = await fetch(url, {
+        method: fetchMethod,
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body)
+    })
+	.then(response => {
+		if (response.status == 204)
+		{
+			debugger;
+			console.log("Requisition status:", response.status)
+			console.log("Update complete");
+		}
+		else if (response.status == 404)
+		{
+			console.log("Requisition status:", response.status)
+			console.log("Grupo ou categoria não encontrado.");
+		}
+		else if (response.status == 422)
+		{
+			console.log("Requisition status:", response.status)
+			console.log("Categoria já existe.");
+		}
+    })
+	.catch((error) => {
+	  console.error('Error:', error);
+	});
+
+    return await body.uid;
+}
+
+//apaga, porém aparece com erro de cors
+async function deleteCategory(catUid) {
+	//validar se catUid foi informado
+	//alinhar se concordam c a criação
+	let url = BASE_URL + "/category?uid=" + catUid;
+	let body = uidGroupDefinition;
+	let categoryUid = await fetchRequisition("DELETE", url, body);
+
+	return categoryUid;
+}
+
+//função para a criação de grupo e recebimento de uid
+async function createGroup(groupName, studentName) {
+    let url = BASE_URL + "/group";
+    let body = {
+		"name": groupName,
+		"students": [
+			studentName
+		]
+	}
+	let data = await fetchPostRequisition(url, body);
+	console.log(data);
+    return data;
+}
+
 
 async function populateStoreContainer(container,keyword='', idCategory=''){
     const storesList = await getStoresList(keyword, idCategory);
