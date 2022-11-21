@@ -22,5 +22,11 @@ window.elementFactory = {
         }
     
         return container;
+    },
+
+    newCategoryOption: (option) => {
+        let newOption = document.createElement("option");
+        newOption.text = option;
+        return newOption;
     }
 }

@@ -33,6 +33,20 @@ window.MainContainer = {
         document.body.appendChild(mainContainer);
     },
 
+    addFooter: () => {
+        const body = document.querySelector("body");
+    
+        const footer = document.createElement("footer");
+        const title = document.createElement("p");
+        title.textContent = 'Categorias';
+        footer.appendChild(title);
+    
+        const footerList = document.createElement("ul");
+        footerList.classList.add("footer-list");
+        footer.appendChild(footerList);
+    
+        body.appendChild(footer);
+    },
     
     displayInnerContainer: (containerId) => {
         const innerContainers =
@@ -48,5 +62,6 @@ window.MainContainer = {
     
         const activeContainer = document.getElementById(containerId);
         activeContainer.classList.add("activeInnerContainer");
-    }
+    },
+    
 }
