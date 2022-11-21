@@ -342,12 +342,9 @@ async function getStoresList(keyWord, uidCategory) {
     return stores;
 }
 
-async function populateStoreContainer(container, keyword = '', idCategory = '') {
-
 async function createCategory(catCode, catName) {
 	//validar se code e name são diferentes de vazio, caso contrário abrir notificação na tela
 	//alinhar se concordam c a criação
-
 
 	let url = BASE_URL + "/category";
 	let body = uidGroupDefinition;
@@ -389,20 +386,17 @@ async function fetchRequisition(fetchMethod, url, body) {
         body: JSON.stringify(body)
     })
 	.then(response => {
-		if (response.status == 204)
+        console.log("Requisition status:", response.status)
+		if (response.status == 200)
 		{
-			debugger;
-			console.log("Requisition status:", response.status)
 			console.log("Update complete");
 		}
 		else if (response.status == 404)
 		{
-			console.log("Requisition status:", response.status)
 			console.log("Grupo ou categoria não encontrado.");
 		}
 		else if (response.status == 422)
 		{
-			console.log("Requisition status:", response.status)
 			console.log("Categoria já existe.");
 		}
     })
@@ -437,7 +431,6 @@ async function createGroup(groupName, studentName) {
 	console.log(data);
     return data;
 }
-
 
 async function populateStoreContainer(container,keyword='', idCategory=''){
     const storesList = await getStoresList(keyword, idCategory);
