@@ -1,4 +1,4 @@
-window.MainContainer = {
+window.basePage = {
     createMainContainer: () =>{
         const searchContainer = elementFactory.createHtmlTag(
             "div",
@@ -33,20 +33,17 @@ window.MainContainer = {
         document.body.appendChild(mainContainer);
     },
 
+    addFooter: () => {    
+        const footer = document.createElement("footer");
+        const title = document.createElement("p");
+        title.textContent = 'Categorias';
+        footer.appendChild(title);
     
-    displayInnerContainer: (containerId) => {
-        const innerContainers =
-            document.getElementsByClassName("innerContainer");
+        const footerList = document.createElement("ul");
+        footerList.classList.add("footer-list");
+        footer.appendChild(footerList);
     
-        for (let index = 0; index < innerContainers.length; index++) {
-            const container = innerContainers[index];
+        document.body.appendChild(footer);
+    },  
     
-            if (container.classList.contains("activeInnerContainer")) {
-                container.classList.remove("activeInnerContainer");
-            }
-        }
-    
-        const activeContainer = document.getElementById(containerId);
-        activeContainer.classList.add("activeInnerContainer");
-    }
 }
