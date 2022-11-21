@@ -1,28 +1,28 @@
 
 window.CardFactory = {
-    CardStore: ({category, name, onClickCard = () =>{}}) =>{
+    CardStore: ({store, onClickCard = () =>{}}) =>{
         const CardStoreElement = document.createElement('div');
         CardStoreElement.classList.add('card-content');
 
         const storeCategory = document.createElement('h3');
-        storeCategory.textContent = `${category}`;
+        storeCategory.textContent = `${store.category.code}`;
         
         const storeName = document.createElement('h2');
-        storeName.textContent = `${name}`;
+        storeName.textContent = `${store.name}`;
         CardStoreElement.addEventListener('click', onClickCard)
         CardStoreElement.appendChild(storeCategory);
         CardStoreElement.appendChild(storeName);
         return CardStoreElement;
     },
-    CardCategory: ({Id, Name, onClickEdit = () =>{}, onClickStores = () =>{}}) => {
+    CardCategory: ({category, onClickEdit = () =>{}, onClickStores = () =>{}}) => {
         const CardStoreElement = document.createElement('div');
         CardStoreElement.classList.add('card-content');
 
         const categoryId = document.createElement('h3');
-        categoryId.textContent = `${Id}`;
+        categoryId.textContent = `${category.code}`;
         
         const categoryName = document.createElement('h2');
-        categoryName.textContent = `${Name}`;
+        categoryName.textContent = `${category.name}`;
         
         const EditButton = document.createElement('button');
         EditButton.textContent = 'Editar';

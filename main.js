@@ -1,38 +1,33 @@
 (() => {
     addCSSFile();
-    for (const file of ["assets/CardFactory.js", "styles/CardStyle.js"]) {
+    
+    for (const file of [
+        "assets/serviceAPI.js",
+        "assets/basePage.js", 
+        "assets/popUpFactory.js", 
+        "assets/infra.js", 
+        "assets/elementFactory.js", 
+        "assets/cardFactory.js", 
+        "styles/cardStyle.js", 
+        "assets/basePage.js"]) {
         const script = document.createElement("script");
         script.setAttribute("src", `scripts/${file}`);
         document.body.appendChild(script);
     }
 
     window.addEventListener("load", () => {
-        const main = document.createElement("main");
-        document.body.appendChild(main);
+        addHeader();
+        basePage.createMainContainer();
+        basePage.addFooter();
 
-        main.appendChild(
-            CardFactory.CardStore({
-                category: storeObject.category,
-                name: storeObject.name,
-                onClickCard: () => {
-                    newPopUpContainer(storeObject);
-                    addClearPageEventTo("popUpContainer");
-                },
-                
-            })
-        );
-        main.appendChild(
-            CardFactory.CardCategory({
-                Id: 3,
-                Name: "Eletrônicos-Eletrodoasdasdasdasdasd",
-                onClickEdit: () => {
-                    window.alert("Click 2");
-                },
-                onClickStores: () => {
-                    window.alert("Click 2");
-                },
-            })
-        );
+        // infra.mockCategoriesQuantity(); //TODO: apagar depois
+        // infra.updateCategoriesQuantities();       
+
+        const storesContainer = document.getElementById('storesContainer');
+        const categoriesContainer = document.getElementById('categoriesContainer');
+
+        populateStoreContainer(storesContainer, '', ''); //TODO: Mudar para receber os parametros da busca
+        populateCategoryContainer(categoriesContainer, ''); //TODO: Mudar para receber os parametros da busca
     });
 })();
 
@@ -43,18 +38,15 @@ function addCSSFile() {
     cssLink.type = "text/css";
     cssLink.href = "style.css";
 
-    document.head.appendChild(cssLink);
-}
+    const cssLinkIcon = document.createElement('link');
 
-const storeObject = {
-    name: "BubbleKill",
-    category: "Alimentação",
-    address:
-        "Av. Dep. Benedito Matarazzo, 9403 - Jardim Oswaldo Cruz, São José dos Campos - SP",
-    postal_code: "12215-160",
-    email: "scontato@bubblekill.com.br",
-    phone: "(12) 3924-3000",
-};
+    cssLinkIcon.rel = 'stylesheet';
+    cssLinkIcon.type = 'text/css';
+    cssLinkIcon.href = 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200';
+
+    document.head.appendChild(cssLink);
+    document.head.appendChild(cssLinkIcon);
+}
 
 function infoPage(storeObject) {
     const infoContainer = document.createElement("div");
@@ -72,7 +64,7 @@ function infoPage(storeObject) {
     const phoneStore = document.createElement("p");
 
     nameStore.textContent = storeObject.name;
-    categoryStore.textContent = storeObject.category;
+    categoryStore.textContent = storeObject.category.name;
     addresStore.textContent = storeObject.address;
     cepStore.textContent = storeObject.postal_code;
     emailStore.textContent = storeObject.email;
@@ -148,45 +140,6 @@ function addClearPageEventTo(containerId) {
     });
 }
 
-function populateFormCategory(defaultCategory, categoryForm) {
-    let defaultOption = newCategoryOption(defaultCategory);
-    categoryForm.add(defaultOption);
-    categoryForm.selectedIndex = 0;
-
-    const categoriesList = getCategoriesListFromAPI();
-
-    for (let index = 0; index < categoriesList.length; index++) {
-        const categoryOption = categoriesList[index].name;
-        if (categoryOption != defaultCategory) {
-            categoryForm.add(newCategoryOption(categoryOption));
-        }
-    }
-}
-
-function newCategoryOption(option) {
-    let newOption = document.createElement("option");
-    newOption.text = option;
-    return newOption;
-}
-
-function getCategoriesListFromAPI() {
-    // Add API Connection
-    const categoriesListMock = [
-        {
-            uid: "ac92aeee-3c67-4171-9916-7e4100ebb3a8",
-            code: "124",
-            name: "AAAAA",
-        },
-        {
-            uid: "ee10427c-1f88-4bbf-868e-ccb18bea2793",
-            code: "123",
-            name: "asjnA",
-        },
-    ];
-
-    return categoriesListMock;
-}
-
 function formPage(store) {
     const formContainer = document.createElement("div");
     formContainer.setAttribute("id", "formContainer");
@@ -202,7 +155,7 @@ function formPage(store) {
     name.value = store.name;
 
     const categoryForm = document.createElement("select");
-    populateFormCategory(store.category, categoryForm);
+    populateFormCategory(categoryForm, store.category.name);
 
     const address = document.createElement("textArea");
     // address.placeholder = "Endereço";
@@ -242,68 +195,96 @@ function newPopUpContainer(storeObject) {
     popUpContainer.appendChild(formPage(storeObject));
 }
 
-function createMainContainer() {
-    const searchContainer = createHtmlTag(
-        "div",
-        "searchContainer",
-        "searchContainer"
-    );
-    const storesContainer = createHtmlTag(
-        "div",
-        "innerContainer",
-        "storesContainer"
-    );
-    const categoriesContainer = createHtmlTag(
-        "div",
-        "innerContainer",
-        "categoriesContainer"
-    );
-    const popUpContainer = createHtmlTag(
-        "div",
-        "popUpContainer",
-        "popUpContainer"
-    );
-    const mainContainer = createHtmlTag(
-        "div",
-        "mainContainer",
-        "mainContainer"
-    );
+function addHeader() {
+    const body = document.querySelector('body');
 
-    mainContainer.appendChild(popUpContainer);
-    mainContainer.appendChild(searchContainer);
-    mainContainer.appendChild(storesContainer);
-    mainContainer.appendChild(categoriesContainer);
-    document.body.appendChild(mainContainer);
-}
+    const header = document.createElement('header');
 
-function createHtmlTag(tag, cssClass, id = "") {
-    const container = document.createElement(tag);
+    const headerNav = document.createElement('nav');
 
-    if (id != "") {
-        container.setAttribute("id", id);
-    }
+    const logo = elementFactory.createHtmlTag('div', 'logo');
 
-    container.setAttribute("class", cssClass);
+    const logoText = elementFactory.createHtmlTagAndSetContent('h3', 'Shopping Coders');
 
-    return container;
-}
+    const iconeMenu = document.createElement('span');
+    iconeMenu.className = 'material-symbols-outlined';
+    iconeMenu.textContent = 'menu';
+    iconeMenu.id = 'iconeMenu';
+    iconeMenu.addEventListener("click", clickMenu);
 
-function displayInnerContainer(containerId) {
-    const innerContainers =
-        document.getElementsByClassName("innerContainer");
+    const menu = elementFactory.createHtmlTag('div', 'menu');
 
-    for (let index = 0; index < innerContainers.length; index++) {
-        const container = innerContainers[index];
+    const lojas = elementFactory.createHtmlTag('div', 'lojas');
 
-        if (container.classList.contains("activeInnerContainer")) {
-            container.classList.remove("activeInnerContainer");
+    const lojash3 = elementFactory.createHtmlTagAndSetContent('h3', 'Lojas', 'linkStoreContainer');
+
+    const lojasUl = document.createElement('ul');
+
+    const lojasLi1 = elementFactory.createHtmlTagAndSetContent('li', '+Nova Loja', 'linkPopupNewStore');
+
+    const lojasLi2 = elementFactory.createHtmlTagAndSetContent('li', 'Todas as Lojas', 'linkStores');
+
+    lojasUl.appendChild(lojasLi1);
+    lojasUl.appendChild(lojasLi2);
+    lojas.appendChild(lojash3);
+    lojas.appendChild(lojasUl);
+
+    const categorias = elementFactory.createHtmlTag('div', 'categorias');
+
+    const categoriash3 = elementFactory.createHtmlTagAndSetContent('h3', 'Categorias', 'linkCategoryContainer');
+
+    const categoriasUl = document.createElement('ul');
+
+    const categoriasLi1 = elementFactory.createHtmlTagAndSetContent('li', '+Nova Categoria', 'linkPopupNewCategory');
+
+    const categoriasLi2 = elementFactory.createHtmlTagAndSetContent('li', 'Todas as Categorias', 'linkCategories');
+
+    categoriasUl.appendChild(categoriasLi1);
+    categoriasUl.appendChild(categoriasLi2);
+    categorias.appendChild(categoriash3);
+    categorias.appendChild(categoriasUl);
+
+    logo.appendChild(logoText);
+    menu.appendChild(lojas);
+    menu.appendChild(categorias);
+    headerNav.appendChild(logo);
+    headerNav.appendChild(iconeMenu);
+    headerNav.appendChild(menu);
+    header.appendChild(headerNav);
+    body.appendChild(header);
+
+    iconeMenu.addEventListener("click", clickMenu);
+
+    document.body.onresize = () => showMenu();
+
+    function showMenu() {
+        if (document.body.clientWidth > 750) {
+            menu.className = 'menu';
+        }
+
+        if (document.body.clientWidth < 750) {
+            menu.className = 'menuHide';
         }
     }
 
-    const activeContainer = document.getElementById(containerId);
-    activeContainer.classList.add("activeInnerContainer");
+    function clickMenu() {
+        const display = window.getComputedStyle(menu, null).display;
+
+        if (display == 'none') {
+            menu.className = 'menuShow';
+        }
+
+        if (display == 'flex') {
+            menu.className = 'menuHide';
+        }
+    }
+
 }
 
-createMainContainer();
+
+
+
+
+
 
 
