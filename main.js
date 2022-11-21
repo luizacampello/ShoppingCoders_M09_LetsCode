@@ -1,7 +1,7 @@
 (() => {
     addCSSFile();
-
-    for (const file of ["assets/CardFactory.js", "styles/CardStyle.js"]) {
+    
+    for (const file of ["assets/serviceAPI.js", "assets/elementFactory.js", "assets/CardFactory.js", "styles/CardStyle.js", "assets/MainContainer.js"]) {
         const script = document.createElement("script");
         script.setAttribute("src", `scripts/${file}`);
         document.body.appendChild(script);
@@ -9,8 +9,7 @@
 
     window.addEventListener("load", () => {
         addHeader();
-        createMainContainer();
-        addLinksToContainer();
+        MainContainer.createMainContainer();       
 
         const storesContainer = document.getElementById('storesContainer');
         const categoriesContainer = document.getElementById('categoriesContainer');
@@ -374,7 +373,6 @@ const uidGroupDefinition = {
 }
 
 async function fetchPostRequisition(url, body) {
-
     const request = await fetch(url, {
         method: "POST",
         headers: {
@@ -397,7 +395,7 @@ async function fetchPostRequisition(url, body) {
 
 async function getCategoriesList(keyword = "") {
     let url = BASE_URL + "/category/list";
-    let body = uidGroupDefinition;
+    let body =  uidGroupDefinition;
     body.text = keyword;
 
     const categories = await fetchPostRequisition(url, body);
@@ -410,7 +408,7 @@ async function getStoresList(keyWord, uidCategory) {
     body.text = keyWord;
 
     if (uidCategory) {
-        body.category = { "uid": uidCategory };
+        body.category = {"uid": uidCategory};
     }
 
     let stores = await fetchPostRequisition(url, body);
@@ -419,6 +417,103 @@ async function getStoresList(keyWord, uidCategory) {
 }
 
 async function populateStoreContainer(container, keyword = '', idCategory = '') {
+
+async function createCategory(catCode, catName) {
+	//validar se code e name são diferentes de vazio, caso contrário abrir notificação na tela
+	//alinhar se concordam c a criação
+
+
+	let url = BASE_URL + "/category";
+	let body = uidGroupDefinition;
+	body.code = catCode;
+	body.name = catName;
+	delete body.text;
+	let categoryUid = await fetchPostRequisition(url, body);
+
+	return categoryUid;
+}
+
+//atualiza, porém aparece com erro de cors
+async function updateCategory(catUid, catCode, catName) {
+	//validar se code e name são diferentes de vazio, caso contrário abrir notificação na tela
+	//validar qual o campo está sendo alterado, buscando o objeto no getlist via uid
+	//fazendo o comparativo no currObj e newObj
+	//alinhar se concordam c a criação
+
+
+	let url = BASE_URL + "/category";
+	let body = uidGroupDefinition;
+	body.uid = catUid;
+	body.code = catCode;
+	body.name = catName;
+	delete body.text;
+
+	let categoryUid = await fetchRequisition("PUT", url, body);
+
+	return categoryUid;
+}
+
+
+async function fetchRequisition(fetchMethod, url, body) {
+	const request = await fetch(url, {
+        method: fetchMethod,
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body)
+    })
+	.then(response => {
+		if (response.status == 204)
+		{
+			debugger;
+			console.log("Requisition status:", response.status)
+			console.log("Update complete");
+		}
+		else if (response.status == 404)
+		{
+			console.log("Requisition status:", response.status)
+			console.log("Grupo ou categoria não encontrado.");
+		}
+		else if (response.status == 422)
+		{
+			console.log("Requisition status:", response.status)
+			console.log("Categoria já existe.");
+		}
+    })
+	.catch((error) => {
+	  console.error('Error:', error);
+	});
+
+    return await body.uid;
+}
+
+//apaga, porém aparece com erro de cors
+async function deleteCategory(catUid) {
+	//validar se catUid foi informado
+	//alinhar se concordam c a criação
+	let url = BASE_URL + "/category?uid=" + catUid;
+	let body = uidGroupDefinition;
+	let categoryUid = await fetchRequisition("DELETE", url, body);
+
+	return categoryUid;
+}
+
+//função para a criação de grupo e recebimento de uid
+async function createGroup(groupName, studentName) {
+    let url = BASE_URL + "/group";
+    let body = {
+		"name": groupName,
+		"students": [
+			studentName
+		]
+	}
+	let data = await fetchPostRequisition(url, body);
+	console.log(data);
+    return data;
+}
+
+
+async function populateStoreContainer(container,keyword='', idCategory=''){
     const storesList = await getStoresList(keyword, idCategory);
     for (let index = 0; index < storesList.length; index++) {
         const store = storesList[index];
@@ -434,7 +529,7 @@ async function populateStoreContainer(container, keyword = '', idCategory = '') 
     };
 }
 
-async function populateCategoryContainer(container, keyword = '') {
+async function populateCategoryContainer(container, keyword=''){
     const categoryList = await getCategoriesList(keyword);
     for (let index = 0; index < categoryList.length; index++) {
         const category = categoryList[index];
@@ -442,12 +537,77 @@ async function populateCategoryContainer(container, keyword = '') {
             CardFactory.CardCategory({
                 category: category,
                 onClickEdit: () => {
-                    window.alert("Click 1"); //TODO: Chamar a função de editar 
+                    window.alert("Click 1"); //TODO: Chamar a função de editar
                 },
                 onClickStores: () => {
-                    window.alert("Click 2"); //TODO: Chamar páginas de lojas com filtro 
+                    window.alert("Click 2"); //TODO: Chamar páginas de lojas com filtro
                 },
             })
         );
     };
 }
+
+function addFooter () {
+	const body = document.querySelector("body");
+
+	const footer = document.createElement("footer");
+	const title = document.createElement("p");
+	title.textContent = 'Categorias';
+	footer.appendChild(title);
+
+	const footerList = document.createElement("ul");
+	footerList.classList.add("footer-list");
+	footer.appendChild(footerList);
+
+	body.appendChild(footer);
+}
+
+addFooter();
+
+//apagar depois
+function mockCategoriesQuantity() {
+	let categoryQuantity = [];
+
+	for(let i = 0; i < 50; i++) {
+		const categoryName = "Category" + i;
+		const quantity = i;
+		categoryQuantity.push({
+			key:categoryName,
+			value:quantity
+		})
+	}
+	localStorage.setItem("CategoriesQuantities", JSON.stringify(categoryQuantity));
+}
+
+mockCategoriesQuantity()
+//até aqui
+
+function updateCategoriesQuantities () {
+	const response = localStorage.getItem("CategoriesQuantities");
+	const categoriesQuantities = JSON.parse(response);
+
+	if (categoriesQuantities == null)
+		return;
+
+	for (let key in categoriesQuantities) {
+		const content = categoriesQuantities[key].key + ": " + categoriesQuantities[key].value;
+		const listItem = document.createElement("li");
+		listItem.classList.add("list-item");
+		listItem.setAttribute("id", categoriesQuantities[key].key);
+		listItem.textContent = content;
+		let list = document.querySelector("ul");
+		list.appendChild(listItem);
+	}
+}
+
+updateCategoriesQuantities();
+
+//adicionar evento para chamar a container store com o filtro de categoria para a categoria selecionada
+let list = document.querySelector(".footer-list");
+
+list.addEventListener("click", function(event) {
+	if (event.target.tagName == 'LI') {
+		/*chamada para a função de apresentação da section de lojas com a busca da categoria clicada*/
+		//console.log(event.target.id);
+	}
+})

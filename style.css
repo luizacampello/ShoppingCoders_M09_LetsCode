@@ -211,11 +211,11 @@ nav .menu {
     position: absolute;
     top: 0px;
     right: 0px;
-    
+
 }
 
 #edit {
-    padding: 4px 7px; 
+    padding: 4px 7px;
     font-weight: bolder;
     background-color: lightgray;
     color: #484D52;
@@ -267,7 +267,7 @@ nav .menu {
     border-radius:1.3rem;
     border: none;
     padding-left: 20px;
-} 
+}
 
 #formContainer form textarea {
     font-size: 15px;
@@ -312,3 +312,55 @@ nav .menu {
     justify-content: space-evenly;
 }
 
+footer {
+	display: flex;
+	flex-direction: column;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	background-color: rgb(3, 179, 179);
+	height: auto;
+	text-align: center;
+}
+
+footer p {
+	color: azure;
+	font-size: 22px;
+	font-weight: 700;
+	padding-top: 2vh;
+	margin: 0;
+}
+
+.footer-list {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+
+	/*display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: auto;*/
+
+	list-style-type: none;
+	text-align: center;
+	align-items:center;
+	justify-content:center;
+	padding-left: 0;
+	margin: 5px 30px;
+	color: azure;
+	box-sizing: border-box;
+
+
+
+	overflow: hidden;
+	height: 100%;
+	margin-bottom: 10px;
+
+	position: relative;
+}
+
+.list-item {
+	height: fit-content;
+	box-sizing: border-box;
+	padding: 0 10px;
+}
