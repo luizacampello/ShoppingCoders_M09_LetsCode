@@ -204,62 +204,16 @@ const uidGroupDefinition = {
     }
 }
 
-async function fetchPostRequisition(url, body) {
-    const request = await fetch(url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body)
-    }).catch((error) => {
-        console.log("Erro na comunicação:", error);
-    });
-
-    if (!request.ok) {
-        errorHandler(request);
-        return [];
-    }
-
-    console.log("Requisition status:", request.status);
-
-    return await request.json();
-}
-
-async function getCategoriesList(keyword = "") {
-    let url = BASE_URL + "/category/list";
-    let body =  uidGroupDefinition;
-    body.text = keyword;
-
-    const categories = await fetchPostRequisition(url, body);
-    return categories;
-}
-
-async function getStoresList(keyWord, uidCategory) {
-    let url = BASE_URL + "/establishment/list";
-    let body = uidGroupDefinition;
-    body.text = keyWord;
-
-    if (uidCategory) {
-        body.category = {"uid": uidCategory};
-    }
-
-    let stores = await fetchPostRequisition(url, body);
-
-    return stores;
-}
-
-
 async function createCategory(catCode, catName) {
 	//validar se code e name são diferentes de vazio, caso contrário abrir notificação na tela
 	//alinhar se concordam c a criação
-
 
 	let url = BASE_URL + "/category";
 	let body = uidGroupDefinition;
 	body.code = catCode;
 	body.name = catName;
 	delete body.text;
-	let categoryUid = await fetchPostRequisition(url, body);
+	let categoryUid = await serviceAPI.fetchPostRequisition(url, body);
 
 	return categoryUid;
 }
@@ -338,7 +292,7 @@ async function createGroup(groupName, studentName) {
 			studentName
 		]
 	}
-	let data = await fetchPostRequisition(url, body);
+	let data = await serviceAPI.fetchPostRequisition(url, body);
 	console.log(data);
     return data;
 }
