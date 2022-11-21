@@ -66,6 +66,21 @@ window.infra = {
         }
     },
 
+    populateFormCategory: async (defaultCategory, categoryForm) => { 
+        const defaultOption = newCategoryOption(defaultCategory); 
+        categoryForm.add(defaultOption); 
+        categoryForm.selectedIndex = 0; 
+     
+        const categoriesList = await getCategoriesList(); 
+     
+        for (let index = 0; index < categoriesList.length; index++) { 
+            const categoryOption = categoriesList[index].name; 
+            if (categoryOption != defaultCategory) { 
+                categoryForm.add(newCategoryOption(categoryOption)); 
+            } 
+        } 
+    },     
+
     issoaquivaiserumafunctio: () => {
         //adicionar evento para chamar a container store com o filtro de categoria para a categoria selecionada
         let list = document.querySelector(".footer-list");
