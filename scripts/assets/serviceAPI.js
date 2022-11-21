@@ -29,8 +29,8 @@ window.serviceAPI = {
     },
 
     getCategoriesList: async (keyword = "") => {
-        let url = BASE_URL + "/category/list";
-        let body =  uidGroupDefinition;
+        let url = serviceAPI.BASE_URL + "/category/list";
+        let body =  serviceAPI.uidGroupDefinition;
         body.text = keyword;
     
         const categories = await serviceAPI.fetchPostRequisition(url, body);
@@ -38,8 +38,8 @@ window.serviceAPI = {
     },
     
     getStoresList: async (keyWord, uidCategory) => {
-        let url = BASE_URL + "/establishment/list";
-        let body = uidGroupDefinition;
+        let url = serviceAPI.BASE_URL + "/establishment/list";
+        let body = serviceAPI.uidGroupDefinition;
         body.text = keyWord;
     
         if (uidCategory) {
@@ -52,8 +52,8 @@ window.serviceAPI = {
     },
 
     createCategory: async (catCode, catName) => {    
-        let url = BASE_URL + "/category";
-        let body = uidGroupDefinition;
+        let url = serviceAPI.BASE_URL + "/category";
+        let body = serviceAPI.uidGroupDefinition;
         body.code = catCode;
         body.name = catName;
         delete body.text;
@@ -68,8 +68,8 @@ window.serviceAPI = {
         //fazendo o comparativo no currObj e newObj
         //alinhar se concordam c a criação
     
-        let url = BASE_URL + "/category";
-        let body = uidGroupDefinition;
+        let url = serviceAPI.BASE_URL + "/category";
+        let body = serviceAPI.uidGroupDefinition;
         body.uid = catUid;
         body.code = catCode;
         body.name = catName;
