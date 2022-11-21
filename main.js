@@ -204,64 +204,6 @@ function newPopUpContainer(storeObject) {
     popUpContainer.appendChild(formPage(storeObject));
 }
 
-function createMainContainer() {
-    const searchContainer = createHtmlTag(
-        "div",
-        "searchContainer",
-        "searchContainer"
-    );
-    const storesContainer = createHtmlTag(
-        "div",
-        "innerContainer",
-        "storesContainer"
-    );
-    const categoriesContainer = createHtmlTag(
-        "div",
-        "innerContainer",
-        "categoriesContainer"
-    );
-    const popUpContainer = createHtmlTag(
-        "div",
-        "popUpContainer",
-        "popUpContainer"
-    );
-    const mainContainer = createHtmlTag(
-        "div",
-        "mainContainer",
-        "mainContainer"
-    );
-
-    mainContainer.appendChild(popUpContainer);
-    mainContainer.appendChild(searchContainer);
-    mainContainer.appendChild(storesContainer);
-    mainContainer.appendChild(categoriesContainer);
-    document.body.appendChild(mainContainer);
-}
-
-function createHtmlTag(tag, cssClass, id = "") {
-    const container = document.createElement(tag);
-
-    if (id) {
-        container.setAttribute("id", id);
-    }
-
-    container.setAttribute("class", cssClass);
-
-    return container;
-}
-
-function createHtmlTagAndSetContent(tag, tagContent, id = '') {
-    const container = document.createElement(tag);
-
-    container.textContent = tagContent;
-
-    if (id) {
-        container.setAttribute('id', id);
-    }
-
-    return container;
-}
-
 function addHeader() {
     const body = document.querySelector('body');
 
@@ -269,9 +211,9 @@ function addHeader() {
 
     const headerNav = document.createElement('nav');
 
-    const logo = createHtmlTag('div', 'logo');
+    const logo = elementFactory.createHtmlTag('div', 'logo');
 
-    const logoText = createHtmlTagAndSetContent('h3', 'Shopping Coders');
+    const logoText = elementFactory.createHtmlTagAndSetContent('h3', 'Shopping Coders');
 
     const iconeMenu = document.createElement('span');
     iconeMenu.className = 'material-symbols-outlined';
@@ -279,32 +221,32 @@ function addHeader() {
     iconeMenu.id = 'iconeMenu';
     iconeMenu.addEventListener("click", clickMenu);
 
-    const menu = createHtmlTag('div', 'menu');
+    const menu = elementFactory.createHtmlTag('div', 'menu');
 
-    const lojas = createHtmlTag('div', 'lojas');
+    const lojas = elementFactory.createHtmlTag('div', 'lojas');
 
-    const lojash3 = createHtmlTagAndSetContent('h3', 'Lojas', 'linkStoreContainer');
+    const lojash3 = elementFactory.createHtmlTagAndSetContent('h3', 'Lojas', 'linkStoreContainer');
 
     const lojasUl = document.createElement('ul');
 
-    const lojasLi1 = createHtmlTagAndSetContent('li', '+Nova Loja', 'linkPopupNewStore');
+    const lojasLi1 = elementFactory.createHtmlTagAndSetContent('li', '+Nova Loja', 'linkPopupNewStore');
 
-    const lojasLi2 = createHtmlTagAndSetContent('li', 'Todas as Lojas', 'linkStores');
+    const lojasLi2 = elementFactory.createHtmlTagAndSetContent('li', 'Todas as Lojas', 'linkStores');
 
     lojasUl.appendChild(lojasLi1);
     lojasUl.appendChild(lojasLi2);
     lojas.appendChild(lojash3);
     lojas.appendChild(lojasUl);
 
-    const categorias = createHtmlTag('div', 'categorias');
+    const categorias = elementFactory.createHtmlTag('div', 'categorias');
 
-    const categoriash3 = createHtmlTagAndSetContent('h3', 'Categorias', 'linkCategoryContainer');
+    const categoriash3 = elementFactory.createHtmlTagAndSetContent('h3', 'Categorias', 'linkCategoryContainer');
 
     const categoriasUl = document.createElement('ul');
 
-    const categoriasLi1 = createHtmlTagAndSetContent('li', '+Nova Categoria', 'linkPopupNewCategory');
+    const categoriasLi1 = elementFactory.createHtmlTagAndSetContent('li', '+Nova Categoria', 'linkPopupNewCategory');
 
-    const categoriasLi2 = createHtmlTagAndSetContent('li', 'Todas as Categorias', 'linkCategories');
+    const categoriasLi2 = elementFactory.createHtmlTagAndSetContent('li', 'Todas as Categorias', 'linkCategories');
 
     categoriasUl.appendChild(categoriasLi1);
     categoriasUl.appendChild(categoriasLi2);
@@ -346,22 +288,6 @@ function addHeader() {
         }
     }
 
-}
-
-function displayInnerContainer(containerId) {
-    const innerContainers =
-        document.getElementsByClassName("innerContainer");
-
-    for (let index = 0; index < innerContainers.length; index++) {
-        const container = innerContainers[index];
-
-        if (container.classList.contains("activeInnerContainer")) {
-            container.classList.remove("activeInnerContainer");
-        }
-    }
-
-    const activeContainer = document.getElementById(containerId);
-    activeContainer.classList.add("activeInnerContainer");
 }
 
 const BASE_URL = "http://estabelecimentos.letscode.dev.netuno.org:25390/services";
