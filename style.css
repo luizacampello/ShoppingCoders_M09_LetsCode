@@ -195,7 +195,7 @@ footer {
 	bottom: 0;
 	width: 100%;
 	background-color: rgb(3, 179, 179);
-	height: 15vh;
+	height: auto;
 	text-align: center;
 }
 
@@ -208,18 +208,18 @@ footer p {
 }
 
 .footer-list {
-	/*display: flex;
+	display: flex;
 	flex-direction: row;
-	flex-wrap: wrap;*/
+	flex-wrap: wrap;
 
-	display: grid;
+	/*display: grid;
 	grid-template-columns: repeat(4, 1fr);
-	grid-template-rows: auto;
+	grid-template-rows: auto;*/
 
 	list-style-type: none;
-	/*text-align: center;
+	text-align: center;
 	align-items:center;
-	justify-content:center;*/
+	justify-content:center;
 	padding-left: 0;
 	margin: 5px 30px;
 	color: azure;
