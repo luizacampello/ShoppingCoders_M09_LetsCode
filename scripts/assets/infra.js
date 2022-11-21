@@ -14,6 +14,7 @@ window.infra = {
         const activeContainer = document.getElementById(containerId);
         activeContainer.classList.add("activeInnerContainer");
     },
+
     populateStoreContainer: async (container,keyword='', idCategory='') => {
         const storesList = await serviceAPI.getStoresList(keyword, idCategory);
         for (let index = 0; index < storesList.length; index++) {
@@ -68,17 +69,17 @@ window.infra = {
 
     populateFormCategory: async (categoryForm, defaultCategory = "") => { 
         if (defaultCategory) {
-            const defaultOption = newCategoryOption(defaultCategory); 
+            const defaultOption = elementFactory.newCategoryOption(defaultCategory); 
             categoryForm.add(defaultOption); 
             categoryForm.selectedIndex = 0;
         }
 
-        const categoriesList = await getCategoriesList(); 
+        const categoriesList = await serviceAPI.getCategoriesList(); 
      
         for (let index = 0; index < categoriesList.length; index++) { 
             const categoryOption = categoriesList[index].name; 
             if (categoryOption != defaultCategory) { 
-                categoryForm.add(newCategoryOption(categoryOption)); 
+                categoryForm.add(elementFactory.newCategoryOption(categoryOption)); 
             } 
         } 
     },     

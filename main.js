@@ -49,8 +49,7 @@ function addCSSFile() {
 }
 
 function infoPage(storeObject) {
-    const infoContainer = document.createElement("div");
-    infoContainer.setAttribute("id", "infoContainer");
+    const infoContainer = document.getElementById("infoContainer");
 
     //DIVISÃO COM AS INFORMAÇÕES
     const divInfo = document.createElement("div");
@@ -81,12 +80,17 @@ function infoPage(storeObject) {
     const divButtons = document.createElement("div");
     divButtons.setAttribute("class", "divButtons");
     divButtons.appendChild(closeButton());
-    divButtons.appendChild(editButton());
+    divButtons.appendChild(
+        elementFactory.newButton({
+            value: "Editar",
+            id:"edit",
+            onClickFunction: () => {
+                editButtonOnClick();
+            },
+        }));
 
     infoContainer.appendChild(divInfo);
     infoContainer.appendChild(divButtons);
-
-    return infoContainer;
 }
 
 function closeButton() {
@@ -100,21 +104,11 @@ function closeButton() {
     return bClose;
 }
 
-function editButton() {
-    const bEdit = document.createElement("div");
-    bEdit.setAttribute("id", "bEdit");
-    const edit = document.createElement("input");
-    edit.setAttribute("id", "edit");
-    edit.type = "button";
-    edit.value = "Editar";
-    edit.onclick = function () {
-        const formPage = document.querySelector("#formContainer");
-        const infoPage = document.querySelector("#infoContainer");
-        infoPage.style.display = "none";
-        formPage.style.display = "flex";
-    };
-    bEdit.appendChild(edit);
-    return bEdit;
+function editButtonOnClick() {
+    const formPage = document.querySelector("#formContainer");
+    const infoPage = document.querySelector("#infoContainer");
+    infoPage.style.display = "none";
+    formPage.style.display = "flex";
 }
 
 function saveButton() {
@@ -141,8 +135,7 @@ function addClearPageEventTo(containerId) {
 }
 
 function formPage(store) {
-    const formContainer = document.createElement("div");
-    formContainer.setAttribute("id", "formContainer");
+    const formContainer = document.getElementById("formContainer");
 
     const divCloseButton = document.createElement("div");
     divCloseButton.setAttribute("id", "divClose");
@@ -155,7 +148,7 @@ function formPage(store) {
     name.value = store.name;
 
     const categoryForm = document.createElement("select");
-    populateFormCategory(categoryForm, store.category.name);
+    infra.populateFormCategory(categoryForm, store.category.name);
 
     const address = document.createElement("textArea");
     // address.placeholder = "Endereço";
@@ -185,14 +178,22 @@ function formPage(store) {
     formContainer.appendChild(divCloseButton);
     formContainer.appendChild(divForm);
     formContainer.appendChild(divSaveButton);
-
-    return formContainer;
 }
 
 function newPopUpContainer(storeObject) {
     const popUpContainer = document.getElementById("popUpContainer");
-    popUpContainer.appendChild(infoPage(storeObject));
-    popUpContainer.appendChild(formPage(storeObject));
+
+    const infoContainer = document.createElement("div");
+    infoContainer.setAttribute("id", "infoContainer");
+
+    const formContainer = document.createElement("div");
+    formContainer.setAttribute("id", "formContainer");
+
+    popUpContainer.appendChild(infoContainer);
+    popUpContainer.appendChild(formContainer);
+    
+    formPage(storeObject)
+    infoPage(storeObject)
 }
 
 function addHeader() {
