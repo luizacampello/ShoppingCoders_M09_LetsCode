@@ -66,7 +66,7 @@ window.infra = {
         }
     },
 
-    populateFormCategory: async (categoryForm, defaultCategory) => { 
+    populateFormCategory: async (categoryForm, defaultCategory = "") => { 
         if (defaultCategory) {
             const defaultOption = newCategoryOption(defaultCategory); 
             categoryForm.add(defaultOption); 
