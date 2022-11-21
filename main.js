@@ -8,7 +8,8 @@
     }
 
     window.addEventListener("load", () => {
-        MainContainer.createMainContainer();
+        addHeader();
+        MainContainer.createMainContainer();       
 
         const storesContainer = document.getElementById('storesContainer');
         const categoriesContainer = document.getElementById('categoriesContainer');
@@ -25,7 +26,14 @@ function addCSSFile() {
     cssLink.type = "text/css";
     cssLink.href = "style.css";
 
+    const cssLinkIcon = document.createElement('link');
+
+    cssLinkIcon.rel = 'stylesheet';
+    cssLinkIcon.type = 'text/css';
+    cssLinkIcon.href = 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200';
+
     document.head.appendChild(cssLink);
+    document.head.appendChild(cssLinkIcon);
 }
 
 function infoPage(storeObject) {
@@ -196,6 +204,92 @@ function newPopUpContainer(storeObject) {
     popUpContainer.appendChild(formPage(storeObject));
 }
 
+function addHeader() {
+    const body = document.querySelector('body');
+
+    const header = document.createElement('header');
+
+    const headerNav = document.createElement('nav');
+
+    const logo = elementFactory.createHtmlTag('div', 'logo');
+
+    const logoText = elementFactory.createHtmlTagAndSetContent('h3', 'Shopping Coders');
+
+    const iconeMenu = document.createElement('span');
+    iconeMenu.className = 'material-symbols-outlined';
+    iconeMenu.textContent = 'menu';
+    iconeMenu.id = 'iconeMenu';
+    iconeMenu.addEventListener("click", clickMenu);
+
+    const menu = elementFactory.createHtmlTag('div', 'menu');
+
+    const lojas = elementFactory.createHtmlTag('div', 'lojas');
+
+    const lojash3 = elementFactory.createHtmlTagAndSetContent('h3', 'Lojas', 'linkStoreContainer');
+
+    const lojasUl = document.createElement('ul');
+
+    const lojasLi1 = elementFactory.createHtmlTagAndSetContent('li', '+Nova Loja', 'linkPopupNewStore');
+
+    const lojasLi2 = elementFactory.createHtmlTagAndSetContent('li', 'Todas as Lojas', 'linkStores');
+
+    lojasUl.appendChild(lojasLi1);
+    lojasUl.appendChild(lojasLi2);
+    lojas.appendChild(lojash3);
+    lojas.appendChild(lojasUl);
+
+    const categorias = elementFactory.createHtmlTag('div', 'categorias');
+
+    const categoriash3 = elementFactory.createHtmlTagAndSetContent('h3', 'Categorias', 'linkCategoryContainer');
+
+    const categoriasUl = document.createElement('ul');
+
+    const categoriasLi1 = elementFactory.createHtmlTagAndSetContent('li', '+Nova Categoria', 'linkPopupNewCategory');
+
+    const categoriasLi2 = elementFactory.createHtmlTagAndSetContent('li', 'Todas as Categorias', 'linkCategories');
+
+    categoriasUl.appendChild(categoriasLi1);
+    categoriasUl.appendChild(categoriasLi2);
+    categorias.appendChild(categoriash3);
+    categorias.appendChild(categoriasUl);
+
+    logo.appendChild(logoText);
+    menu.appendChild(lojas);
+    menu.appendChild(categorias);
+    headerNav.appendChild(logo);
+    headerNav.appendChild(iconeMenu);
+    headerNav.appendChild(menu);
+    header.appendChild(headerNav);
+    body.appendChild(header);
+
+    iconeMenu.addEventListener("click", clickMenu);
+
+    document.body.onresize = () => showMenu();
+
+    function showMenu() {
+        if (document.body.clientWidth > 750) {
+            menu.className = 'menu';
+        }
+
+        if (document.body.clientWidth < 750) {
+            menu.className = 'menuHide';
+        }
+    }
+
+    function clickMenu() {
+        const display = window.getComputedStyle(menu, null).display;
+
+        if (display == 'none') {
+            menu.className = 'menuShow';
+        }
+
+        if (display == 'flex') {
+            menu.className = 'menuHide';
+        }
+    }
+
+}
+
 const BASE_URL = "http://estabelecimentos.letscode.dev.netuno.org:25390/services";
 
 const uidGroupDefinition = {
@@ -248,6 +342,7 @@ async function getStoresList(keyWord, uidCategory) {
     return stores;
 }
 
+async function populateStoreContainer(container, keyword = '', idCategory = '') {
 
 async function createCategory(catCode, catName) {
 	//validar se code e name são diferentes de vazio, caso contrário abrir notificação na tela
@@ -435,6 +530,7 @@ updateCategoriesQuantities();
 
 //adicionar evento para chamar a container store com o filtro de categoria para a categoria selecionada
 let list = document.querySelector(".footer-list");
+
 list.addEventListener("click", function(event) {
 	if (event.target.tagName == 'LI') {
 		/*chamada para a função de apresentação da section de lojas com a busca da categoria clicada*/
