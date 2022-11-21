@@ -321,6 +321,20 @@ function addHeader() {
     header.appendChild(headerNav);
     body.appendChild(header);
 
+    iconeMenu.addEventListener("click", clickMenu);
+
+    document.body.onresize = () => showMenu();
+
+    function showMenu() {
+        if (document.body.clientWidth > 750) {
+            menu.className = 'menu';
+        }
+
+        if (document.body.clientWidth < 750) {
+            menu.className = 'menuHide';
+        }
+    }
+
     function clickMenu() {
         const display = window.getComputedStyle(menu, null).display;
 
@@ -333,40 +347,6 @@ function addHeader() {
         }
     }
 
-    iconeMenu.addEventListener("click", clickMenu);
-
-    function showMenu() {
-        if (document.body.clientWidth > 750) {
-            menu.className = 'menu';
-        }
-
-        if (document.body.clientWidth < 750) {
-            menu.className = 'menuHide';
-        }
-    }
-
-    document.body.onresize = () => showMenu();
-
-}
-
-function addLinksToContainer(){
-    console.log('aaa');
-    const linkStoreContainer = document.getElementById('linkStoreContainer');
-    const linkStores = document.getElementById('linkStores');
-    const linkPopupNewStore = document.getElementById('linkPopupNewStore');
-
-    const linkCategoryContainer = document.getElementById('linkStoreContainer');
-    const linkCategories = document.getElementById('linkCategories');
-    const linkPopupNewCategory = document.getElementById('linkPopupNewCategory');
-
-    linkStoreContainer.addEventListener('click', displayInnerContainer('storesContainer'));
-    linkStores.addEventListener('click', displayInnerContainer('storesContainer'));
-    //linkPopupNewStore.addEventListener('click', TODO: ADD FUNCAO CHAMADA POPUP); 
-
-    linkCategoryContainer.addEventListener('click', displayInnerContainer('categoriesContainer'));
-    linkCategories.addEventListener('click', displayInnerContainer('categoriesContainer'));
-    //linkPopupNewCategory.addEventListener('click', TODO: ADD FUNCAO CHAMADA POPUP); 
-    console.log(linkStoreContainer);
 }
 
 function displayInnerContainer(containerId) {
