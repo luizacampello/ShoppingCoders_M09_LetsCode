@@ -5,6 +5,14 @@
   padding: 0;
 }
 
+@font-face {
+  font-family: 'Baleny';
+  src: url("./balenyseriffree/BalenySerifFree/Baleny\ Serif\ Free.otf") format('opentype');
+  font-weight: normal;
+  font-style: normal ;
+}
+
+
 header {
   position: fixed;
   width: 100vw;
@@ -16,7 +24,7 @@ header {
 header nav {
   display: flex;
   justify-content: space-between;
-  font-family: 'Noto Serif', serif;
+  font-family: 'Baleny', 'Noto Serif', serif;
   padding: 2rem;
 }
 
@@ -198,9 +206,6 @@ nav .menu {
     position: relative;
 }
 
-#bEdit {
-}
-
 #close {
     /* ARRUMAR O CSS DESSE NEGOCIO */
     padding: 4px;
@@ -303,6 +308,15 @@ nav .menu {
     background-color: darkcyan;
     color: white;
     width: 100%;
+}
+
+.saveMessage{
+  display: none;
+  align-self: center;
+  color: lightseagreen;
+  font-family: 'Segoe UI', Tahoma;
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
 .innerContainer{

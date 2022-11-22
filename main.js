@@ -64,6 +64,33 @@ function closeButton() {
     return bClose;
 }
 
+function deleteButtonOnClick(objectId) {
+
+}
+
+function saveButtonOnClick(objectId = null){
+    const saveMessage = document.getElementsByClassName("saveMessage");
+    if(objectId){
+        //PUT
+        putStore(objectId); //Função vazia
+        saveMessage.textContent = "Atualizado com sucesso!"
+        saveMessage.classList.add("show");
+    } else {
+        //POST
+        postSotre (); //Função vazia
+        saveMessage.textContent = "Criação realizada com sucesso!"
+        saveMessage.classList.add("show");
+    }
+}
+
+function putStore (objectId){
+
+}
+
+function postSotre () {
+
+}
+
 function saveButton() {
     const bSave = document.createElement("div");
     bSave.setAttribute("id", "bEdit");
@@ -74,6 +101,21 @@ function saveButton() {
 
     bSave.appendChild(save);
     return bSave;
+}
+
+function deleteButton(){
+
+}
+
+function addClearPageEventTo(containerId) {
+    const pageCard = document.getElementById(containerId);
+    pageCard.classList.add("show");
+    pageCard.addEventListener("click", (e) => {
+        if (e.target.id == containerId || e.target.id == "close") {
+            pageCard.classList.remove("show");
+            pageCard.textContent = "";
+        }
+    });
 }
 
 function addHeader() {

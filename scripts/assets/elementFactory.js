@@ -16,7 +16,7 @@ window.elementFactory = {
 
     createHtmlTagAndSetContent: (tag, tagContent, id = '') => {
         const container = document.createElement(tag);
-    
+        
         container.textContent = tagContent;
     
         if (id) {
