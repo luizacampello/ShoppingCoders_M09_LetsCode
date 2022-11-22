@@ -49,6 +49,8 @@ window.serviceAPI = {
 					text: "Criou o estabelecimento com sucesso.",
 					type: 'success'
 				});
+				infra.createCategoriesQuantities();
+				infra.updateCategoriesQuantities();
 			},
 			onError: (data, response) => {
 				basePage.notification.create({
@@ -56,7 +58,8 @@ window.serviceAPI = {
 					type: 'error'
 				});
 			}
-		})
+		});
+
     },
 
     getStoresList: async (keyWord, uidCategory) => {
@@ -124,6 +127,8 @@ window.serviceAPI = {
 					text: "Editou o estabelecimento com sucesso.",
 					type: 'success'
 				});
+				infra.createCategoriesQuantities();
+				infra.updateCategoriesQuantities();
 			},
 			onError: (data, response) => {
 				basePage.notification.create({
@@ -131,7 +136,8 @@ window.serviceAPI = {
 					type: 'error'
 				});
 			}
-		})
+		});
+
 	},
 
 	deleteStore: async (storeUid) => {
@@ -148,6 +154,8 @@ window.serviceAPI = {
 					text: "Deletou a loja com sucesso.",
 					type: 'success'
 				});
+				infra.createCategoriesQuantities();
+				infra.updateCategoriesQuantities();
 			},
 			onError: (data, response) => {
 				basePage.notification.create({

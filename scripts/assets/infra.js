@@ -66,6 +66,8 @@ window.infra = {
     updateCategoriesQuantities: () => {
         const response = localStorage.getItem("CategoriesQuantities");
         const categoriesQuantities = JSON.parse(response);
+		let list = document.querySelector("#footer-list");
+		list.innerHTML = "";
         if (categoriesQuantities == null)
             return;
 		categoriesQuantities.forEach(item => {
@@ -75,7 +77,6 @@ window.infra = {
 				const listItem = elementFactory.createHtmlTagAndSetContent("li", content, item.uid);
 				listItem.classList.add("list-item");
 				listItem.setAttribute("name", item.code);
-				let list = document.querySelector("#footer-list");
 				list.appendChild(listItem);
 			}
 		})
@@ -83,20 +84,20 @@ window.infra = {
 
     populateFormCategory: async (categoryForm, defaultCategory = "") => {
         if (defaultCategory) {
-            const defaultOption = elementFactory.newCategoryOption(defaultCategory); 
-            categoryForm.add(defaultOption); 
+            const defaultOption = elementFactory.newCategoryOption(defaultCategory);
+            categoryForm.add(defaultOption);
             categoryForm.selectedIndex = 0;
         }
 
-        const categoriesList = await serviceAPI.getCategoriesList(); 
-     
-        for (let index = 0; index < categoriesList.length; index++) { 
-            const categoryOption = categoriesList[index]; 
-            if (categoryOption.uid != defaultCategory.uid) { 
-                categoryForm.add(elementFactory.newCategoryOption(categoryOption)); 
-            } 
-        } 
-    },     
+        const categoriesList = await serviceAPI.getCategoriesList();
+
+        for (let index = 0; index < categoriesList.length; index++) {
+            const categoryOption = categoriesList[index];
+            if (categoryOption.uid != defaultCategory.uid) {
+                categoryForm.add(elementFactory.newCategoryOption(categoryOption));
+            }
+        }
+    },
 
     addFooterCategorySearchEvent: () => {
         let list = document.querySelector("#footer-list");
