@@ -47,7 +47,7 @@ function addCSSFile() {
 }
 
 function infoPage(storeObject) {
-    const infoContainer = document.getElementById("infoContainer");
+    const infoContainer = document.getElementById("storeInfoContainer");
 
     //DIVISÃO COM AS INFORMAÇÕES
     const divInfo = document.createElement("div");
@@ -102,8 +102,8 @@ function closeButton() {
 }
 
 function editButtonOnClick() {
-    const formPage = document.querySelector("#formContainer");
-    const infoPage = document.querySelector("#infoContainer");
+    const formPage = document.getElementById("storeFormContainer");
+    const infoPage = document.getElementById("storeInfoContainer");
     infoPage.style.display = "none";
     formPage.style.display = "flex";
 }
@@ -131,51 +131,51 @@ function addClearPageEventTo(containerId) {
     });
 }
 
-function formPage(store) {
-    const formContainer = document.getElementById("formContainer");
+// function formPage(store) {
+//     const formContainer = document.getElementById("formContainer");
 
-    const divCloseButton = document.createElement("div");
-    divCloseButton.setAttribute("id", "divClose");
-    divCloseButton.appendChild(closeButton());
+//     const divCloseButton = document.createElement("div");
+//     divCloseButton.setAttribute("id", "divClose");
+//     divCloseButton.appendChild(closeButton());
 
-    //#region Formulário
-    const divForm = document.createElement("form");
-    const name = document.createElement("input");
-    // name.placeholder = "Nome";
-    name.value = store.name;
+//     //#region Formulário
+//     const divForm = document.createElement("form");
+//     const name = document.createElement("input");
+//     // name.placeholder = "Nome";
+//     name.value = store.name;
 
-    const categoryForm = document.createElement("select");
-    infra.populateFormCategory(categoryForm, store.category);
+//     const categoryForm = document.createElement("select");
+//     infra.populateFormCategory(categoryForm, store.category);
 
-    const address = document.createElement("textArea");
-    // address.placeholder = "Endereço";
-    address.value = store.address;
-    const postalCode = document.createElement("input");
-    // postalCode.placeholder = "CEP";
-    postalCode.value = store.postal_code;
-    const email = document.createElement("input");
-    // email.placeholder = "email";
-    email.value = store.email;
-    const phone = document.createElement("input");
-    // phone.placeholder = "Telefone";
-    phone.value = store.phone;
+//     const address = document.createElement("textArea");
+//     // address.placeholder = "Endereço";
+//     address.value = store.address;
+//     const postalCode = document.createElement("input");
+//     // postalCode.placeholder = "CEP";
+//     postalCode.value = store.postal_code;
+//     const email = document.createElement("input");
+//     // email.placeholder = "email";
+//     email.value = store.email;
+//     const phone = document.createElement("input");
+//     // phone.placeholder = "Telefone";
+//     phone.value = store.phone;
 
-    divForm.appendChild(name);
-    divForm.appendChild(categoryForm);
-    divForm.appendChild(address);
-    divForm.appendChild(postalCode);
-    divForm.appendChild(email);
-    divForm.appendChild(phone);
-    //#endregion
+//     divForm.appendChild(name);
+//     divForm.appendChild(categoryForm);
+//     divForm.appendChild(address);
+//     divForm.appendChild(postalCode);
+//     divForm.appendChild(email);
+//     divForm.appendChild(phone);
+//     //#endregion
 
-    const divSaveButton = document.createElement("div");
-    divSaveButton.setAttribute("id", "divSave");
-    divSaveButton.appendChild(saveButton());
+//     const divSaveButton = document.createElement("div");
+//     divSaveButton.setAttribute("id", "divSave");
+//     divSaveButton.appendChild(saveButton());
 
-    formContainer.appendChild(divCloseButton);
-    formContainer.appendChild(divForm);
-    formContainer.appendChild(divSaveButton);
-}
+//     formContainer.appendChild(divCloseButton);
+//     formContainer.appendChild(divForm);
+//     formContainer.appendChild(divSaveButton);
+// }
 
 function addHeader() {
     const body = document.querySelector('body');

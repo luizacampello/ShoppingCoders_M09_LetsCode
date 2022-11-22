@@ -23,7 +23,7 @@ window.infra = {
                 CardFactory.CardStore({
                     store: store,
                     onClickCard: () => {
-                        popUpFactory.newPopUpContainer(store);
+                        popUpFactory.newStorePopUpContainer(store);
                         addClearPageEventTo("popUpContainer");
                     },
                 })
@@ -39,7 +39,7 @@ window.infra = {
                 CardFactory.CardCategory({
                     category: category,
                     onClickEdit: () => {
-                        window.alert("Click 1"); //TODO: Chamar a função de editar
+                        popUpFactory.newCategoryPopUpContainer(category); //TODO: Chamar a função de editar
                     },
                     onClickStores: () => {
                         window.alert("Click 2"); //TODO: Chamar páginas de lojas com filtro
@@ -97,7 +97,7 @@ window.infra = {
             } 
         } 
     },     
-    
+
     addFooterCategorySearchEvent: () => {
         let list = document.querySelector("#footer-list");
 
@@ -114,8 +114,8 @@ window.infra = {
 					else
 						infra.showCards(item);
 				})
-				storesContainer.classList.add("activeInnerContainer");
-				storesContainer.classList.remove("innerContainer");
+
+                infra.displayInnerContainer("storesContainer");
             }
         });
     },
@@ -132,6 +132,14 @@ window.infra = {
 		item.classList.add("card-content");
 		item.querySelector("h3").classList.add("show");
 		item.querySelector("h3").classList.remove("hide");
+	},
+
+    resetCards: (container) => {
+		const storesContainer = document.getElementById(container);
+		const storesCards = storesContainer.querySelectorAll("div");
+		storesCards.forEach(item => {
+			infra.showCards(item);
+		})
 	}
 
 

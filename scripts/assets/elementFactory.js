@@ -46,5 +46,20 @@ window.elementFactory = {
         return buttonBox;
     },
 
+    newFormOption: (placeholder, value, type = "") => {
+        const formOption = document.createElement("input");
+		formOption.placeholder = placeholder;
+        
+        if (value){
+            formOption.value = value;
+        }
+
+        if (type) {
+            formOption.type = type;
+        }
+
+        return formOption;
+    }
+
     
 }
