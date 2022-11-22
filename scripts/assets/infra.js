@@ -97,15 +97,7 @@ window.infra = {
             } 
         } 
     },     
-
-        for (let index = 0; index < categoriesList.length; index++) {
-            const categoryOption = categoriesList[index].name;
-            if (categoryOption != defaultCategory) {
-                categoryForm.add(newCategoryOption(categoryOption));
-            }
-        }
-    },
-
+    
     addFooterCategorySearchEvent: () => {
         let list = document.querySelector("#footer-list");
 
