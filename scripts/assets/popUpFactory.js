@@ -9,8 +9,8 @@ window.popUpFactory = {
 		popUpContainer.appendChild(infoContainer);
 		popUpContainer.appendChild(formContainer);
 		
-		infoPage(storeObject)
-		popUpFactory.storeFormPopUp(storeObject)	
+		popUpFactory.storeInfoPage(storeObject);
+		popUpFactory.storeFormPopUp(storeObject);
 	},
 
 	newCategoryPopUpContainer: (storeObject) => {
@@ -61,7 +61,7 @@ window.popUpFactory = {
 		formContainer.appendChild(divSaveButton);
 	},
 
-	infoPage: (storeObject) => {
+	storeInfoPage: (storeObject) => {
 		const infoContainer = document.getElementById("storeInfoContainer");
 	
 		//DIVISÃO COM AS INFORMAÇÕES
@@ -97,6 +97,6 @@ window.popUpFactory = {
 	
 		infoContainer.appendChild(divInfo);
 		infoContainer.appendChild(divButtons);
-	}
+	},
 
 }
