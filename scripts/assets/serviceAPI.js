@@ -157,7 +157,7 @@ window.serviceAPI = {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(body)
+            body: JSON.stringify(body),
         }).then((response) => {
 			console.log("Response status:", response.status);
 			if (response.ok) {
@@ -193,6 +193,30 @@ window.serviceAPI = {
 			onError: (data, response) => {
 				basePage.notification.create({
 					text: "Grupo ou categoria não encontrado.",
+					type: 'error'
+				});
+			}
+		});
+    },
+
+    deleteStore: async (storeUid) => {
+		let url = serviceAPI.BASE_URL + "/establishment";
+        let body = serviceAPI.uidGroupDefinition;
+		body.uid = storeUid;
+        console.log(body);
+		await serviceAPI.fetchRequisition({
+			fetchMethod: "DELETE",
+			url: url,
+			body: body,
+			onSuccess: (data, response) => {
+				basePage.notification.create({
+					text: "Deletou a loja com sucesso.",
+					type: 'success'
+				});
+			},
+			onError: (data, response) => {
+				basePage.notification.create({
+					text: "Loja não encontrada.",
 					type: 'error'
 				});
 			}
