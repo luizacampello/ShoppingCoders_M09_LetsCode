@@ -39,7 +39,7 @@ nav .menu {
   text-align: center;
   font-size: 1rem;
   padding: 0.5rem;
- 
+
 }
 
 .lojas ul,
@@ -100,7 +100,7 @@ nav .menu {
   nav .menu{
     display: none;
   }
-  
+
   nav .menuHide{
     display: none;
   }
@@ -113,7 +113,7 @@ nav .menu {
     align-items: center;
     border-radius: 10px;
   }
-  
+
 
   .lojas,
   .categorias {
@@ -144,6 +144,10 @@ nav .menu {
 
 .show {
     display: flex;
+}
+
+.hide {
+	display: none;
 }
 
 #infoContainer {
@@ -324,7 +328,7 @@ footer {
 	text-align: center;
 }
 
-footer p {
+#footer-title {
 	color: azure;
 	font-size: 22px;
 	font-weight: 700;
@@ -332,7 +336,7 @@ footer p {
 	margin: 0;
 }
 
-.footer-list {
+#footer-list {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -363,4 +367,29 @@ footer p {
 	height: fit-content;
 	box-sizing: border-box;
 	padding: 0 10px;
+}
+
+
+div.notification {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	width: 200px;
+	padding: 20px;
+	text-align: center;
+	background: #e8e8e8;
+	border-radius: 20px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+div.notification-error {
+	color: #a14343;
+	box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+}
+div.notification-success {
+	color: #43a143;
+	box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+div.notification-info {
+	color: #43a143;
+	box-shadow: 0 0 10px rgba(0, 0, 255, 0.5);
 }

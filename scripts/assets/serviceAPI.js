@@ -32,96 +32,146 @@ window.serviceAPI = {
         let url = serviceAPI.BASE_URL + "/category/list";
         let body =  serviceAPI.uidGroupDefinition;
         body.text = keyword;
-    
+
         const categories = await serviceAPI.fetchPostRequisition(url, body);
         return categories;
     },
-    
+
     getStoresList: async (keyWord, uidCategory) => {
         let url = serviceAPI.BASE_URL + "/establishment/list";
         let body = serviceAPI.uidGroupDefinition;
         body.text = keyWord;
-    
+
         if (uidCategory) {
             body.category = {"uid": uidCategory};
         }
-    
+
         let stores = await serviceAPI.fetchPostRequisition(url, body);
-    
+
         return stores;
     },
 
-    createCategory: async (catCode, catName) => {    
+    createCategory: async (catCode, catName) => {
         let url = serviceAPI.BASE_URL + "/category";
         let body = serviceAPI.uidGroupDefinition;
         body.code = catCode;
         body.name = catName;
         delete body.text;
-        let categoryUid = await serviceAPI.fetchPostRequisition(url, body);
-    
-        return categoryUid;
+		let exists = false;
+		const categories = await serviceAPI.getCategoriesList("");
+		categories.forEach(category => {
+			if (category.name == catName || category.code == catCode)
+			{
+				basePage.notification.create({
+					text: "Já existe categoria com este NOME ou CÓDIGO.",
+					type: 'error'
+				});
+				exists = true;
+			}
+		})
+
+		if (!exists) {
+			await serviceAPI.fetchRequisition({
+				fetchMethod: "POST",
+				url: url,
+				body: body,
+				onSuccess: (data, response) => {
+					basePage.notification.create({
+						text: "Criou o estabelecimento com sucesso.",
+						type: 'success'
+					});
+				},
+				onError: (data, response) => {
+					basePage.notification.create({
+						text: "Grupo ou categoria não encontrado.",
+						type: 'error'
+					});
+				}
+			});
+		}
     },
-    
+
     updateCategory: async (catUid, catCode, catName) => {
         //validar se code e name são diferentes de vazio, caso contrário abrir notificação na tela
         //validar qual o campo está sendo alterado, buscando o objeto no getlist via uid
         //fazendo o comparativo no currObj e newObj
         //alinhar se concordam c a criação
-    
+
         let url = serviceAPI.BASE_URL + "/category";
         let body = serviceAPI.uidGroupDefinition;
         body.uid = catUid;
         body.code = catCode;
         body.name = catName;
         delete body.text;
-    
-        let categoryUid = await fetchRequisition("PUT", url, body);
-    
-        return categoryUid;
-    },    
-    
-    fetchRequisition: async (fetchMethod, url, body) => {
+		await serviceAPI.fetchRequisition({
+			fetchMethod: "PUT",
+			url: url,
+			body: body,
+			onSuccess: (data, response) => {
+				basePage.notification.create({
+					text: "Editou a categoria com sucesso.",
+					type: 'success'
+				});
+			},
+			onError: (data, response) => {
+				basePage.notification.create({
+					text: "Grupo ou categoria não encontrado.",
+					type: 'error'
+				});
+			}
+		});
+    },
+
+    fetchRequisition: async ({fetchMethod, url, body, onSuccess, onError}) => {
         const request = await fetch(url, {
             method: fetchMethod,
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(body)
+        }).then((response) => {
+			console.log("Response status:", response.status);
+			if (response.ok) {
+				if (onSuccess) {
+					onSuccess(response.json(), response);
+				}
+			} else {
+				if (onError) {
+					onError(response.json(), response);
+				}
+			}
         })
-        .then(response => {
-            console.log("Requisition status:", response.status)
-            if (response.status == 200)
-            {
-                console.log("Update complete");
-            }
-            else if (response.status == 404)
-            {
-                console.log("Grupo ou categoria não encontrado.");
-            }
-            else if (response.status == 422)
-            {
-                console.log("Categoria já existe.");
-            }
-        })
-        .catch((error) => {
+		.catch((error) => {
           console.error('Error:', error);
         });
-    
-        return await body.uid;
+		return await [];
     },
-    
+
     deleteCategory: async (catUid) => {
-        //validar se catUid foi informado
-        //alinhar se concordam c a criação
-        let url = BASE_URL + "/category?uid=" + catUid;
-        let body = uidGroupDefinition;
-        let categoryUid = await fetchRequisition("DELETE", url, body);
-    
-        return categoryUid;
+		let url = serviceAPI.BASE_URL + "/category";
+        let body = serviceAPI.uidGroupDefinition;
+		body.uid = catUid;
+		await serviceAPI.fetchRequisition({
+			fetchMethod: "DELETE",
+			url: url,
+			body: body,
+			onSuccess: (data, response) => {
+				basePage.notification.create({
+					text: "Deletou a categoria com sucesso.",
+					type: 'success'
+				});
+			},
+			onError: (data, response) => {
+				basePage.notification.create({
+					text: "Grupo ou categoria não encontrado.",
+					type: 'error'
+				});
+			}
+		});
     },
-    
+
     createGroup: async (groupName, studentName) => {
-        let url = BASE_URL + "/group";
+        let url = serviceAPI.BASE_URL + "/group";
         let body = {
             "name": groupName,
             "students": [
@@ -132,4 +182,8 @@ window.serviceAPI = {
         console.log(data);
         return data;
     },
+
+
+
+
 }
