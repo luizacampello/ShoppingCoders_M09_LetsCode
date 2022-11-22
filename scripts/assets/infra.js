@@ -20,11 +20,11 @@ window.infra = {
         for (let index = 0; index < storesList.length; index++) {
             const store = storesList[index];
             container.appendChild(
-                CardFactory.CardStore({
+                cardService.CardStore({
                     store: store,
                     onClickCard: () => {
                         popUpFactory.newStorePopUpContainer(store);
-                        addClearPageEventTo("popUpContainer");
+                        infra.addClearPageEventTo("popUpContainer");
                     },
                 })
             );
@@ -36,7 +36,7 @@ window.infra = {
         for (let index = 0; index < categoryList.length; index++) {
             const category = categoryList[index];
             container.appendChild(
-                CardFactory.CardCategory({
+                cardService.CardCategory({
                     category: category,
                     onClickEdit: () => {
                         popUpFactory.newCategoryPopUpContainer(category); //TODO: Chamar a função de editar
@@ -105,14 +105,13 @@ window.infra = {
             if (event.target.tagName == 'LI') {
 				//inserir aqui a alteração na busca
 
-
-				const storesContainer = document.getElementById("storesContainer");
-				const storesCards = storesContainer.querySelectorAll("div");
+				const storesContainer = document.getElementById("storesContainer"); 
+				const storesCards = storesContainer.querySelectorAll("div"); //TODO: Passar essa parte pro Card Service
 				storesCards.forEach(item => {
 					if (item.firstChild.innerText != event.target.getAttribute("name"))
-						infra.hideCards(item);
+                        cardService.hideCards(item);
 					else
-						infra.showCards(item);
+                        cardService.showCards(item);
 				})
 
                 infra.displayInnerContainer("storesContainer");
@@ -120,27 +119,21 @@ window.infra = {
         });
     },
 
-	hideCards: (item) => {
-		item.classList.add("hide");
-		item.classList.remove("card-content");
-		item.querySelector("h3").classList.add("hide");
-		item.querySelector("h3").classList.remove("show");
-	},
+    editButtonOnClick: () => {
+        const formPage = document.getElementById("storeFormContainer");
+        const infoPage = document.getElementById("storeInfoContainer");
+        infoPage.style.display = "none";
+        formPage.style.display = "flex";
+    },
 
-	showCards: (item) => {
-		item.classList.remove("hide");
-		item.classList.add("card-content");
-		item.querySelector("h3").classList.add("show");
-		item.querySelector("h3").classList.remove("hide");
-	},
-
-    resetCards: (container) => {
-		const storesContainer = document.getElementById(container);
-		const storesCards = storesContainer.querySelectorAll("div");
-		storesCards.forEach(item => {
-			infra.showCards(item);
-		})
-	}
-
-
+    addClearPageEventTo: (containerId) => {
+        const pageCard = document.getElementById(containerId);
+        pageCard.classList.add("show");
+        pageCard.addEventListener("click", (e) => {
+            if (e.target.id == containerId || e.target.id == "close") {
+                pageCard.classList.remove("show");
+                pageCard.textContent = "";
+            }
+        });
+    }
 }

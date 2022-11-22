@@ -7,7 +7,7 @@
         "assets/popUpFactory.js",
         "assets/infra.js",
         "assets/elementFactory.js",
-        "assets/cardFactory.js",
+        "assets/cardService.js",
         "styles/cardStyle.js",
         "assets/basePage.js"]) {
         const script = document.createElement("script");
@@ -19,7 +19,7 @@
         addHeader();
         basePage.createMainContainer();
         basePage.addFooter();
-
+        
 
         const storesContainer = document.getElementById('storesContainer');
         const categoriesContainer = document.getElementById('categoriesContainer');
@@ -83,7 +83,7 @@ function infoPage(storeObject) {
     );
 
     divButtons.appendChild(
-        elementFactory.newButton("Editar", "edit", editButtonOnClick)
+        elementFactory.newButton("Editar", "edit", infra.editButtonOnClick)
     );
 
     infoContainer.appendChild(divInfo);
@@ -101,13 +101,6 @@ function closeButton() {
     return bClose;
 }
 
-function editButtonOnClick() {
-    const formPage = document.getElementById("storeFormContainer");
-    const infoPage = document.getElementById("storeInfoContainer");
-    infoPage.style.display = "none";
-    formPage.style.display = "flex";
-}
-
 function saveButton() {
     const bSave = document.createElement("div");
     bSave.setAttribute("id", "bEdit");
@@ -118,17 +111,6 @@ function saveButton() {
 
     bSave.appendChild(save);
     return bSave;
-}
-
-function addClearPageEventTo(containerId) {
-    const pageCard = document.getElementById(containerId);
-    pageCard.classList.add("show");
-    pageCard.addEventListener("click", (e) => {
-        if (e.target.id == containerId || e.target.id == "close") {
-            pageCard.classList.remove("show");
-            pageCard.textContent = "";
-        }
-    });
 }
 
 function addHeader() {

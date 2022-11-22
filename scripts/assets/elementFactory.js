@@ -60,6 +60,5 @@ window.elementFactory = {
 
         return formOption;
     }
-
     
 }
