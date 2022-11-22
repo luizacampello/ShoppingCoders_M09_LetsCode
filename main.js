@@ -1,14 +1,14 @@
 (() => {
     addCSSFile();
-    
+
     for (const file of [
         "assets/serviceAPI.js",
-        "assets/basePage.js", 
-        "assets/popUpFactory.js", 
-        "assets/infra.js", 
-        "assets/elementFactory.js", 
-        "assets/cardFactory.js", 
-        "styles/cardStyle.js", 
+        "assets/basePage.js",
+        "assets/popUpFactory.js",
+        "assets/infra.js",
+        "assets/elementFactory.js",
+        "assets/cardFactory.js",
+        "styles/cardStyle.js",
         "assets/basePage.js"]) {
         const script = document.createElement("script");
         script.setAttribute("src", `scripts/${file}`);
@@ -20,8 +20,6 @@
         basePage.createMainContainer();
         basePage.addFooter();
 
-        // infra.mockCategoriesQuantity(); //TODO: apagar depois
-        // infra.updateCategoriesQuantities();       
 
         const storesContainer = document.getElementById('storesContainer');
         const categoriesContainer = document.getElementById('categoriesContainer');
