@@ -68,19 +68,18 @@ window.infra = {
     },
 
     populateFormCategory: async (categoryForm, defaultCategory = "") => { 
-        // if (defaultCategory) {
-        //     const defaultOption = elementFactory.newCategoryOption(defaultCategory); 
-        //     categoryForm.add(defaultOption); 
-        //     categoryForm.selectedIndex = 0;
-        // }
+        if (defaultCategory) {
+            const defaultOption = elementFactory.newCategoryOption(defaultCategory); 
+            categoryForm.add(defaultOption); 
+            categoryForm.selectedIndex = 0;
+        }
 
         const categoriesList = await serviceAPI.getCategoriesList(); 
      
         for (let index = 0; index < categoriesList.length; index++) { 
             const categoryOption = categoriesList[index]; 
-            if (categoryOption.uid != defaultCategory) { 
+            if (categoryOption.uid != defaultCategory.uid) { 
                 categoryForm.add(elementFactory.newCategoryOption(categoryOption)); 
-                categoryForm.selectedIndex = 0;
             } 
         } 
     },     
