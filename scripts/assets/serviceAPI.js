@@ -41,14 +41,43 @@ window.serviceAPI = {
         let url = serviceAPI.BASE_URL + "/establishment/list";
         let body = serviceAPI.uidGroupDefinition;
         body.text = keyWord;
-
         if (uidCategory) {
             body.category = {"uid": uidCategory};
         }
-
         let stores = await serviceAPI.fetchPostRequisition(url, body);
 
         return stores;
+    },
+
+	createStore: async (storeAddress, storePhone, storeName, categoryUid, storePostal_code, storeEmail) => {
+        let url = serviceAPI.BASE_URL + "/establishment";
+        let body = serviceAPI.uidGroupDefinition;
+        body.address = storeAddress;
+		body.phone = storePhone;
+        body.name = storeName;
+		body.postal_code = storePostal_code;
+		body.email = storeEmail;
+		body.category = {
+			"uid": categoryUid
+		};
+        delete body.text;
+		await serviceAPI.fetchRequisition({
+			fetchMethod: "POST",
+			url: url,
+			body: body,
+			onSuccess: (data, response) => {
+				basePage.notification.create({
+					text: "Criou o estabelecimento com sucesso.",
+					type: 'success'
+				});
+			},
+			onError: (data, response) => {
+				basePage.notification.create({
+					text: "Grupo ou categoria não encontrado.",
+					type: 'error'
+				});
+			}
+		})
     },
 
     createCategory: async (catCode, catName) => {
@@ -77,7 +106,7 @@ window.serviceAPI = {
 				body: body,
 				onSuccess: (data, response) => {
 					basePage.notification.create({
-						text: "Criou o estabelecimento com sucesso.",
+						text: "Criou a categoria com sucesso.",
 						type: 'success'
 					});
 				},
@@ -123,7 +152,7 @@ window.serviceAPI = {
     },
 
     fetchRequisition: async ({fetchMethod, url, body, onSuccess, onError}) => {
-        const request = await fetch(url, {
+		const request = await fetch(url, {
             method: fetchMethod,
             headers: {
                 "Content-Type": "application/json",
