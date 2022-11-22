@@ -1,33 +1,30 @@
 (() => {
-    addCSSFile();
     
-    for (const file of [
+    const jsFiles = [
         "assets/serviceAPI.js",
-        "assets/basePage.js", 
-        "assets/popUpFactory.js", 
-        "assets/infra.js", 
-        "assets/elementFactory.js", 
-        "assets/cardFactory.js", 
-        "styles/cardStyle.js", 
-        "assets/basePage.js"]) {
-        const script = document.createElement("script");
-        script.setAttribute("src", `scripts/${file}`);
-        document.body.appendChild(script);
-    }
+        "assets/basePage.js",
+        "assets/popUpFactory.js",
+        "assets/infra.js",
+        "assets/elementFactory.js",
+        "assets/cardService.js",
+        "assets/basePage.js",
+        "styles/cardStyle.js",
+    ];
+
+    addCSSFile();
+    addJSScriptFiles(jsFiles)
 
     window.addEventListener("load", () => {
         addHeader();
         basePage.createMainContainer();
         basePage.addFooter();
-
-        // infra.mockCategoriesQuantity(); //TODO: apagar depois
-        // infra.updateCategoriesQuantities();       
+        
 
         const storesContainer = document.getElementById('storesContainer');
         const categoriesContainer = document.getElementById('categoriesContainer');
 
-        populateStoreContainer(storesContainer, '', ''); //TODO: Mudar para receber os parametros da busca
-        populateCategoryContainer(categoriesContainer, ''); //TODO: Mudar para receber os parametros da busca
+        infra.populateCategoryContainer(categoriesContainer); //TODO: Mudar para receber os parametros da busca
+        infra.populateStoreContainer(storesContainer); //TODO: Mudar para receber os parametros da busca
     });
 })();
 
@@ -48,45 +45,12 @@ function addCSSFile() {
     document.head.appendChild(cssLinkIcon);
 }
 
-function infoPage(storeObject) {
-    const infoContainer = document.createElement("div");
-    infoContainer.setAttribute("id", "infoContainer");
-
-    //DIVISÃO COM AS INFORMAÇÕES
-    const divInfo = document.createElement("div");
-    divInfo.setAttribute("class", "divInfo");
-
-    const nameStore = document.createElement("h2");
-    const categoryStore = document.createElement("h3");
-    const addresStore = document.createElement("p");
-    const cepStore = document.createElement("p");
-    const emailStore = document.createElement("p");
-    const phoneStore = document.createElement("p");
-
-    nameStore.textContent = storeObject.name;
-    categoryStore.textContent = storeObject.category.name;
-    addresStore.textContent = storeObject.address;
-    cepStore.textContent = storeObject.postal_code;
-    emailStore.textContent = storeObject.email;
-    phoneStore.textContent = storeObject.phone;
-
-    divInfo.appendChild(nameStore);
-    divInfo.appendChild(categoryStore);
-    divInfo.appendChild(addresStore);
-    divInfo.appendChild(cepStore);
-    divInfo.appendChild(emailStore);
-    divInfo.appendChild(phoneStore);
-
-    // DIVISÃO COM OS BOTÕES
-    const divButtons = document.createElement("div");
-    divButtons.setAttribute("class", "divButtons");
-    divButtons.appendChild(closeButton());
-    divButtons.appendChild(editButton());
-
-    infoContainer.appendChild(divInfo);
-    infoContainer.appendChild(divButtons);
-
-    return infoContainer;
+function addJSScriptFiles(jsFiles) {
+    for (const file of jsFiles) {
+        const script = document.createElement("script");
+        script.setAttribute("src", `scripts/${file}`);
+        document.body.appendChild(script);
+    }
 }
 
 function closeButton() {
@@ -100,23 +64,6 @@ function closeButton() {
     return bClose;
 }
 
-function editButton() {
-    const bEdit = document.createElement("div");
-    bEdit.setAttribute("id", "bEdit");
-    const edit = document.createElement("input");
-    edit.setAttribute("id", "edit");
-    edit.type = "button";
-    edit.value = "Editar";
-    edit.onclick = function () {
-        const formPage = document.querySelector("#formContainer");
-        const infoPage = document.querySelector("#infoContainer");
-        infoPage.style.display = "none";
-        formPage.style.display = "flex";
-    };
-    bEdit.appendChild(edit);
-    return bEdit;
-}
-
 function saveButton() {
     const bSave = document.createElement("div");
     bSave.setAttribute("id", "bEdit");
@@ -127,72 +74,6 @@ function saveButton() {
 
     bSave.appendChild(save);
     return bSave;
-}
-
-function addClearPageEventTo(containerId) {
-    const pageCard = document.getElementById(containerId);
-    pageCard.classList.add("show");
-    pageCard.addEventListener("click", (e) => {
-        if (e.target.id == containerId || e.target.id == "close") {
-            pageCard.classList.remove("show");
-            pageCard.textContent = "";
-        }
-    });
-}
-
-function formPage(store) {
-    const formContainer = document.createElement("div");
-    formContainer.setAttribute("id", "formContainer");
-
-    const divCloseButton = document.createElement("div");
-    divCloseButton.setAttribute("id", "divClose");
-    divCloseButton.appendChild(closeButton());
-
-    //#region Formulário
-    const divForm = document.createElement("form");
-    const name = document.createElement("input");
-    // name.placeholder = "Nome";
-    name.value = store.name;
-
-    const categoryForm = document.createElement("select");
-    populateFormCategory(categoryForm, store.category.name);
-
-    const address = document.createElement("textArea");
-    // address.placeholder = "Endereço";
-    address.value = store.address;
-    const postalCode = document.createElement("input");
-    // postalCode.placeholder = "CEP";
-    postalCode.value = store.postal_code;
-    const email = document.createElement("input");
-    // email.placeholder = "email";
-    email.value = store.email;
-    const phone = document.createElement("input");
-    // phone.placeholder = "Telefone";
-    phone.value = store.phone;
-
-    divForm.appendChild(name);
-    divForm.appendChild(categoryForm);
-    divForm.appendChild(address);
-    divForm.appendChild(postalCode);
-    divForm.appendChild(email);
-    divForm.appendChild(phone);
-    //#endregion
-
-    const divSaveButton = document.createElement("div");
-    divSaveButton.setAttribute("id", "divSave");
-    divSaveButton.appendChild(saveButton());
-
-    formContainer.appendChild(divCloseButton);
-    formContainer.appendChild(divForm);
-    formContainer.appendChild(divSaveButton);
-
-    return formContainer;
-}
-
-function newPopUpContainer(storeObject) {
-    const popUpContainer = document.getElementById("popUpContainer");
-    popUpContainer.appendChild(infoPage(storeObject));
-    popUpContainer.appendChild(formPage(storeObject));
 }
 
 function addHeader() {

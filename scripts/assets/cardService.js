@@ -1,5 +1,5 @@
 
-window.CardFactory = {
+window.cardService = {
     CardStore: ({store, onClickCard = () =>{}}) =>{
         const CardStoreElement = document.createElement('div');
         CardStoreElement.classList.add('card-content');
@@ -14,6 +14,7 @@ window.CardFactory = {
         CardStoreElement.appendChild(storeName);
         return CardStoreElement;
     },
+
     CardCategory: ({category, onClickEdit = () =>{}, onClickStores = () =>{}}) => {
         const CardStoreElement = document.createElement('div');
         CardStoreElement.classList.add('card-content');
@@ -40,5 +41,29 @@ window.CardFactory = {
         CardStoreElement.appendChild(StoresButton);
 
         return CardStoreElement;
-    }
+    },
+
+    hideCards: (item) => {
+		item.classList.add("hide");
+		item.classList.remove("card-content");
+		item.querySelector("h3").classList.add("hide");
+		item.querySelector("h3").classList.remove("show");
+	},
+
+	showCards: (item) => {
+		item.classList.remove("hide");
+		item.classList.add("card-content");
+		item.querySelector("h3").classList.add("show");
+		item.querySelector("h3").classList.remove("hide");
+	},
+
+    resetCards: (container) => {
+		const storesContainer = document.getElementById(container);
+		const storesCards = storesContainer.querySelectorAll("div");
+		storesCards.forEach(item => {
+			cardService.showCards(item);
+		})
+	},
+
+
 }

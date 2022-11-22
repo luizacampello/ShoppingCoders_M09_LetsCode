@@ -39,7 +39,7 @@ nav .menu {
   text-align: center;
   font-size: 1rem;
   padding: 0.5rem;
- 
+
 }
 
 .lojas ul,
@@ -100,7 +100,7 @@ nav .menu {
   nav .menu{
     display: none;
   }
-  
+
   nav .menuHide{
     display: none;
   }
@@ -113,7 +113,7 @@ nav .menu {
     align-items: center;
     border-radius: 10px;
   }
-  
+
 
   .lojas,
   .categorias {
@@ -146,7 +146,11 @@ nav .menu {
     display: flex;
 }
 
-#infoContainer {
+.hide {
+	display: none;
+}
+
+.infoPopUp {
     background-color: #F1F1F1;
     display: flex;
     justify-content: space-between;
@@ -190,7 +194,7 @@ nav .menu {
     /* padding: 4% 2%; */
 }
 
-#bClose {
+#boxclose {
     position: relative;
 }
 
@@ -234,7 +238,7 @@ nav .menu {
 
 
 
-#formContainer {
+.formPopUp {
     background-color: #F1F1F1;
     display: none;
     flex-direction: column;
@@ -252,7 +256,7 @@ nav .menu {
     right: 20px;
 }
 
-#formContainer form {
+.formPopUp form {
     width: 70%;
     display: flex;
     flex-direction: column;
@@ -260,7 +264,7 @@ nav .menu {
     margin: 2% 0;
 
 }
-#formContainer form input, form select{
+.formPopUp form input, form select{
     font-size: 15px;
     margin: 10px 0;
     height: 38px;
@@ -269,7 +273,7 @@ nav .menu {
     padding-left: 20px;
 }
 
-#formContainer form textarea {
+.formPopUp form textarea {
     font-size: 15px;
     font-family: sans-serif;
     margin: 10px 0;
@@ -324,7 +328,7 @@ footer {
 	text-align: center;
 }
 
-footer p {
+#footer-title {
 	color: azure;
 	font-size: 22px;
 	font-weight: 700;
@@ -332,7 +336,7 @@ footer p {
 	margin: 0;
 }
 
-.footer-list {
+#footer-list {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -363,4 +367,29 @@ footer p {
 	height: fit-content;
 	box-sizing: border-box;
 	padding: 0 10px;
+}
+
+
+div.notification {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	width: 200px;
+	padding: 20px;
+	text-align: center;
+	background: #e8e8e8;
+	border-radius: 20px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+div.notification-error {
+	color: #a14343;
+	box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+}
+div.notification-success {
+	color: #43a143;
+	box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+div.notification-info {
+	color: #43a143;
+	box-shadow: 0 0 10px rgba(0, 0, 255, 0.5);
 }
