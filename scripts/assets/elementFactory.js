@@ -26,9 +26,10 @@ window.elementFactory = {
         return container;
     },
 
-    newCategoryOption: (option) => {
+    newCategoryOption: (category) => {
         let newOption = document.createElement("option");
-        newOption.text = option;
+        newOption.text = category.name;
+        newOption.value = category.uid; 
         return newOption;
     },
 

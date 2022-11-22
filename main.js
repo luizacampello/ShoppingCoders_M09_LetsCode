@@ -147,7 +147,7 @@ function formPage(store) {
     name.value = store.name;
 
     const categoryForm = document.createElement("select");
-    infra.populateFormCategory(categoryForm, store.category.name);
+    infra.populateFormCategory(categoryForm, store.category.uid);
 
     const address = document.createElement("textArea");
     // address.placeholder = "Endereço";
