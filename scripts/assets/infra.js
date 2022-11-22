@@ -14,6 +14,7 @@ window.infra = {
         const activeContainer = document.getElementById(containerId);
         activeContainer.classList.add("activeInnerContainer");
     },
+
     populateStoreContainer: async (container,keyword='', idCategory='') => {
         const storesList = await serviceAPI.getStoresList(keyword, idCategory);
         for (let index = 0; index < storesList.length; index++) {
@@ -22,7 +23,7 @@ window.infra = {
                 CardFactory.CardStore({
                     store: store,
                     onClickCard: () => {
-                        popUpFactory.newPopUpContainer(store);
+                        popUpFactory.newStorePopUpContainer(store);
                         addClearPageEventTo("popUpContainer");
                     },
                 })
@@ -38,7 +39,7 @@ window.infra = {
                 CardFactory.CardCategory({
                     category: category,
                     onClickEdit: () => {
-                        window.alert("Click 1"); //TODO: Chamar a função de editar
+                        popUpFactory.newCategoryPopUpContainer(category); //TODO: Chamar a função de editar
                     },
                     onClickStores: () => {
                         window.alert("Click 2"); //TODO: Chamar páginas de lojas com filtro
@@ -82,20 +83,20 @@ window.infra = {
 
     populateFormCategory: async (categoryForm, defaultCategory = "") => {
         if (defaultCategory) {
-            const defaultOption = newCategoryOption(defaultCategory);
-            categoryForm.add(defaultOption);
+            const defaultOption = elementFactory.newCategoryOption(defaultCategory); 
+            categoryForm.add(defaultOption); 
             categoryForm.selectedIndex = 0;
         }
 
-        const categoriesList = await getCategoriesList();
-
-        for (let index = 0; index < categoriesList.length; index++) {
-            const categoryOption = categoriesList[index].name;
-            if (categoryOption != defaultCategory) {
-                categoryForm.add(newCategoryOption(categoryOption));
-            }
-        }
-    },
+        const categoriesList = await serviceAPI.getCategoriesList(); 
+     
+        for (let index = 0; index < categoriesList.length; index++) { 
+            const categoryOption = categoriesList[index]; 
+            if (categoryOption.uid != defaultCategory.uid) { 
+                categoryForm.add(elementFactory.newCategoryOption(categoryOption)); 
+            } 
+        } 
+    },     
 
     addFooterCategorySearchEvent: () => {
         let list = document.querySelector("#footer-list");
@@ -113,8 +114,8 @@ window.infra = {
 					else
 						infra.showCards(item);
 				})
-				storesContainer.classList.add("activeInnerContainer");
-				storesContainer.classList.remove("innerContainer");
+
+                infra.displayInnerContainer("storesContainer");
             }
         });
     },
@@ -131,6 +132,14 @@ window.infra = {
 		item.classList.add("card-content");
 		item.querySelector("h3").classList.add("show");
 		item.querySelector("h3").classList.remove("hide");
+	},
+
+    resetCards: (container) => {
+		const storesContainer = document.getElementById(container);
+		const storesCards = storesContainer.querySelectorAll("div");
+		storesCards.forEach(item => {
+			infra.showCards(item);
+		})
 	}
 
 

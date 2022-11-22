@@ -47,8 +47,7 @@ function addCSSFile() {
 }
 
 function infoPage(storeObject) {
-    const infoContainer = document.createElement("div");
-    infoContainer.setAttribute("id", "infoContainer");
+    const infoContainer = document.getElementById("storeInfoContainer");
 
     //DIVISÃO COM AS INFORMAÇÕES
     const divInfo = document.createElement("div");
@@ -78,13 +77,17 @@ function infoPage(storeObject) {
     // DIVISÃO COM OS BOTÕES
     const divButtons = document.createElement("div");
     divButtons.setAttribute("class", "divButtons");
-    divButtons.appendChild(closeButton());
-    divButtons.appendChild(editButton());
+    // divButtons.appendChild(closeButton());
+    divButtons.appendChild(
+        elementFactory.newButton("X", "close")
+    );
+
+    divButtons.appendChild(
+        elementFactory.newButton("Editar", "edit", editButtonOnClick)
+    );
 
     infoContainer.appendChild(divInfo);
     infoContainer.appendChild(divButtons);
-
-    return infoContainer;
 }
 
 function closeButton() {
@@ -98,21 +101,11 @@ function closeButton() {
     return bClose;
 }
 
-function editButton() {
-    const bEdit = document.createElement("div");
-    bEdit.setAttribute("id", "bEdit");
-    const edit = document.createElement("input");
-    edit.setAttribute("id", "edit");
-    edit.type = "button";
-    edit.value = "Editar";
-    edit.onclick = function () {
-        const formPage = document.querySelector("#formContainer");
-        const infoPage = document.querySelector("#infoContainer");
-        infoPage.style.display = "none";
-        formPage.style.display = "flex";
-    };
-    bEdit.appendChild(edit);
-    return bEdit;
+function editButtonOnClick() {
+    const formPage = document.getElementById("storeFormContainer");
+    const infoPage = document.getElementById("storeInfoContainer");
+    infoPage.style.display = "none";
+    formPage.style.display = "flex";
 }
 
 function saveButton() {
@@ -136,61 +129,6 @@ function addClearPageEventTo(containerId) {
             pageCard.textContent = "";
         }
     });
-}
-
-function formPage(store) {
-    const formContainer = document.createElement("div");
-    formContainer.setAttribute("id", "formContainer");
-
-    const divCloseButton = document.createElement("div");
-    divCloseButton.setAttribute("id", "divClose");
-    divCloseButton.appendChild(closeButton());
-
-    //#region Formulário
-    const divForm = document.createElement("form");
-    const name = document.createElement("input");
-    // name.placeholder = "Nome";
-    name.value = store.name;
-
-    const categoryForm = document.createElement("select");
-    populateFormCategory(categoryForm, store.category.name);
-
-    const address = document.createElement("textArea");
-    // address.placeholder = "Endereço";
-    address.value = store.address;
-    const postalCode = document.createElement("input");
-    // postalCode.placeholder = "CEP";
-    postalCode.value = store.postal_code;
-    const email = document.createElement("input");
-    // email.placeholder = "email";
-    email.value = store.email;
-    const phone = document.createElement("input");
-    // phone.placeholder = "Telefone";
-    phone.value = store.phone;
-
-    divForm.appendChild(name);
-    divForm.appendChild(categoryForm);
-    divForm.appendChild(address);
-    divForm.appendChild(postalCode);
-    divForm.appendChild(email);
-    divForm.appendChild(phone);
-    //#endregion
-
-    const divSaveButton = document.createElement("div");
-    divSaveButton.setAttribute("id", "divSave");
-    divSaveButton.appendChild(saveButton());
-
-    formContainer.appendChild(divCloseButton);
-    formContainer.appendChild(divForm);
-    formContainer.appendChild(divSaveButton);
-
-    return formContainer;
-}
-
-function newPopUpContainer(storeObject) {
-    const popUpContainer = document.getElementById("popUpContainer");
-    popUpContainer.appendChild(infoPage(storeObject));
-    popUpContainer.appendChild(formPage(storeObject));
 }
 
 function addHeader() {

@@ -150,7 +150,7 @@ nav .menu {
 	display: none;
 }
 
-#infoContainer {
+.infoPopUp {
     background-color: #F1F1F1;
     display: flex;
     justify-content: space-between;
@@ -194,7 +194,7 @@ nav .menu {
     /* padding: 4% 2%; */
 }
 
-#bClose {
+#boxclose {
     position: relative;
 }
 
@@ -238,7 +238,7 @@ nav .menu {
 
 
 
-#formContainer {
+.formPopUp {
     background-color: #F1F1F1;
     display: none;
     flex-direction: column;
@@ -256,7 +256,7 @@ nav .menu {
     right: 20px;
 }
 
-#formContainer form {
+.formPopUp form {
     width: 70%;
     display: flex;
     flex-direction: column;
@@ -264,7 +264,7 @@ nav .menu {
     margin: 2% 0;
 
 }
-#formContainer form input, form select{
+.formPopUp form input, form select{
     font-size: 15px;
     margin: 10px 0;
     height: 38px;
@@ -273,7 +273,7 @@ nav .menu {
     padding-left: 20px;
 }
 
-#formContainer form textarea {
+.formPopUp form textarea {
     font-size: 15px;
     font-family: sans-serif;
     margin: 10px 0;
