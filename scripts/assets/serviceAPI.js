@@ -183,7 +183,4 @@ window.serviceAPI = {
         return data;
     },
 
-
-
-
 }
