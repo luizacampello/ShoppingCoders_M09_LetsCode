@@ -204,6 +204,8 @@ window.serviceAPI = {
 					text: "Editou a categoria com sucesso.",
 					type: 'success'
 				});
+				infra.refresStoresCategory(catUid);
+				infra.refreshFooter();
 			},
 			onError: (data, response) => {
 				basePage.notification.create({
@@ -227,6 +229,7 @@ window.serviceAPI = {
 					text: "Deletou a categoria com sucesso.",
 					type: 'success'
 				});
+				infra.refreshFooter();
 			},
 			onError: (data, response) => {
 				basePage.notification.create({

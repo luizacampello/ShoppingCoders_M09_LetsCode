@@ -52,25 +52,35 @@ window.infra = {
     },
 
 	refreshFooter: async () => {
-		infra.createCategoriesQuantities();
+		await infra.createCategoriesQuantities();
+		console.log("aqui1");
 		setTimeout(function () {
 			infra.updateCategoriesQuantities()
-		}, 1000);
+			console.log("aqui6");
+		}, 3000);
 	},
 
 	createCategoriesQuantities: async () => {
 		const stores = await serviceAPI.getStoresList("", "");
 		const categories = await serviceAPI.getCategoriesList("");
+		setTimeout(() => {
 
-		categories.forEach(element => {
-			element.quantity = 0;
-			for (i = 0; i < stores.length; i++) {
-				if (element.uid == stores[i].category.uid)
-					element.quantity++;
-			}
-		});
-
-		localStorage.setItem("CategoriesQuantities", JSON.stringify(categories));
+			console.log("aqui2");
+			console.log(stores);
+			categories.forEach(element => {
+				element.quantity = 0;
+				for (i = 0; i < stores.length; i++) {
+					if (element.uid == stores[i].category.uid)
+						element.quantity++;
+				}
+			});
+			console.log(categories);
+			console.log("aqui3");
+			setTimeout(() => {
+				localStorage.setItem("CategoriesQuantities", JSON.stringify(categories));
+				console.log("aqui4");
+			}, 500)
+		}, 2000);
 	},
 
     updateCategoriesQuantities: () => {
@@ -90,6 +100,7 @@ window.infra = {
 				list.appendChild(listItem);
 			}
 		})
+		console.log("aqui5");
     },
 
     populateFormCategory: async (categoryForm, defaultCategory = "") => {
@@ -216,5 +227,9 @@ window.infra = {
         newStore.style.display = "flex";
     },
 
-
+	refreshStoresCategory: (catUid) => {
+		let stores = serviceAPI.getStoresList("", catUid);
+		console.log(stores);
+		console.log("cheguei aqui");
+	}
 }
