@@ -53,21 +53,6 @@ function addJSScriptFiles(jsFiles) {
     }
 }
 
-function closeButton() {
-    const bClose = document.createElement("div");
-    bClose.setAttribute("id", "bClose");
-    const close = document.createElement("input");
-    close.setAttribute("id", "close");
-    close.type = "button";
-    close.value = "X";
-    bClose.appendChild(close);
-    return bClose;
-}
-
-function deleteButtonOnClick(objectId) {
-
-}
-
 function saveButtonOnClick(objectId = null){
     const saveMessage = document.getElementsByClassName("saveMessage");
     if(objectId){
@@ -89,18 +74,6 @@ function putStore (objectId){
 
 function postStore () {
 
-}
-
-function saveButton() {
-    const bSave = document.createElement("div");
-    bSave.setAttribute("id", "bEdit");
-    const save = document.createElement("input");
-    save.setAttribute("id", "save");
-    save.type = "Button";
-    save.value = "Salvar";
-
-    bSave.appendChild(save);
-    return bSave;
 }
 
 function deleteButton(){

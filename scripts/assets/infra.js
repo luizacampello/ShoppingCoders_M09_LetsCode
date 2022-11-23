@@ -181,8 +181,28 @@ window.infra = {
         // TODO: Chamar a pagina com todas as lojas
     },
 
+
+
+    // OnClick de Category
+
+    getCategoryFormElements: (form) => {
+        const category = {};
+        category.uid = form.getAttribute("uidcategory");
+        category.code = form.elements["code"].value;
+        category.name = form.elements["name"].value;
+        console.log(category);
+        return category;
+    },
+
+    updateCategoryButtonOnClick: () => {
+        const form = document.getElementById("storeForm");
+        const category = infra.getCategoryFormElements(form);
+
+        serviceAPI.updateCategory(category);
+    },
+
     deleteCategoryButtonOnClick: () => {
-        
+
 
     },
 

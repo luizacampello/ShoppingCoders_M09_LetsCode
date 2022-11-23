@@ -217,7 +217,10 @@ window.serviceAPI = {
         return categories;
     },
 
-    updateCategory: async (catUid, catCode, catName) => {
+    updateCategory: async (category) => {
+		//verificar se posso passar a category e pegar aqui os itens separados category.uid e afins
+		//MODIFICANDO O UPDATE CATEGORY
+
         //validar se code e name são diferentes de vazio, caso contrário abrir notificação na tela
         //validar qual o campo está sendo alterado, buscando o objeto no getlist via uid
         //fazendo o comparativo no currObj e newObj
@@ -225,9 +228,9 @@ window.serviceAPI = {
 
         let url = serviceAPI.BASE_URL + "/category";
         let body = serviceAPI.uidGroupDefinition;
-        body.uid = catUid;
-        body.code = catCode;
-        body.name = catName;
+        body.uid = category.uid;
+        body.code = category.code;
+        body.name = category.name;
         delete body.text;
 		await serviceAPI.fetchRequisition({
 			fetchMethod: "PUT",

@@ -30,6 +30,9 @@ window.popUpFactory = {
 		popUpFactory.updateCategoryFormPopUp(category);
 	},
 
+
+	//Store
+
 	updateStoreFormPopUp: (store) => {
 		const formContainer = document.getElementById("storeFormContainer");
 
@@ -40,19 +43,16 @@ window.popUpFactory = {
 		);
 	
 		const storeForm = elementFactory.createHtmlTag("form", "", "storeForm");
-		storeForm.setAttribute("uidstore", store.uid)
+		storeForm.setAttribute("uidstore", store.uid);
 
-		const name = elementFactory.newFormOption("name", "Nome", store.name)
-
+		const name = elementFactory.newFormOption("name", "Nome", store.name);
 		const categoryForm = document.createElement("select");
 		infra.populateFormCategory(categoryForm, store.category);
 		categoryForm.name = "categorySelect";
-
 		const address = document.createElement("textArea");
 		address.placeholder = "Endereço";
 		address.value = store.address;
 		address.name = "address";
-
 		const postalCode = elementFactory.newFormOption("postalCode", "CEP", store.postal_code)
 		const email = elementFactory.newFormOption("email","email@email.com", store.email, "email")
 		const phone = elementFactory.newFormOption("phone","(xx) xxxx-xxxx", store.phone, "tel")
@@ -158,6 +158,9 @@ window.popUpFactory = {
 		infoContainer.appendChild(divButtons);
 	},
 
+
+	//Category
+
 	updateCategoryFormPopUp: (category) => {
 		const formContainer = document.getElementById("categoryFormContainer");
 
@@ -167,16 +170,18 @@ window.popUpFactory = {
 			elementFactory.newButton("X", "close")
 		);
 
-		const divForm = document.createElement("form");
+		const categoryForm = elementFactory.createHtmlTag("form", "", "categoryForm");
+		categoryForm.setAttribute("uidcategory", category.uid);
+
 		const idCategory = document.createElement("p")
 		idCategory.textContent = category.uid;
 		const code = elementFactory.newFormOption("Código da Categoria", category.code)
 		const name = elementFactory.newFormOption("Nome da Categoria", category.name)
 		const saveMessage = elementFactory.createHtmlTag("p", "saveMessage", "saveMessage");
 		
-		divForm.appendChild(code);
-		divForm.appendChild(name);
-		divForm.appendChild(saveMessage);
+		categoryForm.appendChild(code);
+		categoryForm.appendChild(name);
+		categoryForm.appendChild(saveMessage);
 
 		const divButtons = document.createElement("div");
 		divButtons.setAttribute("id", "divButtons");
@@ -188,8 +193,19 @@ window.popUpFactory = {
 		);
 
 		formContainer.appendChild(divCloseButton);
-		formContainer.appendChild(divForm);
+		formContainer.appendChild(categoryForm);
 		formContainer.appendChild(divButtons);
+	},
+
+	newCategoryFormPopUp: () => {
+		const formContainer = document.getElementById("categoryFormContainer");
+
+		const divCloseButton = document.createElement("div");
+		divCloseButton.setAttribute("id", "divClose");
+		divCloseButton.appendChild(
+			elementFactory.newButton("X", "close")
+		);
+
 	},
 
 }
