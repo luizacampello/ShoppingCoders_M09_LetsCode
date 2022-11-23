@@ -195,15 +195,20 @@ window.infra = {
     },
 
     updateCategoryButtonOnClick: () => {
-        const form = document.getElementById("storeForm");
+        const form = document.getElementById("categoryForm");
         const category = infra.getCategoryFormElements(form);
 
         serviceAPI.updateCategory(category);
     },
 
     deleteCategoryButtonOnClick: () => {
+        const form = document.getElementById("categoryForm");
+        const uidcategory = form.getAttribute("uidcategory");
 
-
+        serviceAPI.deleteCategory(uidcategory);
+        const pageCard = document.getElementById("popUpContainer");
+        pageCard.innerHTML = "";
+        pageCard.classList.remove("show");
     },
 
 }
