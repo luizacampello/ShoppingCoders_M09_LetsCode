@@ -235,16 +235,6 @@ nav .menu {
   cursor: pointer;
 }
 
-
-/* ver como colocar o hover no click :)  */
-#edit :hover {
-  color: burlywood;
-  background-color: aliceblue;
-}
-
-
-
-
 .formPopUp {
   background-color: #F1F1F1;
   display: none;

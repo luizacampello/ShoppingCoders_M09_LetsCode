@@ -68,18 +68,6 @@ function saveButtonOnClick(objectId = null){
     }
 }
 
-function putStore (objectId){
-
-}
-
-function postStore () {
-
-}
-
-function deleteButton(){
-
-}
-
 function addClearPageEventTo(containerId) {
     const pageCard = document.getElementById(containerId);
     pageCard.classList.add("show");

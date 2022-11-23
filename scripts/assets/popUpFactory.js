@@ -172,6 +172,7 @@ window.popUpFactory = {
 
 		const code = elementFactory.newFormOption("code", "Código da Categoria", category.code);
 		const name = elementFactory.newFormOption("name", "Nome da Categoria", category.name);
+		
 		const saveMessage = elementFactory.createHtmlTag("p", "saveMessage", "saveMessage");
 		
 		categoryForm.appendChild(code);

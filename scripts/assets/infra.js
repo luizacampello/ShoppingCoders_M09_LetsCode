@@ -41,7 +41,8 @@ window.infra = {
                 cardService.CardCategory({
                     category: category,
                     onClickEdit: () => {
-                        popUpFactory.newCategoryPopUpContainer(category); //TODO: Chamar a função de editar
+                        popUpFactory.newCategoryPopUpContainer(category);
+                        infra.addClearPageEventTo("popUpContainer"); 
                     },
                     onClickStores: () => {
                         window.alert("Click 2"); //TODO: Chamar páginas de lojas com filtro
@@ -130,6 +131,7 @@ window.infra = {
         infoPage.style.display = "none";
         formPage.style.display = "flex";
     },
+
 
     addClearPageEventTo: (containerId) => {
         const pageCard = document.getElementById(containerId);
