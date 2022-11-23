@@ -1,5 +1,5 @@
 window.popUpFactory = {
-	storePopUpContainer: (store) => {
+	viewStorePopUpContainer: (store) => {
 		const popUpContainer = document.getElementById("popUpContainer");
 		const infoContainer = elementFactory.createHtmlTag("div", "infoPopUp", "storeInfoContainer");
 		const formContainer = elementFactory.createHtmlTag("div", "formPopUp", "storeFormContainer");
@@ -72,11 +72,16 @@ window.popUpFactory = {
 			elementFactory.newButton("Salvar", "save", infra.updateStoreButtonOnClick)
 		);	
 		
-		//TODO: falta o botão de delete
+		const divDeleteButton = elementFactory.createHtmlTag("div", "", "divSave"); //TODO: arrumar o botao
+		divDeleteButton.setAttribute("id", "divDelete");
+		divDeleteButton.appendChild(
+			elementFactory.newButton("Remover Loja", "delete", infra.deleteStoreButtonOnClick)
+		);	
 
 		formContainer.appendChild(divCloseButton);
 		formContainer.appendChild(storeForm);
 		formContainer.appendChild(divSaveButton);
+		formContainer.appendChild(divDeleteButton);
 	},	
 
 	newStoreFormPopUp: () => {

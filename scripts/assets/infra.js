@@ -24,7 +24,7 @@ window.infra = {
                 cardService.CardStore({
                     store: store,
                     onClickCard: () => {
-                        popUpFactory.storePopUpContainer(store);
+                        popUpFactory.viewStorePopUpContainer(store);
                         infra.addClearPageEventTo("popUpContainer");
                     },
                 })
@@ -165,9 +165,19 @@ window.infra = {
         store.postalCode = form.elements["postalCode"].value;
         store.email = form.elements["email"].value;
         store.phone = form.elements["phone"].value;
-        console.log(store);
 
         return store;
+    },
+
+    deleteStoreButtonOnClick: () => {
+        const form = document.getElementById("storeForm");
+        const uidstore = form.getAttribute("uidstore");
+
+        serviceAPI.deleteStore(uidstore);
+        const pageCard = document.getElementById("popUpContainer");
+        pageCard.innerHTML = "";
+        pageCard.classList.remove("show");
+        // TODO: Chamar a pagina com todas as lojas
     },
 
 }
