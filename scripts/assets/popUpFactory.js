@@ -6,16 +6,17 @@ window.popUpFactory = {
 
 		popUpContainer.appendChild(infoContainer);	
 		popUpContainer.appendChild(formContainer);	
-		
+		popUpContainer.classList.add("show");
 		popUpFactory.storeInfoPopUp(store);	
 		popUpFactory.updateStoreFormPopUp(store);
 	},
 
 	newStorePopUpContainer: () => {
 		const popUpContainer = document.getElementById("popUpContainer");
-		const formContainer = elementFactory.createHtmlTag("div", "formPopUp", "storeFormContainer");
+		const formContainer = elementFactory.createHtmlTag("div", "formPopUp", "newStoreFormContainer");
 
-		popUpContainer.appendChild(formContainer);	
+		popUpContainer.appendChild(formContainer);
+		popUpContainer.classList.add("show");	
 		
 		popUpFactory.newStoreFormPopUp();
 	},
@@ -82,7 +83,7 @@ window.popUpFactory = {
 	},	
 
 	newStoreFormPopUp: () => {
-		const formContainer = document.getElementById("storeFormContainer");
+		const formContainer = document.getElementById("newStoreFormContainer");
 	
 		const divCloseButton = document.createElement("div");
 		divCloseButton.setAttribute("id", "divClose");
@@ -101,8 +102,8 @@ window.popUpFactory = {
 		address.placeholder = "Endereço";
 		address.name = "address";
 		const postalCode = elementFactory.newFormOption("postalCode", "CEP")
-		const email = elementFactory.newFormOption("email","email@email.com", "email")
-		const phone = elementFactory.newFormOption("phone","(xx) xxxx-xxxx", "tel")
+		const email = elementFactory.newFormOption("email","email@email.com", "", "email")
+		const phone = elementFactory.newFormOption("phone","(xx) xxxx-xxxx", "", "tel")
 	
 		storeForm.appendChild(name);
 		storeForm.appendChild(categoryOption);
@@ -114,7 +115,7 @@ window.popUpFactory = {
 		const divSaveButton = elementFactory.createHtmlTag("div", "", "divSave"); //TODO: arrumar o botao
 		divSaveButton.setAttribute("id", "divSave");
 		divSaveButton.appendChild(
-			elementFactory.newButton("Salvar", "save", infra.newStoreButtonOnClick)
+			elementFactory.newButton("Salvar", "save", infra.createStoreButtonOnClick)
 		);
 	
 		formContainer.appendChild(divCloseButton);
