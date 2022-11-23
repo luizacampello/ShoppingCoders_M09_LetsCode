@@ -33,6 +33,7 @@ window.infra = {
 
     populateCategoryContainer: async (container, keyword='') => {
         const categoryList = await serviceAPI.getCategoriesList(keyword);
+
         for (let index = 0; index < categoryList.length; index++) {
             console.log("Hey função chamada")
             const category = categoryList[index];
@@ -52,13 +53,19 @@ window.infra = {
         };
     },
 
+	refreshFooter: async () => {
+		infra.createCategoriesQuantities();
+		setTimeout(function () {
+			infra.updateCategoriesQuantities()
+		}, 1000);
+	},
+
 	createCategoriesQuantities: async () => {
 		const stores = await serviceAPI.getStoresList("", "");
 		const categories = await serviceAPI.getCategoriesList("");
 
 		categories.forEach(element => {
 			element.quantity = 0;
-
 			for (i = 0; i < stores.length; i++) {
 				if (element.uid == stores[i].category.uid)
 					element.quantity++;
@@ -111,7 +118,7 @@ window.infra = {
             if (event.target.tagName == 'LI') {
 				//inserir aqui a alteração na busca
 
-				const storesContainer = document.getElementById("storesContainer"); 
+				const storesContainer = document.getElementById("storesContainer");
 				const storesCards = storesContainer.querySelectorAll("div"); //TODO: Passar essa parte pro Card Service
 				storesCards.forEach(item => {
 					if (item.firstChild.innerText != event.target.getAttribute("name"))
@@ -220,7 +227,7 @@ window.infra = {
     },
 
     addLinksToHeader: () => { // TODO: adicionar o restante dos clicks
-        
+
         // const linkCategoryContainer = document.getElementById("linkCategoryContainer");
         // linkCategoryContainer.addEventListener("click", function);
 
@@ -233,7 +240,7 @@ window.infra = {
         // const linkStoreContainer = document.getElementById("linkStoreContainer");
         // linkStoreContainer.addEventListener("click", function);
 
-        const linkPopupNewStore = document.getElementById("linkPopupNewStore");  
+        const linkPopupNewStore = document.getElementById("linkPopupNewStore");
         linkPopupNewStore.addEventListener("click", infra.linkNewStoreOnClick);
 
         const linkStores = document.getElementById("linkStores");

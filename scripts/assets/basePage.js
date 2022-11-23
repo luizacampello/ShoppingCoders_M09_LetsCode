@@ -37,11 +37,11 @@ window.basePage = {
         const footer = elementFactory.createHtmlTag("footer", "footer", "footer");
         const title = elementFactory.createHtmlTagAndSetContent("p", "Categorias", "footer-title");
         const footerList = elementFactory.createHtmlTagAndSetContent("ul", "", "footer-list");
-        
+
         footer.appendChild(title);
         footer.appendChild(footerList);
         document.body.appendChild(footer);
-        
+
         infra.createCategoriesQuantities();
         infra.updateCategoriesQuantities();
         infra.addFooterCategorySearchEvent();

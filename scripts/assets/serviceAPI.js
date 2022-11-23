@@ -49,8 +49,7 @@ window.serviceAPI = {
 					text: "Criou o estabelecimento com sucesso.",
 					type: 'success'
 				});
-				infra.createCategoriesQuantities();
-				infra.updateCategoriesQuantities();
+				infra.refreshFooter();
 			},
 			onError: (data, response) => {
 				basePage.notification.create({
@@ -73,37 +72,6 @@ window.serviceAPI = {
 
         return stores;
     },
-
-	/*createStore: async (storeAddress, storePhone, storeName, categoryUid, storePostal_code, storeEmail) => {
-        let url = serviceAPI.BASE_URL + "/establishment";
-        let body = serviceAPI.uidGroupDefinition;
-        body.address = storeAddress;
-		body.phone = storePhone;
-        body.name = storeName;
-		body.postal_code = storePostal_code;
-		body.email = storeEmail;
-		body.category = {
-			"uid": categoryUid
-		};
-        delete body.text;
-		await serviceAPI.fetchRequisition({
-			fetchMethod: "POST",
-			url: url,
-			body: body,
-			onSuccess: (data, response) => {
-				basePage.notification.create({
-					text: "Criou o estabelecimento com sucesso.",
-					type: 'success'
-				});
-			},
-			onError: (data, response) => {
-				basePage.notification.create({
-					text: "Grupo ou categoria não encontrado.",
-					type: 'error'
-				});
-			}
-		})
-    },*/
 
 	updateStore: async (store) => {
 		console.log(store);
@@ -129,8 +97,7 @@ window.serviceAPI = {
 					text: "Editou o estabelecimento com sucesso.",
 					type: 'success'
 				});
-				infra.createCategoriesQuantities();
-				infra.updateCategoriesQuantities();
+				infra.refreshFooter();
 			},
 			onError: (data, response) => {
 				basePage.notification.create({
@@ -156,8 +123,7 @@ window.serviceAPI = {
 					text: "Deletou a loja com sucesso.",
 					type: 'success'
 				});
-				infra.createCategoriesQuantities();
-				infra.updateCategoriesQuantities();
+				infra.refreshFooter();
 			},
 			onError: (data, response) => {
 				basePage.notification.create({
