@@ -17,14 +17,15 @@ window.infra = {
 
     populateStoreContainer: async (container,keyword='', idCategory='') => {
         const storesList = await serviceAPI.getStoresList(keyword, idCategory);
+
         for (let index = 0; index < storesList.length; index++) {
             const store = storesList[index];
             container.appendChild(
-                CardFactory.CardStore({
+                cardService.CardStore({
                     store: store,
                     onClickCard: () => {
-                        popUpFactory.newStorePopUpContainer(store);
-                        addClearPageEventTo("popUpContainer");
+                        popUpFactory.viewStorePopUpContainer(store);
+                        infra.addClearPageEventTo("popUpContainer");
                     },
                 })
             );
@@ -33,10 +34,11 @@ window.infra = {
 
     populateCategoryContainer: async (container, keyword='') => {
         const categoryList = await serviceAPI.getCategoriesList(keyword);
+        
         for (let index = 0; index < categoryList.length; index++) {
             const category = categoryList[index];
             container.appendChild(
-                CardFactory.CardCategory({
+                cardService.CardCategory({
                     category: category,
                     onClickEdit: () => {
                         popUpFactory.newCategoryPopUpContainer(category); //TODO: Chamar a função de editar
@@ -55,11 +57,13 @@ window.infra = {
 
 		categories.forEach(element => {
 			element.quantity = 0;
+
 			for (i = 0; i < stores.length; i++) {
 				if (element.uid == stores[i].category.uid)
 					element.quantity++;
 			}
 		});
+
 		localStorage.setItem("CategoriesQuantities", JSON.stringify(categories));
 	},
 
@@ -106,14 +110,13 @@ window.infra = {
             if (event.target.tagName == 'LI') {
 				//inserir aqui a alteração na busca
 
-
-				const storesContainer = document.getElementById("storesContainer");
-				const storesCards = storesContainer.querySelectorAll("div");
+				const storesContainer = document.getElementById("storesContainer"); 
+				const storesCards = storesContainer.querySelectorAll("div"); //TODO: Passar essa parte pro Card Service
 				storesCards.forEach(item => {
 					if (item.firstChild.innerText != event.target.getAttribute("name"))
-						infra.hideCards(item);
+                        cardService.hideCards(item);
 					else
-						infra.showCards(item);
+                        cardService.showCards(item);
 				})
 
                 infra.displayInnerContainer("storesContainer");
@@ -121,27 +124,61 @@ window.infra = {
         });
     },
 
-	hideCards: (item) => {
-		item.classList.add("hide");
-		item.classList.remove("card-content");
-		item.querySelector("h3").classList.add("hide");
-		item.querySelector("h3").classList.remove("show");
-	},
+    editButtonOnClick: () => {
+        const formPage = document.getElementById("storeFormContainer");
+        const infoPage = document.getElementById("storeInfoContainer");
+        infoPage.style.display = "none";
+        formPage.style.display = "flex";
+    },
 
-	showCards: (item) => {
-		item.classList.remove("hide");
-		item.classList.add("card-content");
-		item.querySelector("h3").classList.add("show");
-		item.querySelector("h3").classList.remove("hide");
-	},
+    addClearPageEventTo: (containerId) => {
+        const pageCard = document.getElementById(containerId);
+        pageCard.classList.add("show");
+        pageCard.addEventListener("click", (e) => {
+            if (e.target.id == containerId || e.target.id == "close") {
+                pageCard.classList.remove("show");
+                pageCard.textContent = "";
+            }
+        });
+    },
 
-    resetCards: (container) => {
-		const storesContainer = document.getElementById(container);
-		const storesCards = storesContainer.querySelectorAll("div");
-		storesCards.forEach(item => {
-			infra.showCards(item);
-		})
-	}
+    updateStoreButtonOnClick: () => {
+        const form = document.getElementById("storeForm");
+        const store = infra.getStoreFormElements(form);
 
+        serviceAPI.updateStore(store);
+    },
+
+    createStoreButtonOnClick: () => {
+        const form = document.getElementById("storeForm");
+        const store = infra.getStoreFormElements(form);
+
+        serviceAPI.createStore(store);
+    },
+
+    getStoreFormElements: (form) => {
+        const store = {};
+        store.uid = form.getAttribute("uidstore");
+        store.name = form.elements["name"].value;
+        store.categoryUid = form.elements["categorySelect"].value;
+        store.address = form.elements["address"].value;
+        store.postalCode = form.elements["postalCode"].value;
+        store.email = form.elements["email"].value;
+        store.phone = form.elements["phone"].value;
+        console.log(store);
+
+        return store;
+    },
+
+    deleteStoreButtonOnClick: () => {
+        const form = document.getElementById("storeForm");
+        const uidstore = form.getAttribute("uidstore");
+
+        serviceAPI.deleteStore(uidstore);
+        const pageCard = document.getElementById("popUpContainer");
+        pageCard.innerHTML = "";
+        pageCard.classList.remove("show");
+        // TODO: Chamar a pagina com todas as lojas
+    },
 
 }

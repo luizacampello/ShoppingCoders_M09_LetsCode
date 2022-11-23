@@ -5,6 +5,14 @@
   padding: 0;
 }
 
+@font-face {
+  font-family: 'Baleny';
+  src: url("./balenyseriffree/BalenySerifFree/Baleny\ Serif\ Free.otf") format('opentype');
+  font-weight: normal;
+  font-style: normal ;
+}
+
+
 header {
   position: fixed;
   width: 100vw;
@@ -16,7 +24,7 @@ header {
 header nav {
   display: flex;
   justify-content: space-between;
-  font-family: 'Noto Serif', serif;
+  font-family: 'Baleny', 'Noto Serif', serif;
   padding: 2rem;
 }
 
@@ -159,26 +167,26 @@ nav .menu {
     padding: 4%;
 }
 
-.divInfo {
+.storeInfo {
     /* background-color: aqua; */
     height: 100%;
     margin-right: 3%;
     /* padding: 5%; */
 }
 
-.divInfo h2 {
+.storeInfo h2 {
     font-size: 3rem;
     font-weight: bolder;
     margin-top: 0;
 }
 
-.divInfo h3 {
+.storeInfo h3 {
     margin-top: -3%;
     font-size: 1.2rem;
     color: darkgoldenrod;
 }
 
-.divInfo p {
+.storeInfo p {
     color: #484D52;
     font-size: 1.1rem;
     line-height: 1.5;
@@ -196,9 +204,6 @@ nav .menu {
 
 #boxclose {
     position: relative;
-}
-
-#bEdit {
 }
 
 #close {
@@ -303,6 +308,15 @@ nav .menu {
     background-color: darkcyan;
     color: white;
     width: 100%;
+}
+
+.saveMessage{
+  display: none;
+  align-self: center;
+  color: lightseagreen;
+  font-family: 'Segoe UI', Tahoma;
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
 .innerContainer{

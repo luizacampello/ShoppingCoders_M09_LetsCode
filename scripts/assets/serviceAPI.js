@@ -34,7 +34,7 @@ window.serviceAPI = {
         body.address = store.address;
 		body.phone = store.phone;
         body.name = store.name;
-		body.postal_code = store.postal_code;
+		body.postal_code = store.postalCode;
 		body.email = store.email;
 		body.category = {
 			"uid": store.categoryUid
@@ -113,9 +113,11 @@ window.serviceAPI = {
         body.address = store.address;
 		body.phone = store.phone;
         body.name = store.name;
-		body.postal_code = store.postal_code;
+		body.postal_code = store.postalCode;
 		body.email = store.email;
-		body.category = store.category;
+        body.category = {
+			"uid": store.categoryUid
+		};
         delete body.text;
 		console.log(body);
 		await serviceAPI.fetchRequisition({

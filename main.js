@@ -1,25 +1,24 @@
 (() => {
-    addCSSFile();
-
-    for (const file of [
+    
+    const jsFiles = [
         "assets/serviceAPI.js",
         "assets/basePage.js",
         "assets/popUpFactory.js",
         "assets/infra.js",
         "assets/elementFactory.js",
-        "assets/cardFactory.js",
+        "assets/cardService.js",
+        "assets/basePage.js",
         "styles/cardStyle.js",
-        "assets/basePage.js"]) {
-        const script = document.createElement("script");
-        script.setAttribute("src", `scripts/${file}`);
-        document.body.appendChild(script);
-    }
+    ];
+
+    addCSSFile();
+    addJSScriptFiles(jsFiles)
 
     window.addEventListener("load", () => {
         addHeader();
         basePage.createMainContainer();
         basePage.addFooter();
-
+        
 
         const storesContainer = document.getElementById('storesContainer');
         const categoriesContainer = document.getElementById('categoriesContainer');
@@ -46,48 +45,12 @@ function addCSSFile() {
     document.head.appendChild(cssLinkIcon);
 }
 
-function infoPage(storeObject) {
-    const infoContainer = document.getElementById("storeInfoContainer");
-
-    //DIVISÃO COM AS INFORMAÇÕES
-    const divInfo = document.createElement("div");
-    divInfo.setAttribute("class", "divInfo");
-
-    const nameStore = document.createElement("h2");
-    const categoryStore = document.createElement("h3");
-    const addresStore = document.createElement("p");
-    const cepStore = document.createElement("p");
-    const emailStore = document.createElement("p");
-    const phoneStore = document.createElement("p");
-
-    nameStore.textContent = storeObject.name;
-    categoryStore.textContent = storeObject.category.name;
-    addresStore.textContent = storeObject.address;
-    cepStore.textContent = storeObject.postal_code;
-    emailStore.textContent = storeObject.email;
-    phoneStore.textContent = storeObject.phone;
-
-    divInfo.appendChild(nameStore);
-    divInfo.appendChild(categoryStore);
-    divInfo.appendChild(addresStore);
-    divInfo.appendChild(cepStore);
-    divInfo.appendChild(emailStore);
-    divInfo.appendChild(phoneStore);
-
-    // DIVISÃO COM OS BOTÕES
-    const divButtons = document.createElement("div");
-    divButtons.setAttribute("class", "divButtons");
-    // divButtons.appendChild(closeButton());
-    divButtons.appendChild(
-        elementFactory.newButton("X", "close")
-    );
-
-    divButtons.appendChild(
-        elementFactory.newButton("Editar", "edit", editButtonOnClick)
-    );
-
-    infoContainer.appendChild(divInfo);
-    infoContainer.appendChild(divButtons);
+function addJSScriptFiles(jsFiles) {
+    for (const file of jsFiles) {
+        const script = document.createElement("script");
+        script.setAttribute("src", `scripts/${file}`);
+        document.body.appendChild(script);
+    }
 }
 
 function closeButton() {
@@ -101,11 +64,31 @@ function closeButton() {
     return bClose;
 }
 
-function editButtonOnClick() {
-    const formPage = document.getElementById("storeFormContainer");
-    const infoPage = document.getElementById("storeInfoContainer");
-    infoPage.style.display = "none";
-    formPage.style.display = "flex";
+function deleteButtonOnClick(objectId) {
+
+}
+
+function saveButtonOnClick(objectId = null){
+    const saveMessage = document.getElementsByClassName("saveMessage");
+    if(objectId){
+        //PUT
+        putStore(objectId); //Função vazia
+        saveMessage.textContent = "Atualizado com sucesso!"
+        saveMessage.classList.add("show");
+    } else {
+        //POST
+        postSotre (); //Função vazia
+        saveMessage.textContent = "Criação realizada com sucesso!"
+        saveMessage.classList.add("show");
+    }
+}
+
+function putStore (objectId){
+
+}
+
+function postSotre () {
+
 }
 
 function saveButton() {
@@ -118,6 +101,10 @@ function saveButton() {
 
     bSave.appendChild(save);
     return bSave;
+}
+
+function deleteButton(){
+
 }
 
 function addClearPageEventTo(containerId) {
