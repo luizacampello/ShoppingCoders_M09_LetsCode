@@ -25,7 +25,7 @@ window.infra = {
                     store: store,
                     onClickCard: () => {
                         popUpFactory.viewStorePopUpContainer(store);
-                        infra.addClearPageEventTo("popUpContainer");
+                        //infra.addClearPageEventTo();
                     },
                 })
             );
@@ -131,9 +131,9 @@ window.infra = {
         formPage.style.display = "flex";
     },
 
-    addClearPageEventTo: (containerId) => {
+    addClearPageEventTo: () => {
+        const containerId = "popUpContainer";
         const pageCard = document.getElementById(containerId);
-        pageCard.classList.add("show");
         pageCard.addEventListener("click", (e) => {
             if (e.target.id == containerId || e.target.id == "close") {
                 pageCard.classList.remove("show");
@@ -180,5 +180,35 @@ window.infra = {
         pageCard.classList.remove("show");
         // TODO: Chamar a pagina com todas as lojas
     },
+
+    addLinksToHeader: () => { // TODO: adicionar o restante dos clicks
+        
+        // const linkCategoryContainer = document.getElementById("linkCategoryContainer");
+        // linkCategoryContainer.addEventListener("click", function);
+
+        // const linkPopupNewCategory = document.getElementById("linkPopupNewCategory");
+        // linkPopupNewCategory.addEventListener("click", function);
+
+        // const linkCategories = document.getElementById("linkCategories");
+        // linkCategories.addEventListener("click", function);
+
+        // const linkStoreContainer = document.getElementById("linkStoreContainer");
+        // linkStoreContainer.addEventListener("click", function);
+
+        const linkPopupNewStore = document.getElementById("linkPopupNewStore");  
+        linkPopupNewStore.addEventListener("click", infra.linkNewStoreOnClick);
+
+        // const linkStores = document.getElementById("linkStores");
+        // linkStores.addEventListener("click", function);
+
+
+    },
+
+    linkNewStoreOnClick: () => {
+        popUpFactory.newStorePopUpContainer();
+        const newStore = document.getElementById("newStoreFormContainer");
+        newStore.style.display = "flex";
+    },
+
 
 }
