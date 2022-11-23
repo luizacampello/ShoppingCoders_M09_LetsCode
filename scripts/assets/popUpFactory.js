@@ -21,7 +21,7 @@ window.popUpFactory = {
 		popUpFactory.newStoreFormPopUp();
 	},
 
-	CategoryPopUpContainer: (category) => {
+	categoryPopUpContainer: (category) => {
 		const popUpContainer = document.getElementById("popUpContainer");
 		const formContainer = elementFactory.createHtmlTag("div", "formPopUp", "categoryFormContainer");
 
@@ -191,10 +191,10 @@ window.popUpFactory = {
 		const divButtons = document.createElement("div");
 		divButtons.setAttribute("id", "divButtons");
 		divButtons.appendChild(
-			elementFactory.newButton("Deletar", "delete", deleteButtonOnClick)
+			elementFactory.newButton("Deletar", "delete", infra.deleteCategoryButtonOnClick)
 		);
 		divButtons.appendChild(
-			elementFactory.newButton("Salvar", "save", saveButtonOnClick)
+			elementFactory.newButton("Salvar", "save", infra.updateCategoryButtonOnClick)
 		);
 
 		formContainer.appendChild(divCloseButton);

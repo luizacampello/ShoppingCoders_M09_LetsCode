@@ -40,8 +40,9 @@ window.infra = {
                 cardService.CardCategory({
                     category: category,
                     onClickEdit: () => {
-                        popUpFactory.newCategoryPopUpContainer(category);
-                        // infra.addClearPageEventTo("popUpContainer"); 
+                        popUpFactory.categoryPopUpContainer(category);
+                        const formCategory = document.getElementById("categoryFormContainer");
+                        formCategory.style.display = "flex";
                     },
                     onClickStores: () => {
                         window.alert("Click 2"); //TODO: Chamar páginas de lojas com filtro
@@ -255,8 +256,8 @@ window.infra = {
 
     linkNewCategoryOnClick: () => {
         popUpFactory.newCategoryPopUpContainer();
-        const newStore = document.getElementById("newCategoryFormContainer");
-        newStore.style.display = "flex";
+        const newCategory = document.getElementById("newCategoryFormContainer");
+        newCategory.style.display = "flex";
     },
 
     linkCardsCategoryOnClick: () => {
