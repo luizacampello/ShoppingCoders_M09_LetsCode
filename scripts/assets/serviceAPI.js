@@ -28,27 +28,142 @@ window.serviceAPI = {
         return await request.json();
     },
 
-    getCategoriesList: async (keyword = "") => {
-        let url = serviceAPI.BASE_URL + "/category/list";
-        let body =  serviceAPI.uidGroupDefinition;
-        body.text = keyword;
+	createStore: async (store) => {
+        let url = serviceAPI.BASE_URL + "/establishment";
+        let body = serviceAPI.uidGroupDefinition;
+        body.address = store.address;
+		body.phone = store.phone;
+        body.name = store.name;
+		body.postal_code = store.postal_code;
+		body.email = store.email;
+		body.category = {
+			"uid": store.categoryUid
+		};
+        delete body.text;
+		await serviceAPI.fetchRequisition({
+			fetchMethod: "POST",
+			url: url,
+			body: body,
+			onSuccess: (data, response) => {
+				basePage.notification.create({
+					text: "Criou o estabelecimento com sucesso.",
+					type: 'success'
+				});
+				infra.createCategoriesQuantities();
+				infra.updateCategoriesQuantities();
+			},
+			onError: (data, response) => {
+				basePage.notification.create({
+					text: "Grupo ou categoria não encontrado.",
+					type: 'error'
+				});
+			}
+		});
 
-        const categories = await serviceAPI.fetchPostRequisition(url, body);
-        return categories;
     },
 
     getStoresList: async (keyWord, uidCategory) => {
         let url = serviceAPI.BASE_URL + "/establishment/list";
         let body = serviceAPI.uidGroupDefinition;
         body.text = keyWord;
-
         if (uidCategory) {
             body.category = {"uid": uidCategory};
         }
-
         let stores = await serviceAPI.fetchPostRequisition(url, body);
 
         return stores;
+    },
+
+	/*createStore: async (storeAddress, storePhone, storeName, categoryUid, storePostal_code, storeEmail) => {
+        let url = serviceAPI.BASE_URL + "/establishment";
+        let body = serviceAPI.uidGroupDefinition;
+        body.address = storeAddress;
+		body.phone = storePhone;
+        body.name = storeName;
+		body.postal_code = storePostal_code;
+		body.email = storeEmail;
+		body.category = {
+			"uid": categoryUid
+		};
+        delete body.text;
+		await serviceAPI.fetchRequisition({
+			fetchMethod: "POST",
+			url: url,
+			body: body,
+			onSuccess: (data, response) => {
+				basePage.notification.create({
+					text: "Criou o estabelecimento com sucesso.",
+					type: 'success'
+				});
+			},
+			onError: (data, response) => {
+				basePage.notification.create({
+					text: "Grupo ou categoria não encontrado.",
+					type: 'error'
+				});
+			}
+		})
+    },*/
+
+	updateStore: async (store) => {
+		console.log(store);
+		let url = serviceAPI.BASE_URL + "/establishment";
+        let body = serviceAPI.uidGroupDefinition;
+		body.uid = store.uid;
+        body.address = store.address;
+		body.phone = store.phone;
+        body.name = store.name;
+		body.postal_code = store.postal_code;
+		body.email = store.email;
+		body.category = store.category;
+        delete body.text;
+		console.log(body);
+		await serviceAPI.fetchRequisition({
+			fetchMethod: "PUT",
+			url: url,
+			body: body,
+			onSuccess: (data, response) => {
+				basePage.notification.create({
+					text: "Editou o estabelecimento com sucesso.",
+					type: 'success'
+				});
+				infra.createCategoriesQuantities();
+				infra.updateCategoriesQuantities();
+			},
+			onError: (data, response) => {
+				basePage.notification.create({
+					text: "Grupo, categoria ou estabelecimento não encontrado.",
+					type: 'error'
+				});
+			}
+		});
+
+	},
+
+	deleteStore: async (storeUid) => {
+		let url = serviceAPI.BASE_URL + "/establishment";
+        let body = serviceAPI.uidGroupDefinition;
+		body.uid = storeUid;
+        console.log(body);
+		await serviceAPI.fetchRequisition({
+			fetchMethod: "DELETE",
+			url: url,
+			body: body,
+			onSuccess: (data, response) => {
+				basePage.notification.create({
+					text: "Deletou a loja com sucesso.",
+					type: 'success'
+				});
+				infra.createCategoriesQuantities();
+				infra.updateCategoriesQuantities();
+			},
+			onError: (data, response) => {
+				basePage.notification.create({
+					text: "Loja não encontrada.",
+					type: 'error'
+				});
+			}
+		});
     },
 
     createCategory: async (catCode, catName) => {
@@ -77,7 +192,7 @@ window.serviceAPI = {
 				body: body,
 				onSuccess: (data, response) => {
 					basePage.notification.create({
-						text: "Criou o estabelecimento com sucesso.",
+						text: "Criou a categoria com sucesso.",
 						type: 'success'
 					});
 				},
@@ -89,6 +204,15 @@ window.serviceAPI = {
 				}
 			});
 		}
+    },
+
+	getCategoriesList: async (keyword = "") => {
+        let url = serviceAPI.BASE_URL + "/category/list";
+        let body =  serviceAPI.uidGroupDefinition;
+        body.text = keyword;
+
+        const categories = await serviceAPI.fetchPostRequisition(url, body);
+        return categories;
     },
 
     updateCategory: async (catUid, catCode, catName) => {
@@ -122,31 +246,6 @@ window.serviceAPI = {
 		});
     },
 
-    fetchRequisition: async ({fetchMethod, url, body, onSuccess, onError}) => {
-        const request = await fetch(url, {
-            method: fetchMethod,
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(body),
-        }).then((response) => {
-			console.log("Response status:", response.status);
-			if (response.ok) {
-				if (onSuccess) {
-					onSuccess(response.json(), response);
-				}
-			} else {
-				if (onError) {
-					onError(response.json(), response);
-				}
-			}
-        })
-		.catch((error) => {
-          console.error('Error:', error);
-        });
-		return await [];
-    },
-
     deleteCategory: async (catUid) => {
 		let url = serviceAPI.BASE_URL + "/category";
         let body = serviceAPI.uidGroupDefinition;
@@ -170,28 +269,29 @@ window.serviceAPI = {
 		});
     },
 
-    deleteStore: async (storeUid) => {
-		let url = serviceAPI.BASE_URL + "/establishment";
-        let body = serviceAPI.uidGroupDefinition;
-		body.uid = storeUid;
-        console.log(body);
-		await serviceAPI.fetchRequisition({
-			fetchMethod: "DELETE",
-			url: url,
-			body: body,
-			onSuccess: (data, response) => {
-				basePage.notification.create({
-					text: "Deletou a loja com sucesso.",
-					type: 'success'
-				});
-			},
-			onError: (data, response) => {
-				basePage.notification.create({
-					text: "Loja não encontrada.",
-					type: 'error'
-				});
+	fetchRequisition: async ({fetchMethod, url, body, onSuccess, onError}) => {
+		const request = await fetch(url, {
+            method: fetchMethod,
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body),
+        }).then((response) => {
+			console.log("Response status:", response.status);
+			if (response.ok) {
+				if (onSuccess) {
+					onSuccess(response.json(), response);
+				}
+			} else {
+				if (onError) {
+					onError(response.json(), response);
+				}
 			}
-		});
+        })
+		.catch((error) => {
+          console.error('Error:', error);
+        });
+		return await [];
     },
 
     createGroup: async (groupName, studentName) => {

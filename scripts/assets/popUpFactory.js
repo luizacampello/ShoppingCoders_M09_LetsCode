@@ -24,7 +24,7 @@ window.popUpFactory = {
 		const popUpContainer = document.getElementById("popUpContainer");
 
 		const formContainer = elementFactory.createHtmlTag("div", "formPopUp", "categoryFormContainer");
-		
+
 		popUpContainer.appendChild(formContainer);
 		
 		formPage(store)
