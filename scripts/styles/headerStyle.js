@@ -3,8 +3,6 @@
     style.innerHTML = `
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap');
 
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap');
-
 * {
   margin: 0;
   padding: 0;
@@ -12,19 +10,20 @@
 
 header {
   position: sticky;
-  width: 100vw;
+  width: 100%;
   height: 20vh;
   
   background-color: #189AB4;
 
   display: flex;
   align-items: center;
+  justify-content:
 }
 
 header nav {
-  width: 100vw;
+  width: 90vw;
 
-  margin: 4rem;
+  align-self: center;
 
   display: flex;
   justify-content: space-between;
@@ -37,15 +36,37 @@ header nav {
   font-size: 36px;
 }
 
+.HeaderElements{
+    width: 90vw;
+    justify-content: flex-start;
+    display: flex;
+}
+
 .logo {
   cursor: pointer;
   font-size: 48px;
+}
+
+.LogoMobile{
+  display: none;
+}
+
+.LogoWeb{
+  display: flex;
 }
 
 nav .menu {
   display: flex;
   width: 30%;
   justify-content: space-evenly;
+  align-items: center;
+}
+
+.logo img{
+
+    width: 62vw;
+    max-width: 800px; 
+    margin: 2rem;
 }
 
 .lojas,
@@ -96,20 +117,30 @@ nav .menu {
   cursor: pointer;
 }
 
-@media (max-width: 880px) {
+@media (max-width: 1155px) {
   #iconeMenu{
     display: block;
-    align-self: flex-end;
+    align-self: center;
   }
 
   header{
-    position: relative;
+    position: sticky;
+    height: auto;
   }
 
   header nav{
     flex-direction: column;
     align-items: center;
   }
+
+  .LogoMobile{
+    display: flex;
+  }
+  
+  .LogoWeb{
+    display: none;
+  }
+  
 
   .logo{
     align-self: center;
@@ -134,6 +165,17 @@ nav .menu {
     border-radius: 10px;
   }
 
+  .material-symbols-outlined{
+    font-size: 36px;
+  }
+
+  .logo img{
+    width: 150px;
+  }
+
+  .HeaderElements{
+    justify-content: space-around;
+  }
 
   .lojas,
   .categorias {
