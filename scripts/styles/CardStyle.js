@@ -20,9 +20,9 @@
             flex-direction: column;
             justify-content: flex-end;
 
-            -webkit-box-shadow: 0px 9px 10px 0px rgba(0,0,0,0.35);
-            -moz-box-shadow: 0px 9px 10px 0px rgba(0,0,0,0.35);
-            box-shadow: 0px 9px 10px 0px rgba(0,0,0,0.35);
+            -webkit-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.25);
+            -moz-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.25);
+            box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.25);
         }
 
         .card-content h2{

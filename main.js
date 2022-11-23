@@ -9,6 +9,7 @@
         "assets/cardService.js",
         "assets/basePage.js",
         "styles/cardStyle.js",
+        "styles/headerStyle.js"
     ];
 
     addCSSFile();
@@ -25,6 +26,7 @@
 
         infra.populateCategoryContainer(categoriesContainer); //TODO: Mudar para receber os parametros da busca
         infra.populateStoreContainer(storesContainer); //TODO: Mudar para receber os parametros da busca
+        infra.displayInnerContainer("categoriesContainer")
     });
 })();
 
