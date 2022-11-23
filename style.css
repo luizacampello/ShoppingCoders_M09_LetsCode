@@ -211,6 +211,8 @@ nav .menu {
   text-align: center;
   margin-left: 3%;
   /* padding: 4% 2%; */
+  /* background-color: #43a143; */
+  width: 13%;
 }
 
 #boxclose {
@@ -235,11 +237,13 @@ nav .menu {
 }
 
 #edit {
+  width: 100%;
+  height: 4vh;
   padding: 4px 7px;
   font-weight: bolder;
-  background-color: lightgray;
-  color: #484D52;
-  border-radius: 5px;
+  background-color:#189AB4;
+  color: #F1F1F1;
+  border-radius: 10px;
   border: none;
   cursor: pointer;
 }
