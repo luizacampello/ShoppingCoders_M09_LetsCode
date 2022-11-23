@@ -81,12 +81,12 @@ function addHeader() {
     const logoMenu = elementFactory.createHtmlTag('div', 'HeaderElements');
  
     const logoImgMobile = document.createElement('img');
-    logoImgMobile.setAttribute('src','/imgs/logoScMobile.png');
+    logoImgMobile.setAttribute('src','/imgs/logoMobile.png');
     logoImgMobile.setAttribute('id', 'LogoMobile');
     logoImgMobile.classList.add('LogoMobile');
    
     const logoImgWeb = document.createElement('img');
-    logoImgWeb.setAttribute('src','/imgs/logoScWeb.png');
+    logoImgWeb.setAttribute('src','/imgs/logoWeb.png');
     logoImgWeb.setAttribute('id', 'LogoWeb');
     logoImgWeb.classList.add('LogoWeb');
  
