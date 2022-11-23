@@ -49,8 +49,7 @@ window.serviceAPI = {
 					text: "Criou o estabelecimento com sucesso.",
 					type: 'success'
 				});
-				infra.createCategoriesQuantities();
-				infra.updateCategoriesQuantities();
+				infra.refreshFooter();
 			},
 			onError: (data, response) => {
 				basePage.notification.create({
@@ -73,37 +72,6 @@ window.serviceAPI = {
 
         return stores;
     },
-
-	/*createStore: async (storeAddress, storePhone, storeName, categoryUid, storePostal_code, storeEmail) => {
-        let url = serviceAPI.BASE_URL + "/establishment";
-        let body = serviceAPI.uidGroupDefinition;
-        body.address = storeAddress;
-		body.phone = storePhone;
-        body.name = storeName;
-		body.postal_code = storePostal_code;
-		body.email = storeEmail;
-		body.category = {
-			"uid": categoryUid
-		};
-        delete body.text;
-		await serviceAPI.fetchRequisition({
-			fetchMethod: "POST",
-			url: url,
-			body: body,
-			onSuccess: (data, response) => {
-				basePage.notification.create({
-					text: "Criou o estabelecimento com sucesso.",
-					type: 'success'
-				});
-			},
-			onError: (data, response) => {
-				basePage.notification.create({
-					text: "Grupo ou categoria não encontrado.",
-					type: 'error'
-				});
-			}
-		})
-    },*/
 
 	updateStore: async (store) => {
 		console.log(store);
@@ -129,8 +97,7 @@ window.serviceAPI = {
 					text: "Editou o estabelecimento com sucesso.",
 					type: 'success'
 				});
-				infra.createCategoriesQuantities();
-				infra.updateCategoriesQuantities();
+				infra.refreshFooter();
 			},
 			onError: (data, response) => {
 				basePage.notification.create({
@@ -156,8 +123,7 @@ window.serviceAPI = {
 					text: "Deletou a loja com sucesso.",
 					type: 'success'
 				});
-				infra.createCategoriesQuantities();
-				infra.updateCategoriesQuantities();
+				infra.refreshFooter();
 			},
 			onError: (data, response) => {
 				basePage.notification.create({
@@ -168,16 +134,16 @@ window.serviceAPI = {
 		});
     },
 
-    createCategory: async (catCode, catName) => {
+    createCategory: async (newCategory) => {
         let url = serviceAPI.BASE_URL + "/category";
         let body = serviceAPI.uidGroupDefinition;
-        body.code = catCode;
-        body.name = catName;
+        body.code = newCategory.code;
+        body.name = newCategory.name;
         delete body.text;
 		let exists = false;
 		const categories = await serviceAPI.getCategoriesList("");
 		categories.forEach(category => {
-			if (category.name == catName || category.code == catCode)
+			if (category.name == newCategory.name || category.code == newCategory.code)
 			{
 				basePage.notification.create({
 					text: "Já existe categoria com este NOME ou CÓDIGO.",
@@ -217,7 +183,10 @@ window.serviceAPI = {
         return categories;
     },
 
-    updateCategory: async (catUid, catCode, catName) => {
+    updateCategory: async (upCategory) => {
+		//verificar se posso passar a category e pegar aqui os itens separados category.uid e afins
+		//MODIFICANDO O UPDATE CATEGORY
+
         //validar se code e name são diferentes de vazio, caso contrário abrir notificação na tela
         //validar qual o campo está sendo alterado, buscando o objeto no getlist via uid
         //fazendo o comparativo no currObj e newObj
@@ -225,9 +194,9 @@ window.serviceAPI = {
 
         let url = serviceAPI.BASE_URL + "/category";
         let body = serviceAPI.uidGroupDefinition;
-        body.uid = catUid;
-        body.code = catCode;
-        body.name = catName;
+        body.uid = upCategory.uid;
+        body.code = upCategory.code;
+        body.name = upCategory.name;
         delete body.text;
 		await serviceAPI.fetchRequisition({
 			fetchMethod: "PUT",
