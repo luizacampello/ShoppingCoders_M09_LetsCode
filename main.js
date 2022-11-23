@@ -87,7 +87,7 @@ function putStore (objectId){
 
 }
 
-function postSotre () {
+function postStore () {
 
 }
 

@@ -181,4 +181,9 @@ window.infra = {
         // TODO: Chamar a pagina com todas as lojas
     },
 
+    deleteCategoryButtonOnClick: () => {
+        
+
+    },
+
 }
