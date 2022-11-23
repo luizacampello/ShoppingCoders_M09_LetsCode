@@ -16,7 +16,8 @@
 header {
   position: fixed;
   width: 100vw;
-  background-color: aqua;
+  background-color: #00657B;
+  color: #F1F1F1;
   height: 10vh;
 
 }
@@ -24,19 +25,21 @@ header {
 header nav {
   display: flex;
   justify-content: space-between;
-  font-family: 'Baleny', 'Noto Serif', serif;
+  font-family: 'Noto Serif', serif;
   padding: 2rem;
 }
 
 .logo {
   cursor: pointer;
   font-size: 1.4rem;
+  font-family: 'Baleny', 'Noto Serif', serif;
 }
 
 nav .menu {
   display: flex;
   width: 30%;
   justify-content: space-around;
+
 }
 
 .lojas,
@@ -48,6 +51,11 @@ nav .menu {
   font-size: 1rem;
   padding: 0.5rem;
 
+}
+
+.lojas h3, .categorias h3 {
+  font-family: 'Baleny', 'Noto Serif', serif;
+  font-size: 1.2rem;
 }
 
 .lojas ul,
@@ -78,7 +86,7 @@ nav .menu {
 .lojas:hover>ul,
 .categorias:hover>ul {
   display: block;
-  background-color: cadetblue;
+  background-color: #189AB4;
 }
 
 #iconeMenu {
@@ -118,7 +126,7 @@ nav .menu {
     display: flex;
     flex-direction: column;
     width: 100%;
-    background-color: cadetblue;
+    background-color: #189AB4;
     align-items: center;
     border-radius: 10px;
   }
@@ -286,15 +294,17 @@ form select {
 }
 
 #form {
-  background-color: aqua;
+  /* background-color: aqua; */
   width: 100%;
   display: flex;
 }
 
-/* #divSave {
-    width: 100%;
+#divSave {
+    width: 80%;
+    height: 5vh;
     margin-bottom: 2%;
-} */
+}
+
 #divButtons {
   display: flex;
   justify-content:space-between;
@@ -307,39 +317,35 @@ form select {
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: left;
-  margin-left: 2%;
+  justify-content: center;
+
 }
 
 #boxdelete {
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: right;
-  margin-right: 2%;
-
+  justify-content: center;
 }
 
 #save {
-  width: 100%;
+  width: 99%;
   height: 100%;
   font-size: 15px;
   border-radius: 10px;
   border: none;
-  background-color: darkcyan;
+  background-color: #189AB4;
   color: white;
-  /* padding: 0 65px; */
 }
 
 #delete {
-  width: 100%;
+  width: 99%;
   font-size: 15px;
   height: 5vh;
   border-radius: 10px;
   border: none;
   background-color: darkgray;
   color: white;
-  /* padding: 0 40px; */
 }
 
 .saveMessage {
@@ -369,7 +375,7 @@ footer {
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: rgb(3, 179, 179);
+  background-color: #189AB4;
   height: auto;
   text-align: center;
 }
