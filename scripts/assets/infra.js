@@ -15,9 +15,8 @@ window.infra = {
         activeContainer.classList.add("activeInnerContainer");
     },
 
-    populateStoreContainer: async (container,keyword='', idCategory='') => {
+    populateStoreContainer: async (container, keyword='', idCategory='') => {
         const storesList = await serviceAPI.getStoresList(keyword, idCategory);
-
         for (let index = 0; index < storesList.length; index++) {
             const store = storesList[index];
             container.appendChild(
@@ -36,12 +35,15 @@ window.infra = {
         const categoryList = await serviceAPI.getCategoriesList(keyword);
 
         for (let index = 0; index < categoryList.length; index++) {
+            console.log("Hey função chamada")
             const category = categoryList[index];
             container.appendChild(
                 cardService.CardCategory({
                     category: category,
                     onClickEdit: () => {
-                        popUpFactory.newCategoryPopUpContainer(category); //TODO: Chamar a função de editar
+                        popUpFactory.categoryPopUpContainer(category);
+                        const formCategory = document.getElementById("categoryFormContainer");
+                        formCategory.style.display = "flex";
                     },
                     onClickStores: () => {
                         window.alert("Click 2"); //TODO: Chamar páginas de lojas com filtro
@@ -137,6 +139,7 @@ window.infra = {
         formPage.style.display = "flex";
     },
 
+
     addClearPageEventTo: () => {
         const containerId = "popUpContainer";
         const pageCard = document.getElementById(containerId);
@@ -187,16 +190,52 @@ window.infra = {
         // TODO: Chamar a pagina com todas as lojas
     },
 
+
+    // OnClick de Category
+
+    getCategoryFormElements: (form) => {
+        const category = {};
+        category.uid = form.getAttribute("uidcategory");
+        category.code = form.elements["code"].value;
+        category.name = form.elements["name"].value;
+        console.log(category);
+        return category;
+    },
+
+    createCategoryButtonOnClick: () => {
+        const form = document.getElementById("categoryForm");
+        const category = infra.getCategoryFormElements(form);
+
+        serviceAPI.createCategory(category);
+    },
+
+    updateCategoryButtonOnClick: () => {
+        const form = document.getElementById("categoryForm");
+        const category = infra.getCategoryFormElements(form);
+
+        serviceAPI.updateCategory(category);
+    },
+
+    deleteCategoryButtonOnClick: () => {
+        const form = document.getElementById("categoryForm");
+        const uidcategory = form.getAttribute("uidcategory");
+
+        serviceAPI.deleteCategory(uidcategory);
+        const pageCard = document.getElementById("popUpContainer");
+        pageCard.innerHTML = "";
+        pageCard.classList.remove("show");
+    },
+
     addLinksToHeader: () => { // TODO: adicionar o restante dos clicks
 
         // const linkCategoryContainer = document.getElementById("linkCategoryContainer");
         // linkCategoryContainer.addEventListener("click", function);
 
-        // const linkPopupNewCategory = document.getElementById("linkPopupNewCategory");
-        // linkPopupNewCategory.addEventListener("click", function);
+        const linkPopupNewCategory = document.getElementById("linkPopupNewCategory");
+        linkPopupNewCategory.addEventListener("click", infra.linkNewCategoryOnClick);
 
-        // const linkCategories = document.getElementById("linkCategories");
-        // linkCategories.addEventListener("click", function);
+        const linkCategories = document.getElementById("linkCategories");
+        linkCategories.addEventListener("click", infra.linkCardsCategoryOnClick);
 
         // const linkStoreContainer = document.getElementById("linkStoreContainer");
         // linkStoreContainer.addEventListener("click", function);
@@ -204,8 +243,8 @@ window.infra = {
         const linkPopupNewStore = document.getElementById("linkPopupNewStore");
         linkPopupNewStore.addEventListener("click", infra.linkNewStoreOnClick);
 
-        // const linkStores = document.getElementById("linkStores");
-        // linkStores.addEventListener("click", function);
+        const linkStores = document.getElementById("linkStores");
+        linkStores.addEventListener("click", infra.linkCardsStoreOnClick);
 
 
     },
@@ -216,5 +255,22 @@ window.infra = {
         newStore.style.display = "flex";
     },
 
+    linkCardsStoreOnClick: () => {
+        const storesContainer = document.getElementById('newStoreFormContainer');
+        infra.populateCategoryContainer(storesContainer);
+        infra.displayInnerContainer("storesContainer");
+    },
+
+    linkNewCategoryOnClick: () => {
+        popUpFactory.newCategoryPopUpContainer();
+        const newCategory = document.getElementById("newCategoryFormContainer");
+        newCategory.style.display = "flex";
+    },
+
+    linkCardsCategoryOnClick: () => {
+        const categoriesContainer = document.getElementById('categoriesContainer');
+        infra.populateCategoryContainer(categoriesContainer);
+        infra.displayInnerContainer("categoriesContainer");
+    },
 
 }

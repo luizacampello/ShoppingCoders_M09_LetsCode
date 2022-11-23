@@ -134,16 +134,16 @@ window.serviceAPI = {
 		});
     },
 
-    createCategory: async (catCode, catName) => {
+    createCategory: async (newCategory) => {
         let url = serviceAPI.BASE_URL + "/category";
         let body = serviceAPI.uidGroupDefinition;
-        body.code = catCode;
-        body.name = catName;
+        body.code = newCategory.code;
+        body.name = newCategory.name;
         delete body.text;
 		let exists = false;
 		const categories = await serviceAPI.getCategoriesList("");
 		categories.forEach(category => {
-			if (category.name == catName || category.code == catCode)
+			if (category.name == newCategory.name || category.code == newCategory.code)
 			{
 				basePage.notification.create({
 					text: "Já existe categoria com este NOME ou CÓDIGO.",
@@ -183,7 +183,10 @@ window.serviceAPI = {
         return categories;
     },
 
-    updateCategory: async (catUid, catCode, catName) => {
+    updateCategory: async (upCategory) => {
+		//verificar se posso passar a category e pegar aqui os itens separados category.uid e afins
+		//MODIFICANDO O UPDATE CATEGORY
+
         //validar se code e name são diferentes de vazio, caso contrário abrir notificação na tela
         //validar qual o campo está sendo alterado, buscando o objeto no getlist via uid
         //fazendo o comparativo no currObj e newObj
@@ -191,9 +194,9 @@ window.serviceAPI = {
 
         let url = serviceAPI.BASE_URL + "/category";
         let body = serviceAPI.uidGroupDefinition;
-        body.uid = catUid;
-        body.code = catCode;
-        body.name = catName;
+        body.uid = upCategory.uid;
+        body.code = upCategory.code;
+        body.name = upCategory.name;
         delete body.text;
 		await serviceAPI.fetchRequisition({
 			fetchMethod: "PUT",

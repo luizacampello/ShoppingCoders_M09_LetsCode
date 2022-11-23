@@ -55,59 +55,6 @@ function addJSScriptFiles(jsFiles) {
     }
 }
 
-function closeButton() {
-    const bClose = document.createElement("div");
-    bClose.setAttribute("id", "bClose");
-    const close = document.createElement("input");
-    close.setAttribute("id", "close");
-    close.type = "button";
-    close.value = "X";
-    bClose.appendChild(close);
-    return bClose;
-}
-
-function deleteButtonOnClick(objectId) {
-
-}
-
-function saveButtonOnClick(objectId = null){
-    const saveMessage = document.getElementsByClassName("saveMessage");
-    if(objectId){
-        //PUT
-        putStore(objectId); //Função vazia
-        saveMessage.textContent = "Atualizado com sucesso!"
-        saveMessage.classList.add("show");
-    } else {
-        //POST
-        postSotre (); //Função vazia
-        saveMessage.textContent = "Criação realizada com sucesso!"
-        saveMessage.classList.add("show");
-    }
-}
-
-function putStore (objectId){
-
-}
-
-function postSotre () {
-
-}
-
-function saveButton() {
-    const bSave = document.createElement("div");
-    bSave.setAttribute("id", "bEdit");
-    const save = document.createElement("input");
-    save.setAttribute("id", "save");
-    save.type = "Button";
-    save.value = "Salvar";
-
-    bSave.appendChild(save);
-    return bSave;
-}
-
-function deleteButton(){
-
-}
 
 function addClearPageEventTo() {
     const containerId = "popUpContainer";
