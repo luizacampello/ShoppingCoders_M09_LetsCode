@@ -167,26 +167,26 @@ nav .menu {
     padding: 4%;
 }
 
-.divInfo {
+.storeInfo {
     /* background-color: aqua; */
     height: 100%;
     margin-right: 3%;
     /* padding: 5%; */
 }
 
-.divInfo h2 {
+.storeInfo h2 {
     font-size: 3rem;
     font-weight: bolder;
     margin-top: 0;
 }
 
-.divInfo h3 {
+.storeInfo h3 {
     margin-top: -3%;
     font-size: 1.2rem;
     color: darkgoldenrod;
 }
 
-.divInfo p {
+.storeInfo p {
     color: #484D52;
     font-size: 1.1rem;
     line-height: 1.5;

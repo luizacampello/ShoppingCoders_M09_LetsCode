@@ -28,8 +28,10 @@ window.elementFactory = {
 
     newCategoryOption: (category) => {
         let newOption = document.createElement("option");
+
         newOption.text = category.name;
-        newOption.value = category.uid; 
+        newOption.value = category.uid;
+
         return newOption;
     },
 
@@ -46,8 +48,9 @@ window.elementFactory = {
         return buttonBox;
     },
 
-    newFormOption: (placeholder, value, type = "") => {
+    newFormOption: (name, placeholder, value, type = "") => {
         const formOption = document.createElement("input");
+        formOption.name = name;
 		formOption.placeholder = placeholder;
         
         if (value){
@@ -59,6 +62,18 @@ window.elementFactory = {
         }
 
         return formOption;
-    }
+    },
+
+    emptyFormOption: (name, placeholder, type = "") => {
+        const formOption = document.createElement("input");
+        formOption.name = name;
+		formOption.placeholder = placeholder;
+
+        if (type) {
+            formOption.type = type;
+        }
+
+        return formOption;
+    },
     
 }

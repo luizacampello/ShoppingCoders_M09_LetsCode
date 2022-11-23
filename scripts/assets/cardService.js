@@ -9,9 +9,11 @@ window.cardService = {
         
         const storeName = document.createElement('h2');
         storeName.textContent = `${store.name}`;
+
         CardStoreElement.addEventListener('click', onClickCard)
         CardStoreElement.appendChild(storeCategory);
         CardStoreElement.appendChild(storeName);
+
         return CardStoreElement;
     },
 
@@ -64,6 +66,5 @@ window.cardService = {
 			cardService.showCards(item);
 		})
 	},
-
 
 }

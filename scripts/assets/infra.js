@@ -17,13 +17,14 @@ window.infra = {
 
     populateStoreContainer: async (container,keyword='', idCategory='') => {
         const storesList = await serviceAPI.getStoresList(keyword, idCategory);
+
         for (let index = 0; index < storesList.length; index++) {
             const store = storesList[index];
             container.appendChild(
                 cardService.CardStore({
                     store: store,
                     onClickCard: () => {
-                        popUpFactory.newStorePopUpContainer(store);
+                        popUpFactory.storePopUpContainer(store);
                         infra.addClearPageEventTo("popUpContainer");
                     },
                 })
@@ -33,6 +34,7 @@ window.infra = {
 
     populateCategoryContainer: async (container, keyword='') => {
         const categoryList = await serviceAPI.getCategoriesList(keyword);
+        
         for (let index = 0; index < categoryList.length; index++) {
             const category = categoryList[index];
             container.appendChild(
@@ -55,17 +57,20 @@ window.infra = {
 
 		categories.forEach(element => {
 			element.quantity = 0;
+
 			for (i = 0; i < stores.length; i++) {
 				if (element.uid == stores[i].category.uid)
 					element.quantity++;
 			}
 		});
+
 		localStorage.setItem("CategoriesQuantities", JSON.stringify(categories));
 	},
 
     updateCategoriesQuantities: () => {
         const response = localStorage.getItem("CategoriesQuantities");
         const categoriesQuantities = JSON.parse(response);
+
         if (categoriesQuantities == null)
             return;
 		categoriesQuantities.forEach(item => {
@@ -135,5 +140,34 @@ window.infra = {
                 pageCard.textContent = "";
             }
         });
-    }
+    },
+
+    updateStoreButtonOnClick: () => {
+        const form = document.getElementById("storeForm");
+        const store = infra.getStoreFormElements(form);
+
+        serviceAPI.updateStore(store);
+    },
+
+    createStoreButtonOnClick: () => {
+        const form = document.getElementById("storeForm");
+        const store = infra.getStoreFormElements(form);
+
+        serviceAPI.createStore(store);
+    },
+
+    getStoreFormElements: (form) => {
+        const store = {};
+        store.uid = form.getAttribute("uidstore");
+        store.name = form.elements["name"].value;
+        store.categoryUid = form.elements["categorySelect"].value;
+        store.address = form.elements["address"].value;
+        store.postalCode = form.elements["postalCode"].value;
+        store.email = form.elements["email"].value;
+        store.phone = form.elements["phone"].value;
+        console.log(store);
+
+        return store;
+    },
+
 }
