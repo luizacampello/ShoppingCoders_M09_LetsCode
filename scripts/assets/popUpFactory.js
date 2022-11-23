@@ -21,14 +21,22 @@ window.popUpFactory = {
 		popUpFactory.newStoreFormPopUp();
 	},
 
-	newCategoryPopUpContainer: (category) => {
+	CategoryPopUpContainer: (category) => {
 		const popUpContainer = document.getElementById("popUpContainer");
-
 		const formContainer = elementFactory.createHtmlTag("div", "formPopUp", "categoryFormContainer");
 
 		popUpContainer.appendChild(formContainer);
-		
+		popUpContainer.classList.add("show");
 		popUpFactory.updateCategoryFormPopUp(category);
+	},
+
+	newCategoryPopUpContainer: () => {
+		const popUpContainer = document.getElementById("popUpContainer");
+		const formContainer = elementFactory.createHtmlTag("div", "formPopUp", "newCategoryFormContainer");
+
+		popUpContainer.appendChild(formContainer);
+		popUpContainer.classList.add("show");
+		popUpFactory.newCategoryFormPopUp();
 	},
 
 
@@ -195,35 +203,28 @@ window.popUpFactory = {
 	},
 
 	newCategoryFormPopUp: () => {
-		const formContainer = document.getElementById("categoryFormContainer");
+		const formContainer = document.getElementById("newCategoryFormContainer");
 
-		const divCloseButton = document.createElement("div");
-		divCloseButton.setAttribute("id", "divClose");
-		divCloseButton.appendChild(
+		const divClose = elementFactory.createHtmlTag("div", "", "divClose");
+		divClose.appendChild(
 			elementFactory.newButton("X", "close")
 		);
 
+
 		const categoryForm = elementFactory.createHtmlTag("form", "", "categoryForm");
 		categoryForm.setAttribute("uidcategory", "");
-
 		const code = elementFactory.newFormOption("code", "Código da Categoria");
 		const name = elementFactory.newFormOption("name", "Nome da Categoria");
-		const saveMessage = elementFactory.createHtmlTag("p", "saveMessage", "saveMessage");
-		
 		categoryForm.appendChild(code);
 		categoryForm.appendChild(name);
-		categoryForm.appendChild(saveMessage);
 
-		const divButtons = document.createElement("div");
-		divButtons.setAttribute("id", "divButtons");
+		const divButtons = elementFactory.createHtmlTag("div", "", "divButtons");
 		divButtons.appendChild(
-			elementFactory.newButton("Deletar", "delete", deleteButtonOnClick)
-		);
-		divButtons.appendChild(
-			elementFactory.newButton("Salvar", "save", saveButtonOnClick)
+			elementFactory.newButton("Salvar", "save", infra.createCategoryButtonOnClick)
 		);
 
-		formContainer.appendChild(divCloseButton);
+
+		formContainer.appendChild(divClose);
 		formContainer.appendChild(categoryForm);
 		formContainer.appendChild(divButtons);
 

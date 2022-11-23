@@ -183,7 +183,7 @@ window.infra = {
         // TODO: Chamar a pagina com todas as lojas
     },
 
-    
+
     // OnClick de Category
 
     getCategoryFormElements: (form) => {
@@ -193,6 +193,13 @@ window.infra = {
         category.name = form.elements["name"].value;
         console.log(category);
         return category;
+    },
+
+    createCategoryButtonOnClick: () => {
+        const form = document.getElementById("categoryForm");
+        const category = infra.getCategoryFormElements(form);
+
+        serviceAPI.createCategory(category);
     },
 
     updateCategoryButtonOnClick: () => {
@@ -217,8 +224,8 @@ window.infra = {
         // const linkCategoryContainer = document.getElementById("linkCategoryContainer");
         // linkCategoryContainer.addEventListener("click", function);
 
-        // const linkPopupNewCategory = document.getElementById("linkPopupNewCategory");
-        // linkPopupNewCategory.addEventListener("click", function);
+        const linkPopupNewCategory = document.getElementById("linkPopupNewCategory");
+        linkPopupNewCategory.addEventListener("click", infra.linkNewCategoryOnClick);
 
         // const linkCategories = document.getElementById("linkCategories");
         // linkCategories.addEventListener("click", function);
@@ -238,6 +245,12 @@ window.infra = {
     linkNewStoreOnClick: () => {
         popUpFactory.newStorePopUpContainer();
         const newStore = document.getElementById("newStoreFormContainer");
+        newStore.style.display = "flex";
+    },
+
+    linkNewCategoryOnClick: () => {
+        popUpFactory.newCategoryPopUpContainer();
+        const newStore = document.getElementById("newCategoryFormContainer");
         newStore.style.display = "flex";
     },
 

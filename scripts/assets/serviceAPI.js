@@ -168,16 +168,16 @@ window.serviceAPI = {
 		});
     },
 
-    createCategory: async (catCode, catName) => {
+    createCategory: async (newCategory) => {
         let url = serviceAPI.BASE_URL + "/category";
         let body = serviceAPI.uidGroupDefinition;
-        body.code = catCode;
-        body.name = catName;
+        body.code = newCategory.code;
+        body.name = newCategory.name;
         delete body.text;
 		let exists = false;
 		const categories = await serviceAPI.getCategoriesList("");
 		categories.forEach(category => {
-			if (category.name == catName || category.code == catCode)
+			if (category.name == newCategory.name || category.code == newCategory.code)
 			{
 				basePage.notification.create({
 					text: "Já existe categoria com este NOME ou CÓDIGO.",
@@ -217,7 +217,7 @@ window.serviceAPI = {
         return categories;
     },
 
-    updateCategory: async (category) => {
+    updateCategory: async (upCategory) => {
 		//verificar se posso passar a category e pegar aqui os itens separados category.uid e afins
 		//MODIFICANDO O UPDATE CATEGORY
 
@@ -228,9 +228,9 @@ window.serviceAPI = {
 
         let url = serviceAPI.BASE_URL + "/category";
         let body = serviceAPI.uidGroupDefinition;
-        body.uid = category.uid;
-        body.code = category.code;
-        body.name = category.name;
+        body.uid = upCategory.uid;
+        body.code = upCategory.code;
+        body.name = upCategory.name;
         delete body.text;
 		await serviceAPI.fetchRequisition({
 			fetchMethod: "PUT",
