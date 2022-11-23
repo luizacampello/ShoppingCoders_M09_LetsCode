@@ -16,8 +16,10 @@
     addJSScriptFiles(jsFiles)
 
     window.addEventListener("load", () => {
-        addHeader();
+        addHeader();       
         basePage.createMainContainer();
+        infra.addLinksToHeader();
+        infra.addClearPageEventTo();
         basePage.addFooter();
         
 
@@ -109,7 +111,8 @@ function deleteButton(){
 
 }
 
-function addClearPageEventTo(containerId) {
+function addClearPageEventTo() {
+    const containerId = "popUpContainer";
     const pageCard = document.getElementById(containerId);
     pageCard.classList.add("show");
     pageCard.addEventListener("click", (e) => {
