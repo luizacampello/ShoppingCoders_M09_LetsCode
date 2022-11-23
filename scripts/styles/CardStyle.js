@@ -9,15 +9,20 @@
 
             padding: 0px;
             margin: 10px;
+            
+            background-color: #05445E;
+            border-radius: 10px;
 
-            background-color: #EBEBEB;
-            border: 1px black solid;
+            color: #D4F1F4;
             font-family: 'Inter', sans-serif;
             
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
 
+            -webkit-box-shadow: 0px 9px 10px 0px rgba(0,0,0,0.35);
+            -moz-box-shadow: 0px 9px 10px 0px rgba(0,0,0,0.35);
+            box-shadow: 0px 9px 10px 0px rgba(0,0,0,0.35);
         }
 
         .card-content h2{
@@ -74,13 +79,12 @@
             align-self: center;
 
             background-color: white;
-            border: 1px solid black;
-            border-radius: 15px;
+            border-radius: 10px;
+            border: none;
         }
 
         .card-content button:hover{
             background-color: #D4F1F4;
-            border: 1px solid #05445E;
         }
 
     `;
