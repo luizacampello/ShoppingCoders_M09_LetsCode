@@ -11,13 +11,13 @@ window.popUpFactory = {
 		popUpFactory.updateStoreFormPopUp(store);
 	},
 
-	newStorePopUpContainer: (store) => {
+	newStorePopUpContainer: () => {
 		const popUpContainer = document.getElementById("popUpContainer");
 		const formContainer = elementFactory.createHtmlTag("div", "formPopUp", "storeFormContainer");
 
 		popUpContainer.appendChild(formContainer);	
 		
-		popUpFactory.newStoreFormPopUp(store);
+		popUpFactory.newStoreFormPopUp();
 	},
 
 	newCategoryPopUpContainer: (store) => {

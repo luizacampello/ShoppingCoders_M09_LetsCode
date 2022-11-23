@@ -165,6 +165,7 @@ window.infra = {
         store.postalCode = form.elements["postalCode"].value;
         store.email = form.elements["email"].value;
         store.phone = form.elements["phone"].value;
+        console.log(store);
 
         return store;
     },
