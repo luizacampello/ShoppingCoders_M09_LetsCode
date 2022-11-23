@@ -55,20 +55,6 @@ function addJSScriptFiles(jsFiles) {
     }
 }
 
-function saveButtonOnClick(objectId = null){
-    const saveMessage = document.getElementsByClassName("saveMessage");
-    if(objectId){
-        //PUT
-        putStore(objectId); //Função vazia
-        saveMessage.textContent = "Atualizado com sucesso!"
-        saveMessage.classList.add("show");
-    } else {
-        //POST
-        postSotre (); //Função vazia
-        saveMessage.textContent = "Criação realizada com sucesso!"
-        saveMessage.classList.add("show");
-    }
-}
 
 function addClearPageEventTo() {
     const containerId = "popUpContainer";
