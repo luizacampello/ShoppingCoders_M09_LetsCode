@@ -1,33 +1,173 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap');
- 
-.popUpContainer{
-    background-color: rgba(0,0,0,.5);
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    display: none;
-    justify-content: center;
-    align-items: center;
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
 }
-.mainContainer{
-    width:100%;
-    display:flex;
+
+@font-face {
+  font-family: 'Baleny';
+  src: url("./balenyseriffree/BalenySerifFree/Baleny\ Serif\ Free.otf") format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+header {
+  position: fixed;
+  width: 100vw;
+  background-color: #00657B;
+  color: #F1F1F1;
+  height: 10vh;
+
+}
+
+header nav {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Noto Serif', serif;
+  padding: 2rem;
+}
+
+.logo {
+  cursor: pointer;
+  font-size: 1.4rem;
+  font-family: 'Baleny', 'Noto Serif', serif;
+}
+
+nav .menu {
+  display: flex;
+  width: 30%;
+  justify-content: space-around;
+
+}
+
+.lojas,
+.categorias {
+  width: 50%;
+  align-items: center;
+  cursor: pointer;
+  text-align: center;
+  font-size: 1rem;
+  padding: 0.5rem;
+
+}
+
+.lojas h3, .categorias h3 {
+  font-family: 'Baleny', 'Noto Serif', serif;
+  font-size: 1.2rem;
+}
+
+.lojas ul,
+.categorias ul {
+  display: none;
+  padding: 0.5rem;
+  border-radius: 0.4rem;
+}
+
+.lojas ul li,
+.categorias ul li {
+  list-style: none;
+  margin-top: 0.7rem;
+  margin-bottom: 0.4rem;
+  cursor: pointer;
+}
+
+.lojas ul li:hover,
+.categorias ul li:hover {
+  font-weight: bold;
+}
+
+.lojas:hover,
+.categorias:hover {
+  font-size: 1rem;
+}
+
+.lojas:hover>ul,
+.categorias:hover>ul {
+  display: block;
+  background-color: #189AB4;
+}
+
+#iconeMenu {
+  display: none;
+  cursor: pointer;
+}
+
+@media (max-width: 750px) {
+  #iconeMenu {
+    display: block;
+    align-self: flex-end;
+  }
+
+  header {
+    height: auto;
+  }
+
+  header nav {
     flex-direction: column;
-    justify-content: space-around;
     align-items: center;
-    margin-top: 5vh;
+  }
+
+  .logo {
+    align-self: center;
+    text-align: center;
+  }
+
+  nav .menu {
+    display: none;
+  }
+
+  nav .menuHide {
+    display: none;
+  }
+
+  nav .menuShow {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: #189AB4;
+    align-items: center;
+    border-radius: 10px;
+  }
+
+
+  .lojas,
+  .categorias {
+    width: 90%;
+  }
 }
- 
+
+.popUpContainer {
+  background-color: rgba(0, 0, 0, .5);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.mainContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  /* margin-top: 10vh; */
+  padding-top: 10vh;
+}
+
 .show {
   display: flex;
 }
- 
+
 .hide {
   display: none;
 }
- 
+
 .infoPopUp {
   background-color: #F1F1F1;
   display: flex;
@@ -37,31 +177,31 @@
   max-width: 800px;
   padding: 4%;
 }
- 
+
 .storeInfo {
   height: 100%;
   margin-right: 3%;
 }
- 
+
 .storeInfo h2 {
   font-size: 3rem;
   font-weight: bolder;
 }
- 
+
 .storeInfo h3 {
   margin-top: 3%;
   margin-bottom: 2%;
   font-size: 1.2rem;
   color: darkgoldenrod;
 }
- 
+
 .storeInfo p {
   color: #484D52;
   font-size: 1.1rem;
   line-height: 1.5;
   margin-bottom: -0.5%;
 }
- 
+
 .divButtons {
   display: flex;
   flex-direction: column;
@@ -70,28 +210,34 @@
   margin-left: 3%;
   width: 13%;
 }
- 
+
 #boxclose {
   position: relative;
 }
- 
+
 #close {
-    /* ARRUMAR O CSS DESSE NEGOCIO */
-    padding: 4px;
-    width: 30px;
-    font-weight: bolder;
-    background-color: lightgray;
-    color: #484D52;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
- 
-    position: absolute;
-    top: 0px;
-    right: 0px;
- 
+  padding: 5px;
+  font-weight: bolder;
+  background-color: lightgray;
+  color: #484D52;
+  border: 2px solid #F1F1F1;
+  cursor: pointer;
+
+  width: 40px;
+  border-radius: 10px;
+  top: 0;
+  right: 0;
+
+  position: absolute;
+  /* width: 50px;
+  height: 50px;
+  font-size: 1rem;
+  border-radius: 50%;
+  top: -60px;
+  right: -90%; */
+
 }
- 
+
 #edit {
   width: 100%;
   height: 4vh;
@@ -103,17 +249,7 @@
   border: none;
   cursor: pointer;
 }
- 
- 
-/* ver como colocar o hover no click :)  */
-#edit :hover {
-    color: burlywood;
-    background-color: aliceblue;
-}
- 
- 
- 
- 
+
 .formPopUp {
   background-color: #F1F1F1;
   display: none;
@@ -126,20 +262,20 @@
   padding: 4%;
   position: relative;
 }
- 
+
 #divClose {
   position: absolute;
   top: 20px;
   right: 20px;
 }
- 
+
 .formPopUp form {
-    width: 70%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 2% 0;
- 
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 2% 0;
+
 }
 
 .formPopUp form input,
@@ -151,7 +287,7 @@ form select {
   border: none;
   padding-left: 20px;
 }
- 
+
 .formPopUp form textarea {
   font-size: 15px;
   font-family: sans-serif;
@@ -162,29 +298,62 @@ form select {
   padding-top: 10px;
   padding-left: 20px;
 }
- 
+
 #form {
   width: 100%;
   display: flex;
 }
- 
+
 #divSave {
     width: 80%;
     height: 5vh;
     margin-bottom: 2%;
 }
- 
-#save {
-    font-size: 15px;
-    height: 38px;
-    border-radius:20px;
-    border: none;
-    background-color: darkcyan;
-    color: white;
-    width: 100%;
+
+#divButtons {
+  display: flex;
+  justify-content:space-between;
+  flex-direction: row;
+  width: 80%;
+  height: 5vh;
 }
- 
-.saveMessage{
+
+#boxsave {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+
+}
+
+#boxdelete {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#save {
+  width: 99%;
+  height: 100%;
+  font-size: 15px;
+  border-radius: 20px;
+  border: none;
+  background-color: #189AB4;
+  color: white;
+}
+
+#delete {
+  width: 99%;
+  font-size: 15px;
+  height: 5vh;
+  border-radius: 10px;
+  border: none;
+  background-color: darkgray;
+  color: white;
+}
+
+.saveMessage {
   display: none;
   align-self: center;
   color: lightseagreen;
@@ -192,18 +361,18 @@ form select {
   font-size: 0.9rem;
   font-weight: 500;
 }
- 
-.innerContainer{
-    display:none;
-    margin: 2vw;
+
+.innerContainer {
+  display: none;
+  margin: 2vw;
 }
- 
-.activeInnerContainer{
-    display:flex;
-    flex-flow: row wrap;
-    justify-content: space-evenly;
+
+.activeInnerContainer {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
 }
- 
+
 footer {
   display: flex;
   flex-direction: column;
@@ -211,11 +380,11 @@ footer {
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: rgb(3, 179, 179);
+  background-color: #189AB4;
   height: auto;
   text-align: center;
 }
- 
+
 #footer-title {
   color: azure;
   font-size: 22px;
@@ -223,41 +392,41 @@ footer {
   padding-top: 2vh;
   margin: 0;
 }
- 
+
 #footer-list {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
- 
+
   /*display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: auto;*/
- 
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: auto;*/
+
   list-style-type: none;
   text-align: center;
-  align-items:center;
-  justify-content:center;
+  align-items: center;
+  justify-content: center;
   padding-left: 0;
-  /* margin: 5px 30px; */
+  margin: 5px 30px;
   color: azure;
   box-sizing: border-box;
- 
- 
- 
+
+
+
   overflow: hidden;
   height: 100%;
   margin-bottom: 10px;
- 
+
   position: relative;
 }
- 
+
 .list-item {
   height: fit-content;
   box-sizing: border-box;
   padding: 0 10px;
 }
- 
- 
+
+
 div.notification {
   position: fixed;
   bottom: 20px;
@@ -284,4 +453,3 @@ div.notification-info {
   color: #43a143;
   box-shadow: 0 0 10px rgba(0, 0, 255, 0.5);
 }
- 
