@@ -11,7 +11,6 @@
             background-color: #05445E;
             border-radius: 10px;
             color: #D4F1F4;
-
             
             font-family: 'Inter', sans-serif;
 
@@ -55,7 +54,7 @@
             
             margin-top: 12px;
         }
-        .card-content button{
+        .card-content button;
             width: 195px;
             height: 35px;
             margin-top: 0px;
