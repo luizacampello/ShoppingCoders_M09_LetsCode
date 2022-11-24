@@ -80,17 +80,10 @@ window.basePage = {
         const logo = elementFactory.createHtmlTag('div', 'logo');
      
         const logoMenu = elementFactory.createHtmlTag('div', 'HeaderElements');
-      
-        const logoImgMobile = document.createElement('img'); //TODO criar uma function pra add imagem
-        logoImgMobile.setAttribute('src','/imgs/logoMobile.png');
-        logoImgMobile.setAttribute('id', 'LogoMobile');
-        logoImgMobile.classList.add('LogoMobile');
-       
-        const logoImgWeb = document.createElement('img'); //TODO criar uma function pra add imagem
-        logoImgWeb.setAttribute('src','/imgs/logoWeb.png');
-        logoImgWeb.setAttribute('id', 'LogoWeb');
-        logoImgWeb.classList.add('LogoWeb');
-     
+
+        const logoImgWeb = elementFactory.newImage('/imgs/logoWeb.png', 'LogoWeb', 'LogoWeb', 'logo completa do Shopping Coders');
+        const logoImgMobile = elementFactory.newImage('/imgs/logoMobile.png', 'LogoMobile', 'LogoMobile', 'logo reduzida do Shopping Coders');
+             
         const iconeMenu = document.createElement('span');
         iconeMenu.className = 'material-symbols-outlined';
         iconeMenu.textContent = 'menu';

@@ -1,8 +1,7 @@
 
 window.cardService = {
     CardStore: ({store, onClickCard = () =>{}}) =>{
-        const CardStoreElement = document.createElement('div'); //TODO
-        CardStoreElement.classList.add('card-content');
+        const cardStoreElement = elementFactory.createHtmlTag('div', 'card-content');
 
         const storeCategory = document.createElement('h3');
         storeCategory.textContent = store.category.code;
@@ -10,16 +9,15 @@ window.cardService = {
         const storeName = document.createElement('h2'); 
         storeName.textContent = store.name;
 
-        CardStoreElement.addEventListener('click', onClickCard)
-        CardStoreElement.appendChild(storeCategory);
-        CardStoreElement.appendChild(storeName);
+        cardStoreElement.addEventListener('click', onClickCard)
+        cardStoreElement.appendChild(storeCategory);
+        cardStoreElement.appendChild(storeName);
 
-        return CardStoreElement;
+        return cardStoreElement;
     },
 
     CardCategory: ({category, onClickEdit = () =>{}, onClickStores = () =>{}}) => {
-        const CardStoreElement = document.createElement('div');
-        CardStoreElement.classList.add('card-content');
+        const cardCategoryElement = elementFactory.createHtmlTag('div', 'card-content')
 
         const categoryId = document.createElement('h3');
         categoryId.textContent = category.code;
@@ -27,22 +25,22 @@ window.cardService = {
         const categoryName = document.createElement('h2');
         categoryName.textContent = category.name;
 
-        const EditButton = document.createElement('button'); //TODO
-        EditButton.textContent = 'Editar';
-        EditButton.classList.add('card-button');
-        EditButton.addEventListener('click', onClickEdit);
+        const editButton = document.createElement('button'); //TODO dá pra usar a func de botão?
+        editButton.textContent = 'Editar';
+        editButton.classList.add('card-button');
+        editButton.addEventListener('click', onClickEdit);
 
-        const StoresButton = document.createElement('button'); //TODO
-        StoresButton.textContent = 'Lojas';
-        StoresButton.classList.add('card-button');
-        StoresButton.addEventListener('click', onClickStores);
+        const categoryButton = document.createElement('button'); //TODO dá pra usar a func de botão?
+        categoryButton.textContent = 'Lojas';
+        categoryButton.classList.add('card-button');
+        categoryButton.addEventListener('click', onClickStores);
 
-        CardStoreElement.appendChild(categoryId);
-        CardStoreElement.appendChild(categoryName);
-        CardStoreElement.appendChild(EditButton);
-        CardStoreElement.appendChild(StoresButton);
+        cardCategoryElement.appendChild(categoryId);
+        cardCategoryElement.appendChild(categoryName);
+        cardCategoryElement.appendChild(editButton);
+        cardCategoryElement.appendChild(categoryButton);
 
-        return CardStoreElement;
+        return cardCategoryElement;
     },
 
     hideCards: (item) => {  

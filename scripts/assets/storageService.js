@@ -51,6 +51,4 @@ window.storageService = {
         localStorage.setItem("categoriesList", JSON.stringify(categoriesList));
         localStorage.setItem("storesList", JSON.stringify(storesList));
     },
-
-
 }

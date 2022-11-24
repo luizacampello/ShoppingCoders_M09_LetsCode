@@ -39,7 +39,7 @@ window.search = {
         searchIcon.addEventListener('click', search.searchClick)
     },
 
-    populateTypeCategory: async () => {
+    populateTypeCategory: () => {
         const selectTypeCategory = document.getElementById('typeCategory');
 
         const optionDefault = elementFactory.createHtmlTagAndSetContent('option', 'Selecione a categoria');
@@ -48,7 +48,7 @@ window.search = {
         optionDefault.hidden = true;
         selectTypeCategory.add(optionDefault);
 
-        const categoriesList =  await serviceAPI.getCategoriesList(); //API
+        const categoriesList = storageService.getCategoriesList();
 
         for (let index = 0; index < categoriesList.length; index++) {
             const category = categoriesList[index];

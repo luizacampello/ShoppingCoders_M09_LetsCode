@@ -27,7 +27,6 @@ window.infra = {
                     store: store,
                     onClickCard: () => {
                         popUpFactory.viewStorePopUpContainer(store);
-                        //infra.addClearPageEventTo(); //TODO
                     },
                 })
             );
@@ -93,7 +92,7 @@ window.infra = {
         });
     },
 
-    populateFormCategory: async (categoryForm, defaultCategory = "") => { //TODO
+    populateFormCategory: (categoryForm, defaultCategory = "") => {
         if (defaultCategory) {
             const defaultOption =
                 elementFactory.newCategoryOption(defaultCategory);
@@ -101,7 +100,7 @@ window.infra = {
             categoryForm.selectedIndex = 0;
         }
 
-        const categoriesList = storageService.getCategoriesList(); //API
+        const categoriesList = storageService.getCategoriesList();
 
         for (let index = 0; index < categoriesList.length; index++) {
             const categoryOption = categoriesList[index];
@@ -271,7 +270,7 @@ window.infra = {
     updateCategoryButtonOnClick: () => {
         const form = document.getElementById("categoryForm");
         const category = infra.getCategoryFormElements(form);
-        //TODO ADD VALIDACAO
+        //TODO: ADD VALIDACAO
         serviceAPI.updateCategory(category); //API
     },
 

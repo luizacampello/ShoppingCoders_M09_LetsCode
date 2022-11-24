@@ -1,6 +1,6 @@
 window.elementFactory = {
     
-    createHtmlTag: (tag, cssClass, id = "") => { //TODO
+    createHtmlTag: (tag, cssClass, id = "") => {
         const container = document.createElement(tag);
         
         if (cssClass){
@@ -14,7 +14,7 @@ window.elementFactory = {
         return container;
     },
 
-    createHtmlTagAndSetContent: (tag, tagContent, id = '') => { //TODO
+    createHtmlTagAndSetContent: (tag, tagContent, id = '') => {
         const container = document.createElement(tag);
         
         container.textContent = tagContent;
@@ -35,7 +35,7 @@ window.elementFactory = {
         return newOption;
     },
 
-    newButton: (value, id, onClickFunction = () => {}) => { //TODO
+    newButton: (value, id, onClickFunction = () => {}) => {
         const buttonBox = elementFactory.createHtmlTag("div", "", `box${id}`);
         const buttonElement = elementFactory.createHtmlTag("input", "", id); 
         buttonElement.type = "button";
@@ -48,7 +48,7 @@ window.elementFactory = {
         return buttonBox;
     },
 
-    newFormOption: (name, placeholder, value, type = "") => { //TODO
+    newFormOption: (name, placeholder, value, type = "") => {
         const formOption = document.createElement("input");
         formOption.name = name;
 		formOption.placeholder = placeholder;
@@ -64,7 +64,7 @@ window.elementFactory = {
         return formOption;
     },
 
-    emptyFormOption: (name, placeholder, type = "") => { //TODO
+    emptyFormOption: (name, placeholder, type = "") => {
         const formOption = document.createElement("input");
         formOption.name = name;
 		formOption.placeholder = placeholder;
@@ -76,4 +76,16 @@ window.elementFactory = {
         return formOption;
     },
     
+    newImage: (source, cssClass, id, altText = "") => {
+        const image = document.createElement('img');
+        image.setAttribute('src', source);        
+        image.classList.add(cssClass);
+        image.setAttribute('id', id);
+
+        if (altText) {
+            image.setAttribute("alt", altText)    
+        }
+        
+        return image;
+    },
 }
