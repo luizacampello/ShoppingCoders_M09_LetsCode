@@ -54,10 +54,6 @@ window.infra = {
         };
     },
 
-
-
-    //Footer
-
     refreshFooter: async () => {
         await infra.createCategoriesQuantities();
         //console.log("aqui1");
@@ -111,8 +107,6 @@ window.infra = {
         //console.log("aqui5");
     },
 
-
-
     populateFormCategory: async (categoryForm, defaultCategory = "") => {
         if (defaultCategory) {
             const defaultOption = elementFactory.newCategoryOption(defaultCategory);
@@ -160,7 +154,6 @@ window.infra = {
         infoPage.style.display = "none";
         formPage.style.display = "flex";
     },
-
 
     addClearPageEventTo: () => {
         const containerId = "popUpContainer";
@@ -211,9 +204,6 @@ window.infra = {
         pageCard.classList.remove("show");
         // TODO: Chamar a pagina com todas as lojas
     },
-
-
-    // OnClick de Category
 
     getCategoryFormElements: (form) => {
         const category = {};

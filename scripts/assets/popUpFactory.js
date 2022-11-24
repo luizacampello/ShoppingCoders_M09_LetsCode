@@ -82,7 +82,7 @@ window.popUpFactory = {
 		);	
 
 		divButtons.appendChild(
-			elementFactory.newButton("Salvar", "save", infra.updateStoreButtonOnClick)
+			elementFactory.saveSubmit("Salvar", "save", infra.updateStoreButtonOnClick)
 		);
 
 		formContainer.appendChild(divCloseButton);
@@ -123,7 +123,7 @@ window.popUpFactory = {
 		const divSaveButton = elementFactory.createHtmlTag("div", "", "divSave"); //TODO: arrumar o botao
 		divSaveButton.setAttribute("id", "divSave");
 		divSaveButton.appendChild(
-			elementFactory.newButton("Salvar", "save", infra.createStoreButtonOnClick)
+			elementFactory.saveSubmit("Salvar", "save", infra.createStoreButtonOnClick)
 		);
 	
 		formContainer.appendChild(divCloseButton);
@@ -194,7 +194,7 @@ window.popUpFactory = {
 			elementFactory.newButton("Deletar", "delete", infra.deleteCategoryButtonOnClick)
 		);
 		divButtons.appendChild(
-			elementFactory.newButton("Salvar", "save", infra.updateCategoryButtonOnClick)
+			elementFactory.saveSubmit("Salvar", "save", infra.updateCategoryButtonOnClick)
 		);
 
 		formContainer.appendChild(divCloseButton);
@@ -220,7 +220,7 @@ window.popUpFactory = {
 
 		const divButtons = elementFactory.createHtmlTag("div", "", "divButtons");
 		divButtons.appendChild(
-			elementFactory.newButton("Salvar", "save", infra.createCategoryButtonOnClick)
+			elementFactory.saveSubmit("Salvar", "save", infra.createCategoryButtonOnClick)
 		);
 
 
