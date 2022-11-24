@@ -11,13 +11,19 @@
             background-color: #05445E;
             border-radius: 10px;
             color: #D4F1F4;
-            
+
             font-family: 'Inter', sans-serif;
 
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
         }
+
+		.card-content:hover{
+			background-color: #189AB4;
+			color: white;
+		}
+
         .card-content h2{
             margin: 0px;
             margin-left: 12px;
@@ -26,14 +32,14 @@
             font-weight: 500;
             font-size: 24px;
             text-overflow: ellipsis;
-            overflow: hidden;            
+            overflow: hidden;
             flex-wrap: wrap;
         }
         .card-content h3{
             margin-left: 12px;
             margin-bottom: 5px;
             margin-top: 10px;
-            
+
             font-weight: 300;
             font-size: 16px;
         }
@@ -42,7 +48,7 @@
             height: 185px;
         }
         .card-content:has(button) h2{
-            
+
             margin-bottom: 12px;
             text-overflow: ellipsis;
             overflow: hidden;
@@ -51,7 +57,7 @@
             white-space: nowrap;
         }
         .card-content:has(button) h3{
-            
+
             margin-top: 12px;
         }
         .card-content button;
