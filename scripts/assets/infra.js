@@ -151,7 +151,6 @@ window.infra = {
                         if (item.firstChild.innerText != categoryCode){
                             cardService.hideCards(item);
                         }
-						
 					    else {
                             cardService.showCards(item);
                         }
@@ -159,14 +158,13 @@ window.infra = {
                     }
                     else{
                         cardService.showCards(item);
-                        console.log('SASASA')
                     }
                     
 				})
+
 				storesContainer.classList.add("activeInnerContainer");
-				storesContainer.classList.remove("innerContainer");
                 categoriesContainer.classList.remove("activeInnerContainer");
-				categoriesContainer.classList.add("innerContainer");
+
     },
 
     showStoresByKeyword: (keyword = '') => {
@@ -190,16 +188,13 @@ window.infra = {
                         cardService.showCards(item);
                     }
                     
-                    
 				})
 
 				storesContainer.classList.add("activeInnerContainer");
-				storesContainer.classList.remove("innerContainer");
                 search.containerChangeClass();
     },
 
     showCategoriesByKeyword: (keyword) => {
-        console.log('foi mais vezes')
         const categoriesContainer = document.getElementById("categoriesContainer");
                 const categoriesCards = categoriesContainer.querySelectorAll("div");
 
@@ -218,7 +213,6 @@ window.infra = {
 				})
 
                 categoriesContainer.classList.add("activeInnerContainer");
-				categoriesContainer.classList.remove("innerContainer");
                 search.containerChangeClass();
     },
 
@@ -346,21 +340,10 @@ window.infra = {
     },
 
     linkCardsStoreOnClick: () => {
-        const categoriesContainer = document.getElementById('categoriesContainer');
-        categoriesContainer.classList.add("innerContainer");
-		categoriesContainer.classList.remove("activeInnerContainer");
-
-        const storesContainer = document.getElementById('storesContainer');
-        storesContainer.classList.remove("innerContainer");
-		storesContainer.classList.add("activeInnerContainer");
-
 		cardService.resetCards(storesContainer);
         infra.displayInnerContainer("storesContainer");
         infra.showStoresByKeyword();
-        
-        console.log(storesContainer.className)
         search.containerChangeClass();
-        
     },
 
     linkNewCategoryOnClick: () => {
@@ -370,10 +353,6 @@ window.infra = {
     },
 
     linkCardsCategoryOnClick: () => {
-        const storesContainer = document.getElementById("storesContainer");
-        storesContainer.classList.add("innerContainer");
-		storesContainer.classList.remove("activeInnerContainer");
-
         const categoriesContainer = document.getElementById('categoriesContainer');
         infra.populateCategoryContainer(categoriesContainer);
 		cardService.resetCards(categoriesContainer);
