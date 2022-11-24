@@ -15,7 +15,11 @@ window.infra = {
         activeContainer.classList.add("activeInnerContainer");
     },
 
-    populateStoreContainer: async (container, keyword='', idCategory='') => {
+    populateStoreContainer: async (
+        container,
+        keyword = "",
+        idCategory = ""
+    ) => {
         const storesList = await serviceAPI.getStoresList(keyword, idCategory);
         for (let index = 0; index < storesList.length; index++) {
             const store = storesList[index];
@@ -28,92 +32,101 @@ window.infra = {
                     },
                 })
             );
-        };
+        }
     },
 
-    populateCategoryContainer: async (container, keyword='') => {
+    populateCategoryContainer: async (container, keyword = "") => {
         const categoryList = await serviceAPI.getCategoriesList(keyword);
-        const categoriesContainer = document.getElementById('categoriesContainer')
+        const categoriesContainer = document.getElementById(
+            "categoriesContainer"
+        );
         for (let index = 0; index < categoryList.length; index++) {
-            console.log("Hey função chamada")
+            console.log("Hey função chamada");
             const category = categoryList[index];
             container.appendChild(
                 cardService.CardCategory({
                     category: category,
                     onClickEdit: () => {
                         popUpFactory.categoryPopUpContainer(category);
-                        const formCategory = document.getElementById("categoryFormContainer");
+                        const formCategory = document.getElementById(
+                            "categoryFormContainer"
+                        );
                         formCategory.style.display = "flex";
                     },
                     onClickStores: () => {
                         infra.showSelectCategory(category.code);
-                        categoriesContainer.classList.remove("activeInnerContainer");
-				        categoriesContainer.classList.add("innerContainer");
+                        categoriesContainer.classList.remove(
+                            "activeInnerContainer"
+                        );
+                        categoriesContainer.classList.add("innerContainer");
                         search.containerChangeClass();
                     },
                 })
             );
-        
-        };
+        }
     },
 
-	refreshFooter: async () => {
-		await infra.createCategoriesQuantities();
-		//console.log("aqui1");
-		setTimeout(function () {
-			infra.updateCategoriesQuantities()
-			//console.log("aqui6");
-		}, 2000);
-	},
+    refreshFooter: async () => {
+        await infra.createCategoriesQuantities();
+        //console.log("aqui1");
+        setTimeout(function () {
+            infra.updateCategoriesQuantities();
+            //console.log("aqui6");
+        }, 2000);
+    },
 
-	createCategoriesQuantities: async () => {
-		const stores = await serviceAPI.getStoresList("", "");
-		const categories = await serviceAPI.getCategoriesList("");
-		setTimeout(() => {
-
-			//console.log("aqui2");
-			//console.log(stores);
-			if (categories == null)
-				return;
-			categories.forEach(element => {
-				element.quantity = 0;
-				for (i = 0; i < stores.length; i++) {
-					if (element.uid == stores[i].category.uid)
-						element.quantity++;
-				}
-			});
-			//console.log(categories);
-			//console.log("aqui3");
-			setTimeout(() => {
-				localStorage.setItem("CategoriesQuantities", JSON.stringify(categories));
-				//console.log("aqui4");
-			}, 500)
-		}, 1000);
-	},
+    createCategoriesQuantities: async () => {
+        const stores = await serviceAPI.getStoresList("", "");
+        const categories = await serviceAPI.getCategoriesList("");
+        setTimeout(() => {
+            //console.log("aqui2");
+            //console.log(stores);
+            if (categories == null) return;
+            categories.forEach((element) => {
+                element.quantity = 0;
+                for (i = 0; i < stores.length; i++) {
+                    if (element.uid == stores[i].category.uid)
+                        element.quantity++;
+                }
+            });
+            //console.log(categories);
+            //console.log("aqui3");
+            setTimeout(() => {
+                localStorage.setItem(
+                    "CategoriesQuantities",
+                    JSON.stringify(categories)
+                );
+                //console.log("aqui4");
+            }, 500);
+        }, 1000);
+    },
 
     updateCategoriesQuantities: () => {
         const response = localStorage.getItem("CategoriesQuantities");
         const categoriesQuantities = JSON.parse(response);
-		let list = document.querySelector("#footer-list");
-		list.innerHTML = "";
-        if (categoriesQuantities == null)
-            return;
-		categoriesQuantities.forEach(item => {
-			if (item.quantity != 0)
-			{
-				const content = item.name + ": " + item.quantity;
-				const listItem = elementFactory.createHtmlTagAndSetContent("li", content, item.uid);
-				listItem.classList.add("list-item");
-				listItem.setAttribute("name", item.code);
-				list.appendChild(listItem);
-			}
-		})
-		//console.log("aqui5");
+        let list = document.querySelector("#footer-list");
+        list.innerHTML = "";
+        if (categoriesQuantities == null) return;
+        categoriesQuantities.forEach((item) => {
+            if (item.quantity != 0) {
+                const content = item.name + ": " + item.quantity;
+                const listItem = elementFactory.createHtmlTagAndSetContent(
+                    "li",
+                    content,
+                    item.uid
+                );
+                listItem.classList.add("list-item");
+                listItem.setAttribute("name", item.code);
+                list.appendChild(listItem);
+            }
+        });
+        //console.log("aqui5");
     },
 
     populateFormCategory: async (categoryForm, defaultCategory = "") => {
         if (defaultCategory) {
-            const defaultOption = elementFactory.newCategoryOption(defaultCategory);
+            const defaultOption =
+                elementFactory.newCategoryOption(defaultCategory);
             categoryForm.add(defaultOption);
             categoryForm.selectedIndex = 0;
         }
@@ -123,7 +136,9 @@ window.infra = {
         for (let index = 0; index < categoriesList.length; index++) {
             const categoryOption = categoriesList[index];
             if (categoryOption.uid != defaultCategory.uid) {
-                categoryForm.add(elementFactory.newCategoryOption(categoryOption));
+                categoryForm.add(
+                    elementFactory.newCategoryOption(categoryOption)
+                );
             }
         }
     },
@@ -131,89 +146,79 @@ window.infra = {
     addFooterCategorySearchEvent: () => {
         let list = document.querySelector("#footer-list");
 
-        list.addEventListener("click", function(event) {
-            if (event.target.tagName == 'LI') {
-				//inserir aqui a alteração na busca
+        list.addEventListener("click", function (event) {
+            if (event.target.tagName == "LI") {
+                //inserir aqui a alteração na busca
 
                 infra.showSelectCategory(event.target.getAttribute("name"));
-				
             }
         });
     },
 
-    showSelectCategory: (categoryCode = '') => {
-        const categoriesContainer = document.getElementById("categoriesContainer");
+    showSelectCategory: (categoryCode = "") => {
+        const categoriesContainer = document.getElementById(
+            "categoriesContainer"
+        );
         const storesContainer = document.getElementById("storesContainer");
-				const storesCards = storesContainer.querySelectorAll("div");
-				storesCards.forEach(item => {
-                    if(categoryCode != null || categoryCode != ''){
-                        
-                        if (item.firstChild.innerText != categoryCode){
-                            cardService.hideCards(item);
-                        }
-					    else {
-                            cardService.showCards(item);
-                        }
-						
-                    }
-                    else{
-                        cardService.showCards(item);
-                    }
-                    
-				})
+        const storesCards = storesContainer.querySelectorAll("div");
+        storesCards.forEach((item) => {
+            if (categoryCode != null || categoryCode != "") {
+                if (item.firstChild.innerText != categoryCode) {
+                    cardService.hideCards(item);
+                } else {
+                    cardService.showCards(item);
+                }
+            } else {
+                cardService.showCards(item);
+            }
+        });
 
-				storesContainer.classList.add("activeInnerContainer");
-                categoriesContainer.classList.remove("activeInnerContainer");
-
+        storesContainer.classList.add("activeInnerContainer");
+        categoriesContainer.classList.remove("activeInnerContainer");
     },
 
-    showStoresByKeyword: (keyword = '') => {
-                const storesContainer = document.getElementById("storesContainer");
-				const storesCards = storesContainer.querySelectorAll("div");
-                
+    showStoresByKeyword: (keyword = "") => {
+        const storesContainer = document.getElementById("storesContainer");
+        const storesCards = storesContainer.querySelectorAll("div");
 
-				storesCards.forEach(item => {
-					if (keyword != '') {
-                        const itemNodes = item.childNodes;
-                    const re = new RegExp(keyword + '.*')
-                    
-                    if (itemNodes[1].innerText.toLowerCase().match(re)) {
-                        cardService.showCards(item);
-                    }
-						
-					else{
-                        cardService.hideCards(item);
-                    }
-                    } else {
-                        cardService.showCards(item);
-                    }
-                    
-				})
+        storesCards.forEach((item) => {
+            if (keyword != "") {
+                const itemNodes = item.childNodes;
+                const re = new RegExp(keyword + ".*");
 
-				storesContainer.classList.add("activeInnerContainer");
-                search.containerChangeClass();
+                if (itemNodes[1].innerText.toLowerCase().match(re)) {
+                    cardService.showCards(item);
+                } else {
+                    cardService.hideCards(item);
+                }
+            } else {
+                cardService.showCards(item);
+            }
+        });
+
+        storesContainer.classList.add("activeInnerContainer");
+        search.containerChangeClass();
     },
 
     showCategoriesByKeyword: (keyword) => {
-        const categoriesContainer = document.getElementById("categoriesContainer");
-                const categoriesCards = categoriesContainer.querySelectorAll("div");
+        const categoriesContainer = document.getElementById(
+            "categoriesContainer"
+        );
+        const categoriesCards = categoriesContainer.querySelectorAll("div");
 
-                categoriesCards.forEach(item => {
-					const itemNodes = item.childNodes;
-                    const re = new RegExp(keyword + '.*')
-                    console.log('foi')
-                    if (itemNodes[1].innerText.toLowerCase().match(re)) {
-                        cardService.showCards(item);
-                    }
-						
-					else{
-                        cardService.hideCards(item);
-                    }
-                    
-				})
+        categoriesCards.forEach((item) => {
+            const itemNodes = item.childNodes;
+            const re = new RegExp(keyword + ".*");
+            console.log("foi");
+            if (itemNodes[1].innerText.toLowerCase().match(re)) {
+                cardService.showCards(item);
+            } else {
+                cardService.hideCards(item);
+            }
+        });
 
-                categoriesContainer.classList.add("activeInnerContainer");
-                search.containerChangeClass();
+        categoriesContainer.classList.add("activeInnerContainer");
+        search.containerChangeClass();
     },
 
     editButtonOnClick: () => {
@@ -222,7 +227,6 @@ window.infra = {
         infoPage.style.display = "none";
         formPage.style.display = "flex";
     },
-
 
     addClearPageEventTo: () => {
         const containerId = "popUpContainer";
@@ -274,7 +278,6 @@ window.infra = {
         // TODO: Chamar a pagina com todas as lojas
     },
 
-
     // OnClick de Category
 
     getCategoryFormElements: (form) => {
@@ -310,16 +313,25 @@ window.infra = {
         pageCard.classList.remove("show");
     },
 
-    addLinksToHeader: () => { // TODO: adicionar o restante dos clicks
+    addLinksToHeader: () => {
+        // TODO: adicionar o restante dos clicks
 
         // const linkCategoryContainer = document.getElementById("linkCategoryContainer");
         // linkCategoryContainer.addEventListener("click", function);
 
-        const linkPopupNewCategory = document.getElementById("linkPopupNewCategory");
-        linkPopupNewCategory.addEventListener("click", infra.linkNewCategoryOnClick);
+        const linkPopupNewCategory = document.getElementById(
+            "linkPopupNewCategory"
+        );
+        linkPopupNewCategory.addEventListener(
+            "click",
+            infra.linkNewCategoryOnClick
+        );
 
         const linkCategories = document.getElementById("linkCategories");
-        linkCategories.addEventListener("click", infra.linkCardsCategoryOnClick);
+        linkCategories.addEventListener(
+            "click",
+            infra.linkCardsCategoryOnClick
+        );
 
         // const linkStoreContainer = document.getElementById("linkStoreContainer");
         // linkStoreContainer.addEventListener("click", function);
@@ -329,8 +341,6 @@ window.infra = {
 
         const linkStores = document.getElementById("linkStores");
         linkStores.addEventListener("click", infra.linkCardsStoreOnClick);
-
-
     },
 
     linkNewStoreOnClick: () => {
@@ -340,9 +350,8 @@ window.infra = {
     },
 
     linkCardsStoreOnClick: () => {
-		cardService.resetCards(storesContainer);
+        cardService.resetCards("storesContainer");
         infra.displayInnerContainer("storesContainer");
-        infra.showStoresByKeyword();
         search.containerChangeClass();
     },
 
@@ -353,15 +362,12 @@ window.infra = {
     },
 
     linkCardsCategoryOnClick: () => {
-        const categoriesContainer = document.getElementById('categoriesContainer');
-        infra.populateCategoryContainer(categoriesContainer);
-		cardService.resetCards(categoriesContainer);
+        cardService.resetCards("categoriesContainer");
         infra.displayInnerContainer("categoriesContainer");
-        categoriesContainer.classList.remove("innerContainer");
         search.containerChangeClass();
     },
 
-	/*refreshStoresCategory: async (upCategory) => {
+    /*refreshStoresCategory: async (upCategory) => {
 		let stores = await serviceAPI.getStoresList("", upCategory.uid);
 		console.log(stores);
 		console.log("cheguei aqui");
@@ -383,4 +389,4 @@ window.infra = {
 		stores = await serviceAPI.getStoresList("", upCategory.uid);
 		console.log(stores);
 	},*/
-}
+};
