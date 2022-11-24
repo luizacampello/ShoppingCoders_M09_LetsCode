@@ -1,394 +1,316 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap');
 
-* {
-  margin: 0;
-  padding: 0;
-}
-
-header {
-  position: fixed;
+.popUpContainer {
+  background-color: rgba(0, 0, 0, .5);
   width: 100vw;
-  background-color: aqua;
-  height: 10vh;
-
-}
-
-header nav {
-  display: flex;
-  justify-content: space-between;
-  font-family: 'Noto Serif', serif;
-  padding: 2rem;
-}
-
-.logo {
-  cursor: pointer;
-  font-size: 1.4rem;
-}
-
-nav .menu {
-  display: flex;
-  width: 30%;
-  justify-content: space-around;
-}
-
-.lojas,
-.categorias {
-  width: 50%;
+  height: 100vh;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  display: none;
+  justify-content: center;
   align-items: center;
-  cursor: pointer;
-  text-align: center;
-  font-size: 1rem;
-  padding: 0.5rem;
-
 }
 
-.lojas ul,
-.categorias ul {
-  display: none;
-  padding: 0.5rem;
-  border-radius: 0.4rem;
-}
-.lojas ul li,
-.categorias ul li {
-  list-style: none;
-  margin-top: 0.7rem;
-  margin-bottom: 0.4rem;
-  cursor: pointer;
-}
-
-.lojas ul li:hover,
-.categorias ul li:hover {
-  font-weight: bold;
-}
-
-.lojas:hover,
-.categorias:hover {
-  font-size: 1rem;
-}
-
-.lojas:hover > ul,
-.categorias:hover > ul {
-  display: block;
-  background-color: cadetblue;
-}
-
-#iconeMenu{
-  display: none;
-  cursor: pointer;
-}
-
-@media (max-width: 750px) {
-  #iconeMenu{
-    display: block;
-    align-self: flex-end;
-  }
-
-  header{
-    height: auto;
-  }
-
-  header nav{
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .logo{
-    align-self: center;
-    text-align: center;
-  }
-
-  nav .menu{
-    display: none;
-  }
-
-  nav .menuHide{
-    display: none;
-  }
-
-  nav .menuShow{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    background-color: cadetblue;
-    align-items: center;
-    border-radius: 10px;
-  }
-
-
-  .lojas,
-  .categorias {
-    width: 90%;
-  }
-}
-
-.popUpContainer{
-    background-color: rgba(0,0,0,.5);
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    display: none;
-    justify-content: center;
-    align-items: center;
-}
-.mainContainer{
-    width:100%;
-    display:flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    /* margin-top: 10vh; */
-    padding-top: 10vh;
+.mainContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  /* margin-top: 10vh; */
+  padding-top: 10vh;
 }
 
 .show {
-    display: flex;
+  display: flex;
 }
 
 .hide {
-	display: none;
+  display: none;
 }
 
-#infoContainer {
-    background-color: #F1F1F1;
-    display: flex;
-    justify-content: space-between;
-    width: 60%;
-    min-width: 300px;
-    padding: 4%;
+.infoPopUp {
+  background-color: #F1F1F1;
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+  min-width: 300px;
+  max-width: 800px;
+  padding: 4%;
 }
 
-.divInfo {
-    /* background-color: aqua; */
-    height: 100%;
-    margin-right: 3%;
-    /* padding: 5%; */
+.storeInfo {
+  height: 100%;
+  margin-right: 3%;
 }
 
-.divInfo h2 {
-    font-size: 3rem;
-    font-weight: bolder;
-    margin-top: 0;
+.storeInfo h2 {
+  font-size: 3rem;
+  font-weight: bolder;
 }
 
-.divInfo h3 {
-    margin-top: -3%;
-    font-size: 1.2rem;
-    color: darkgoldenrod;
+.storeInfo h3 {
+  margin-top: 3%;
+  margin-bottom: 2%;
+  font-size: 1.2rem;
+  color: darkgoldenrod;
 }
 
-.divInfo p {
-    color: #484D52;
-    font-size: 1.1rem;
-    line-height: 1.5;
-    margin-bottom: -1%;
+.storeInfo p {
+  color: #484D52;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin-bottom: -0.5%;
 }
 
 .divButtons {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    text-align: center;
-    margin-left: 3%;
-    /* padding: 4% 2%; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  margin-left: 3%;
+  width: 13%;
 }
 
-#bClose {
-    position: relative;
-}
-
-#bEdit {
+#boxclose {
+  position: relative;
 }
 
 #close {
-    /* ARRUMAR O CSS DESSE NEGOCIO */
-    padding: 4px;
-    width: 30px;
-    font-weight: bolder;
-    background-color: lightgray;
-    color: #484D52;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
+  padding: 5px;
+  font-weight: bolder;
+  background-color: lightgray;
+  color: #484D52;
+  border: 2px solid #F1F1F1;
+  cursor: pointer;
 
-    position: absolute;
-    top: 0px;
-    right: 0px;
+  width: 40px;
+  border-radius: 10px;
+  top: 0;
+  right: 0;
+
+  position: absolute;
+  /* width: 50px;
+  height: 50px;
+  font-size: 1rem;
+  border-radius: 50%;
+  top: -60px;
+  right: -90%; */
 
 }
 
 #edit {
-    padding: 4px 7px;
-    font-weight: bolder;
-    background-color: lightgray;
-    color: #484D52;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
+  width: 100%;
+  height: 4vh;
+  padding: 4px 7px;
+  font-weight: bolder;
+  background-color:#189AB4;
+  color: #F1F1F1;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
 }
 
-
-/* ver como colocar o hover no click :)  */
-#edit :hover {
-    color: burlywood;
-    background-color: aliceblue;
-}
-
-
-
-
-#formContainer {
-    background-color: #F1F1F1;
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 60%;
-    min-width: 300px;
-    padding: 4%;
-    position: relative;
+.formPopUp {
+  background-color: #F1F1F1;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  min-width: 300px;
+  max-width: 800px;
+  padding: 4%;
+  position: relative;
 }
 
 #divClose {
-    position: absolute;
-    top:  20px;
-    right: 20px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }
 
-#formContainer form {
-    width: 70%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 2% 0;
+.formPopUp form {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 2% 0;
 
 }
-#formContainer form input, form select{
-    font-size: 15px;
-    margin: 10px 0;
-    height: 38px;
-    border-radius:1.3rem;
-    border: none;
-    padding-left: 20px;
+
+.formPopUp form input,
+form select {
+  font-size: 15px;
+  margin: 10px 0;
+  height: 5vh;
+  border-radius: 1.3rem;
+  border: none;
+  padding-left: 20px;
 }
 
-#formContainer form textarea {
-    font-size: 15px;
-    font-family: sans-serif;
-    margin: 10px 0;
-    height: 45px;
-    border-radius:1.3rem;
-    border: none;
-    padding-top: 10px;
-    padding-left: 20px;
+.formPopUp form textarea {
+  font-size: 15px;
+  font-family: sans-serif;
+  margin: 10px 0;
+  height: 7vh;
+  border-radius: 1.3rem;
+  border: none;
+  padding-top: 10px;
+  padding-left: 20px;
 }
 
 #form {
-    background-color: aqua;
-    width: 100%;
-    display: flex;
+  width: 100%;
+  display: flex;
 }
 
 #divSave {
-    width: 70%;
+    width: 80%;
+    height: 5vh;
     margin-bottom: 2%;
 }
 
+#divButtons {
+  display: flex;
+  justify-content:space-between;
+  flex-direction: row;
+  width: 80%;
+  height: 5vh;
+}
+
+#boxsave {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+
+}
+
+#boxdelete {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 #save {
-    font-size: 15px;
-    height: 38px;
-    border-radius:20px;
-    border: none;
-    background-color: darkcyan;
-    color: white;
-    width: 100%;
+  width: 99%;
+  height: 100%;
+  font-size: 15px;
+  border-radius: 20px;
+  border: none;
+  background-color: #189AB4;
+  color: white;
 }
 
-.innerContainer{
-    display:none;
-    margin: 2vw;
+#delete {
+  width: 99%;
+  font-size: 15px;
+  height: 5vh;
+  border-radius: 10px;
+  border: none;
+  background-color: darkgray;
+  color: white;
 }
 
-.activeInnerContainer{
-    display:flex;
-    flex-flow: row wrap;
-    justify-content: space-evenly;
+.saveMessage {
+  display: none;
+  align-self: center;
+  color: lightseagreen;
+  font-family: 'Segoe UI', Tahoma;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.innerContainer {
+  display: none;
+  margin: 2vw;
+}
+
+.activeInnerContainer {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
 }
 
 footer {
-	display: flex;
-	flex-direction: column;
-	position: fixed;
-	left: 0;
-	bottom: 0;
-	width: 100%;
-	background-color: rgb(3, 179, 179);
-	height: auto;
-	text-align: center;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #189AB4;
+  height: auto;
+  text-align: center;
 }
 
 #footer-title {
-	color: azure;
-	font-size: 22px;
-	font-weight: 700;
-	padding-top: 2vh;
-	margin: 0;
+  color: azure;
+  font-size: 22px;
+  font-weight: 700;
+  padding-top: 2vh;
+  margin: 0;
 }
 
 #footer-list {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 
-	/*display: grid;
+  /*display: grid;
 	grid-template-columns: repeat(4, 1fr);
 	grid-template-rows: auto;*/
 
-	list-style-type: none;
-	text-align: center;
-	align-items:center;
-	justify-content:center;
-	padding-left: 0;
-	margin: 5px 30px;
-	color: azure;
-	box-sizing: border-box;
+  list-style-type: none;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0;
+  margin: 5px 30px;
+  color: azure;
+  box-sizing: border-box;
 
 
 
-	overflow: hidden;
-	height: 100%;
-	margin-bottom: 10px;
+  overflow: hidden;
+  height: 100%;
+  margin-bottom: 10px;
 
-	position: relative;
+  position: relative;
 }
 
 .list-item {
-	height: fit-content;
-	box-sizing: border-box;
-	padding: 0 10px;
+  height: fit-content;
+  box-sizing: border-box;
+  padding: 0 10px;
 }
 
 
 div.notification {
-	position: fixed;
-	bottom: 20px;
-	right: 20px;
-	width: 200px;
-	padding: 20px;
-	text-align: center;
-	background: #e8e8e8;
-	border-radius: 20px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 200px;
+  padding: 20px;
+  text-align: center;
+  background: #e8e8e8;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
+
 div.notification-error {
-	color: #a14343;
-	box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+  color: #a14343;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
 }
+
 div.notification-success {
-	color: #43a143;
-	box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+  color: #43a143;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
 }
+
 div.notification-info {
 	color: #43a143;
 	box-shadow: 0 0 10px rgba(0, 0, 255, 0.5);
