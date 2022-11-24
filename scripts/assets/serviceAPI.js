@@ -62,10 +62,11 @@ window.serviceAPI = {
     },
 
     getStoresList: async () => {
+
         let url = serviceAPI.BASE_URL + "/establishment/list";
         let body = serviceAPI.uidGroupDefinition;
         body.text = "";
-		
+
         let stores = await serviceAPI.fetchPostRequisition(url, body);
 
         return stores;

@@ -27,7 +27,7 @@ window.infra = {
                     store: store,
                     onClickCard: () => {
                         popUpFactory.viewStorePopUpContainer(store);
-                        //infra.addClearPageEventTo();
+                        //infra.addClearPageEventTo(); //TODO
                     },
                 })
             );
@@ -65,37 +65,16 @@ window.infra = {
     },
 
     refreshFooter: async () => {
-        await infra.createCategoriesQuantities();
+        await storageService.createCategoriesQuantities();
         setTimeout(function () {
             infra.updateCategoriesQuantities();
         }, 2000); //TODO
     },
 
-    createCategoriesQuantities: () => {
-        const stores = storageService.getStoresList(); //API
-        const categories = storageService.getCategoriesList(); //API
-        setTimeout(() => { //TODO
-            if (categories == null) return;
-            categories.forEach((element) => {
-                element.quantity = 0;
-                for (i = 0; i < stores.length; i++) {
-                    if (element.uid == stores[i].category.uid)
-                        element.quantity++;
-                }
-            });
-
-            setTimeout(() => { //TODO
-                localStorage.setItem(
-                    "CategoriesQuantities",
-                    JSON.stringify(categories)
-                );
-            }, 500);
-        }, 1000);
-    },
-
     updateCategoriesQuantities: () => {
         const response = localStorage.getItem("CategoriesQuantities"); //TODO
         const categoriesQuantities = JSON.parse(response); //TODO
+
         let list = document.querySelector("#footer-list");
         list.innerHTML = "";
         if (categoriesQuantities == null) return;
@@ -153,7 +132,7 @@ window.infra = {
         const storesContainer = document.getElementById("storesContainer");
         const storesCards = storesContainer.querySelectorAll("div");
         storesCards.forEach((item) => {
-            if (categoryCode != null || categoryCode != "") {
+            if (categoryCode) {
                 if (item.firstChild.innerText != categoryCode) {
                     cardService.hideCards(item);
                 } else {

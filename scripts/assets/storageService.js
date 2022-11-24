@@ -3,11 +3,30 @@ window.storageService = {
     createLocalStorage: async () => {
         const categoriesList = await serviceAPI.getCategoriesList();
         const storesList = await serviceAPI.getStoresList("");
-        console.log(storesList);
-
 
         localStorage.setItem("categoriesList", JSON.stringify(categoriesList));
         localStorage.setItem("storesList", JSON.stringify(storesList));
+    },
+
+    createCategoriesQuantities: () => {  //TODO como mudar isso pra adicionar ali em cima
+        const stores = storageService.getStoresList();
+        const categories = storageService.getCategoriesList();
+
+        if (categories == null){
+            return;
+        } 
+
+        categories.forEach((element) => {
+            element.quantity = 0; //TODO
+
+            for (i = 0; i < stores.length; i++) {
+                if (element.uid == stores[i].category.uid){
+                    element.quantity++; 
+                }                    
+            }
+        });
+
+        localStorage.setItem("CategoriesQuantities", JSON.stringify(categories));
     },
 
     getCategoriesList: () => {
