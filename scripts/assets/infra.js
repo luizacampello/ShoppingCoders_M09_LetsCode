@@ -169,7 +169,7 @@ window.infra = {
 				categoriesContainer.classList.add("innerContainer");
     },
 
-    showSearchKeyWordStores: (keyword = '') => {
+    showStoresByKeyword: (keyword = '') => {
                 const storesContainer = document.getElementById("storesContainer");
 				const storesCards = storesContainer.querySelectorAll("div");
                 
@@ -198,7 +198,7 @@ window.infra = {
                 search.containerChangeClass();
     },
 
-    showSearchKeyWordCategories: (keyword) => {
+    showCategoriesByKeyword: (keyword) => {
         console.log('foi mais vezes')
         const categoriesContainer = document.getElementById("categoriesContainer");
                 const categoriesCards = categoriesContainer.querySelectorAll("div");
@@ -353,10 +353,10 @@ window.infra = {
         const storesContainer = document.getElementById('storesContainer');
         storesContainer.classList.remove("innerContainer");
 		storesContainer.classList.add("activeInnerContainer");
-        
+
 		cardService.resetCards(storesContainer);
         infra.displayInnerContainer("storesContainer");
-        infra.showSearchKeyWordStores();
+        infra.showStoresByKeyword();
         
         console.log(storesContainer.className)
         search.containerChangeClass();

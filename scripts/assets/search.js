@@ -82,34 +82,39 @@ window.search = {
     },
 
     searchClick: () => {
+        const storesContainer = document.getElementById("storesContainer").classList;
+        const activeContainer = document.getElementsByClassName('activeInnerContainer');
         const selectTypeSearch = document.getElementById('typeSearch');
-        const selectSearchValue = selectTypeSearch.options[selectTypeSearch.selectedIndex].value;
-        const inputKeyWord = document.getElementById('keyWordSearch');
 
-        if(selectSearchValue == 'category'){
-            const selectCategory = document.getElementById('typeCategory');
-            const selectCategoryName = selectCategory.options[selectCategory.selectedIndex].getAttribute('name');
-            
-            infra.showSelectCategory(selectCategoryName);
-        }
+        if (activeContainer[0].id == 'storesContainer') {
 
-        if(selectSearchValue == 'keyWord'){
-            const inputKeyWordValue = inputKeyWord.value.toLowerCase();
-            const storesContainer = document.getElementById("storesContainer").className;
-            const categoriesContainer = document.getElementById("categoriesContainer").className;
-            
+            const selectSearchValue = selectTypeSearch.options[selectTypeSearch.selectedIndex].value;
 
-            if (storesContainer == 'activeInnerContainer') {
-                infra.showSearchKeyWordStores(inputKeyWordValue)
-            }
-            else{
-                if (categoriesContainer == 'activeInnerContainer') {
-                    infra.showSearchKeyWordCategories(inputKeyWordValue);
-                }
-            }
+            if(selectSearchValue == 'category'){
+                const selectCategory = document.getElementById('typeCategory');
+                const selectCategoryName = selectCategory.options[selectCategory.selectedIndex].getAttribute('name');
                 
-            inputKeyWord.value = '';
+                infra.showSelectCategory(selectCategoryName);
+            }
+    
+            if(selectSearchValue == 'keyWord'){
+                const inputKeyWord = document.getElementById('keyWordSearch');
+                const inputKeyWordValue = inputKeyWord.value.toLowerCase().trim();
+                
+                infra.showStoresByKeyword(inputKeyWordValue)
+                
+                inputKeyWord.value = '';
+            }
         }
+
+        if (activeContainer[0].id == 'categoriesContainer') {
+            selectTypeSearch.style.visibility = 'hidden';
+            const inputKeyWord = document.getElementById('keyWordSearch');
+            const inputKeyWordValue = inputKeyWord.value.toLowerCase().trim();
+            infra.showCategoriesByKeyword(inputKeyWordValue);
+                
+        }
+ 
     },
 
     containerChangeClass: () => {
