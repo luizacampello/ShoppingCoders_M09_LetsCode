@@ -226,27 +226,18 @@ window.infra = {
         pageCard.classList.remove("show");
     },
 
-    addLinksToHeader: () => { // TODO: adicionar o restante dos clicks
-
-        // const linkCategoryContainer = document.getElementById("linkCategoryContainer");
-        // linkCategoryContainer.addEventListener("click", function);
-
+    addLinksToHeader: () => { 
         const linkPopupNewCategory = document.getElementById("linkPopupNewCategory");
         linkPopupNewCategory.addEventListener("click", infra.linkNewCategoryOnClick);
 
         const linkCategories = document.getElementById("linkCategories");
         linkCategories.addEventListener("click", infra.linkCardsCategoryOnClick);
 
-        // const linkStoreContainer = document.getElementById("linkStoreContainer");
-        // linkStoreContainer.addEventListener("click", function);
-
         const linkPopupNewStore = document.getElementById("linkPopupNewStore");
         linkPopupNewStore.addEventListener("click", infra.linkNewStoreOnClick);
 
         const linkStores = document.getElementById("linkStores");
         linkStores.addEventListener("click", infra.linkCardsStoreOnClick);
-
-
     },
 
     linkNewStoreOnClick: () => {
