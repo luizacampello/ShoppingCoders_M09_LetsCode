@@ -15,10 +15,11 @@ window.infra = {
         activeContainer.classList.add("activeInnerContainer");
     },
 
-    populateStoreContainer: async (container, keyword='', idCategory='') => {
+    populateStoreContainer: async (container, keyword = '', idCategory = '') => {
         const storesList = await serviceAPI.getStoresList(keyword, idCategory);
         for (let index = 0; index < storesList.length; index++) {
             const store = storesList[index];
+            // console.log("Populando Stories");
             container.appendChild(
                 cardService.CardStore({
                     store: store,
@@ -31,11 +32,11 @@ window.infra = {
         };
     },
 
-    populateCategoryContainer: async (container, keyword='') => {
+    populateCategoryContainer: async (container, keyword = '') => {
         const categoryList = await serviceAPI.getCategoriesList(keyword);
-
+        const categoryContainer = document.getElementById("categoriesContainer");
+        categoryContainer.innerHTML = "";
         for (let index = 0; index < categoryList.length; index++) {
-            console.log("Hey função chamada")
             const category = categoryList[index];
             container.appendChild(
                 cardService.CardCategory({
@@ -53,58 +54,57 @@ window.infra = {
         };
     },
 
-	refreshFooter: async () => {
-		await infra.createCategoriesQuantities();
-		//console.log("aqui1");
-		setTimeout(function () {
-			infra.updateCategoriesQuantities()
-			//console.log("aqui6");
-		}, 2000);
-	},
+    refreshFooter: async () => {
+        await infra.createCategoriesQuantities();
+        //console.log("aqui1");
+        setTimeout(function () {
+            infra.updateCategoriesQuantities()
+            //console.log("aqui6");
+        }, 2000);
+    },
 
-	createCategoriesQuantities: async () => {
-		const stores = await serviceAPI.getStoresList("", "");
-		const categories = await serviceAPI.getCategoriesList("");
-		setTimeout(() => {
+    createCategoriesQuantities: async () => {
+        const stores = await serviceAPI.getStoresList("", "");
+        const categories = await serviceAPI.getCategoriesList("");
+        setTimeout(() => {
 
-			//console.log("aqui2");
-			//console.log(stores);
-			if (categories == null)
-				return;
-			categories.forEach(element => {
-				element.quantity = 0;
-				for (i = 0; i < stores.length; i++) {
-					if (element.uid == stores[i].category.uid)
-						element.quantity++;
-				}
-			});
-			//console.log(categories);
-			//console.log("aqui3");
-			setTimeout(() => {
-				localStorage.setItem("CategoriesQuantities", JSON.stringify(categories));
-				//console.log("aqui4");
-			}, 500)
-		}, 1000);
-	},
+            //console.log("aqui2");
+            //console.log(stores);
+            if (categories == null)
+                return;
+            categories.forEach(element => {
+                element.quantity = 0;
+                for (i = 0; i < stores.length; i++) {
+                    if (element.uid == stores[i].category.uid)
+                        element.quantity++;
+                }
+            });
+            //console.log(categories);
+            //console.log("aqui3");
+            setTimeout(() => {
+                localStorage.setItem("CategoriesQuantities", JSON.stringify(categories));
+                //console.log("aqui4");
+            }, 500)
+        }, 1000);
+    },
 
     updateCategoriesQuantities: () => {
         const response = localStorage.getItem("CategoriesQuantities");
         const categoriesQuantities = JSON.parse(response);
-		let list = document.querySelector("#footer-list");
-		list.innerHTML = "";
+        let list = document.querySelector("#footer-list");
+        list.innerHTML = "";
         if (categoriesQuantities == null)
             return;
-		categoriesQuantities.forEach(item => {
-			if (item.quantity != 0)
-			{
-				const content = item.name + ": " + item.quantity;
-				const listItem = elementFactory.createHtmlTagAndSetContent("li", content, item.uid);
-				listItem.classList.add("list-item");
-				listItem.setAttribute("name", item.code);
-				list.appendChild(listItem);
-			}
-		})
-		//console.log("aqui5");
+        categoriesQuantities.forEach(item => {
+            if (item.quantity != 0) {
+                const content = item.name + ": " + item.quantity;
+                const listItem = elementFactory.createHtmlTagAndSetContent("li", content, item.uid);
+                listItem.classList.add("list-item");
+                listItem.setAttribute("name", item.code);
+                list.appendChild(listItem);
+            }
+        })
+        //console.log("aqui5");
     },
 
     populateFormCategory: async (categoryForm, defaultCategory = "") => {
@@ -127,26 +127,26 @@ window.infra = {
     addFooterCategorySearchEvent: () => {
         let list = document.querySelector("#footer-list");
 
-        list.addEventListener("click", function(event) {
+        list.addEventListener("click", function (event) {
             if (event.target.tagName == 'LI') {
-				//inserir aqui a alteração na busca
+                //inserir aqui a alteração na busca
+                const storesContainer = document.getElementById("storesContainer");
+                const storesCards = storesContainer.querySelectorAll("div"); //TODO: Passar essa parte pro Card Service
 
-				const storesContainer = document.getElementById("storesContainer");
-				const storesCards = storesContainer.querySelectorAll("div"); //TODO: Passar essa parte pro Card Service
-
-				if (storesCards == null)
-					return;
-				storesCards.forEach(item => {
-					if (item.firstChild.innerText != event.target.getAttribute("name"))
+                if (storesCards == null)
+                    return;
+                storesCards.forEach(item => {
+                    if (item.firstChild.innerText != event.target.getAttribute("name"))
                         cardService.hideCards(item);
-					else
+                    else
                         cardService.showCards(item);
-				})
+                })
 
                 infra.displayInnerContainer("storesContainer");
             }
         });
     },
+
 
     editButtonOnClick: () => {
         const formPage = document.getElementById("storeFormContainer");
@@ -154,7 +154,6 @@ window.infra = {
         infoPage.style.display = "none";
         formPage.style.display = "flex";
     },
-
 
     addClearPageEventTo: () => {
         const containerId = "popUpContainer";
@@ -205,9 +204,6 @@ window.infra = {
         pageCard.classList.remove("show");
         // TODO: Chamar a pagina com todas as lojas
     },
-
-
-    // OnClick de Category
 
     getCategoryFormElements: (form) => {
         const category = {};
@@ -273,7 +269,7 @@ window.infra = {
 
     linkCardsStoreOnClick: () => {
         const storesContainer = document.getElementById('newStoreFormContainer');
-		cardService.resetCards(storesContainer);
+        cardService.resetCards(storesContainer);
         infra.displayInnerContainer("storesContainer");
     },
 
@@ -286,30 +282,30 @@ window.infra = {
     linkCardsCategoryOnClick: () => {
         const categoriesContainer = document.getElementById('categoriesContainer');
         infra.populateCategoryContainer(categoriesContainer);
-		cardService.resetCards(categoriesContainer);
+        cardService.resetCards(categoriesContainer);
         infra.displayInnerContainer("categoriesContainer");
     },
 
-	/*refreshStoresCategory: async (upCategory) => {
-		let stores = await serviceAPI.getStoresList("", upCategory.uid);
-		console.log(stores);
-		console.log("cheguei aqui");
-		debugger;
-		if (stores == null)
-			return;
-		// stores.forEach(item => {
-		// 	item.category.name = upCategory.name;
-		// 	item.category.code = upCategory.code;
-		// 	serviceAPI.updateStore(item);
-		// 	console.log(item);
-		// })
+    /*refreshStoresCategory: async (upCategory) => {
+        let stores = await serviceAPI.getStoresList("", upCategory.uid);
+        console.log(stores);
+        console.log("cheguei aqui");
+        debugger;
+        if (stores == null)
+            return;
+        // stores.forEach(item => {
+        // 	item.category.name = upCategory.name;
+        // 	item.category.code = upCategory.code;
+        // 	serviceAPI.updateStore(item);
+        // 	console.log(item);
+        // })
 
-		stores[0].category.name = upCategory.name;
-		stores[0].category.code = upCategory.code;
-		serviceAPI.updateStore(stores[0]);
-		console.log(stores[0]);
+        stores[0].category.name = upCategory.name;
+        stores[0].category.code = upCategory.code;
+        serviceAPI.updateStore(stores[0]);
+        console.log(stores[0]);
 
-		stores = await serviceAPI.getStoresList("", upCategory.uid);
-		console.log(stores);
-	},*/
+        stores = await serviceAPI.getStoresList("", upCategory.uid);
+        console.log(stores);
+    },*/
 }
