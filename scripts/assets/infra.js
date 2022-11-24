@@ -33,7 +33,7 @@ window.infra = {
 
     populateCategoryContainer: async (container, keyword='') => {
         const categoryList = await serviceAPI.getCategoriesList(keyword);
-        const categoriesContainer = document.getElementById('categoriesContainer')
+
         for (let index = 0; index < categoryList.length; index++) {
             console.log("Hey função chamada")
             const category = categoryList[index];
@@ -46,14 +46,10 @@ window.infra = {
                         formCategory.style.display = "flex";
                     },
                     onClickStores: () => {
-                        infra.showSelectCategory(category.code);
-                        categoriesContainer.classList.remove("activeInnerContainer");
-				        categoriesContainer.classList.add("innerContainer");
-                        search.containerChangeClass();
+                        window.alert("Click 2"); //TODO: Chamar páginas de lojas com filtro
                     },
                 })
             );
-        
         };
     },
 
@@ -135,85 +131,21 @@ window.infra = {
             if (event.target.tagName == 'LI') {
 				//inserir aqui a alteração na busca
 
-                infra.showSelectCategory(event.target.getAttribute("name"));
-				
+				const storesContainer = document.getElementById("storesContainer");
+				const storesCards = storesContainer.querySelectorAll("div"); //TODO: Passar essa parte pro Card Service
+
+				if (storesCards == null)
+					return;
+				storesCards.forEach(item => {
+					if (item.firstChild.innerText != event.target.getAttribute("name"))
+                        cardService.hideCards(item);
+					else
+                        cardService.showCards(item);
+				})
+
+                infra.displayInnerContainer("storesContainer");
             }
         });
-    },
-
-    showSelectCategory: (categoryCode = '') => {
-        const categoriesContainer = document.getElementById("categoriesContainer");
-        const storesContainer = document.getElementById("storesContainer");
-				const storesCards = storesContainer.querySelectorAll("div");
-				storesCards.forEach(item => {
-                    if(categoryCode != null || categoryCode != ''){
-                        
-                        if (item.firstChild.innerText != categoryCode){
-                            cardService.hideCards(item);
-                        }
-					    else {
-                            cardService.showCards(item);
-                        }
-						
-                    }
-                    else{
-                        cardService.showCards(item);
-                    }
-                    
-				})
-
-				storesContainer.classList.add("activeInnerContainer");
-                categoriesContainer.classList.remove("activeInnerContainer");
-
-    },
-
-    showStoresByKeyword: (keyword = '') => {
-                const storesContainer = document.getElementById("storesContainer");
-				const storesCards = storesContainer.querySelectorAll("div");
-                
-
-				storesCards.forEach(item => {
-					if (keyword != '') {
-                        const itemNodes = item.childNodes;
-                    const re = new RegExp(keyword + '.*')
-                    
-                    if (itemNodes[1].innerText.toLowerCase().match(re)) {
-                        cardService.showCards(item);
-                    }
-						
-					else{
-                        cardService.hideCards(item);
-                    }
-                    } else {
-                        cardService.showCards(item);
-                    }
-                    
-				})
-
-				storesContainer.classList.add("activeInnerContainer");
-                search.containerChangeClass();
-    },
-
-    showCategoriesByKeyword: (keyword) => {
-        const categoriesContainer = document.getElementById("categoriesContainer");
-                const categoriesCards = categoriesContainer.querySelectorAll("div");
-
-                categoriesCards.forEach(item => {
-					const itemNodes = item.childNodes;
-                    const re = new RegExp(keyword + '.*')
-                    console.log('foi')
-                    if (itemNodes[1].innerText.toLowerCase().match(re)) {
-                        cardService.showCards(item);
-                    }
-						
-					else{
-                        cardService.hideCards(item);
-                    }
-                    
-				})
-
-                categoriesContainer.classList.add("activeInnerContainer");
-                search.containerChangeClass();
     },
 
     editButtonOnClick: () => {
@@ -340,10 +272,9 @@ window.infra = {
     },
 
     linkCardsStoreOnClick: () => {
+        const storesContainer = document.getElementById('newStoreFormContainer');
 		cardService.resetCards(storesContainer);
         infra.displayInnerContainer("storesContainer");
-        infra.showStoresByKeyword();
-        search.containerChangeClass();
     },
 
     linkNewCategoryOnClick: () => {
@@ -357,8 +288,6 @@ window.infra = {
         infra.populateCategoryContainer(categoriesContainer);
 		cardService.resetCards(categoriesContainer);
         infra.displayInnerContainer("categoriesContainer");
-        categoriesContainer.classList.remove("innerContainer");
-        search.containerChangeClass();
     },
 
 	/*refreshStoresCategory: async (upCategory) => {
