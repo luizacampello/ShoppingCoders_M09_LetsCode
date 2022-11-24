@@ -88,8 +88,8 @@ window.popUpFactory = {
 		);
 
 		formContainer.appendChild(divCloseButton);
+		storeForm.appendChild(divButtons);
 		formContainer.appendChild(storeForm);
-		formContainer.appendChild(divButtons);
 	},	
 
 	newStoreFormPopUp: () => {
@@ -129,15 +129,12 @@ window.popUpFactory = {
 		storeForm.appendChild(email);
 		storeForm.appendChild(phone);
 		
-		const divSaveButton = elementFactory.createHtmlTag("div", "", "divSave"); //TODO: arrumar o botao
-		divSaveButton.setAttribute("id", "divSave");
-		divSaveButton.appendChild(
+		storeForm.appendChild(
 			elementFactory.saveSubmit("Salvar", "save", infra.createStoreButtonOnClick)
 		);
 	
 		formContainer.appendChild(divCloseButton);
 		formContainer.appendChild(storeForm);
-		formContainer.appendChild(divSaveButton);
 	},
 
 	storeInfoPopUp: (storeObject) => {
@@ -189,10 +186,13 @@ window.popUpFactory = {
 		const name = elementFactory.newFormOption("name", "Nome da Categoria", category.name);
 		
 		code.setAttribute('required', '');
+		code.required = true;
 		name.setAttribute('required', '');
+		name.required = true;
 		
 		categoryForm.appendChild(code);
 		categoryForm.appendChild(name);
+
 
 		const divButtons = document.createElement("div");
 		divButtons.setAttribute("id", "divButtons");
@@ -204,8 +204,8 @@ window.popUpFactory = {
 		);
 
 		formContainer.appendChild(divCloseButton);
+		categoryForm.appendChild(divButtons);
 		formContainer.appendChild(categoryForm);
-		formContainer.appendChild(divButtons);
 	},
 
 	newCategoryFormPopUp: () => {
@@ -223,20 +223,20 @@ window.popUpFactory = {
 		const name = elementFactory.newFormOption("name", "Nome da Categoria");
 
 		code.setAttribute('required', '');
+		code.required = true;
 		name.setAttribute('required', '');
+		name.required = true;
 
 		categoryForm.appendChild(code);
 		categoryForm.appendChild(name);
-
-		const divButtons = elementFactory.createHtmlTag("div", "", "divButtons");
-		divButtons.appendChild(
+		categoryForm.appendChild(
 			elementFactory.saveSubmit("Salvar", "save", infra.createCategoryButtonOnClick)
 		);
 
 
 		formContainer.appendChild(divClose);
 		formContainer.appendChild(categoryForm);
-		formContainer.appendChild(divButtons);
+
 
 	},
 
