@@ -6,7 +6,7 @@ window.popUpFactory = {
 
 		popUpContainer.appendChild(infoContainer);	
 		popUpContainer.appendChild(formContainer);	
-		popUpContainer.classList.add("show");
+		popUpContainer.classList.add("show"); //TODO
 		popUpFactory.storeInfoPopUp(store);	
 		popUpFactory.updateStoreFormPopUp(store);
 	},
@@ -16,7 +16,7 @@ window.popUpFactory = {
 		const formContainer = elementFactory.createHtmlTag("div", "formPopUp", "newStoreFormContainer");
 
 		popUpContainer.appendChild(formContainer);
-		popUpContainer.classList.add("show");	
+		popUpContainer.classList.add("show");	 //TODO
 		
 		popUpFactory.newStoreFormPopUp();
 	},
@@ -26,7 +26,7 @@ window.popUpFactory = {
 		const formContainer = elementFactory.createHtmlTag("div", "formPopUp", "categoryFormContainer");
 
 		popUpContainer.appendChild(formContainer);
-		popUpContainer.classList.add("show");
+		popUpContainer.classList.add("show"); //TODO
 		popUpFactory.updateCategoryFormPopUp(category);
 	},
 
@@ -35,12 +35,9 @@ window.popUpFactory = {
 		const formContainer = elementFactory.createHtmlTag("div", "formPopUp", "newCategoryFormContainer");
 
 		popUpContainer.appendChild(formContainer);
-		popUpContainer.classList.add("show");
+		popUpContainer.classList.add("show"); //TODO
 		popUpFactory.newCategoryFormPopUp();
 	},
-
-
-	//Store
 
 	updateStoreFormPopUp: (store) => {
 		const formContainer = document.getElementById("storeFormContainer");
@@ -66,7 +63,7 @@ window.popUpFactory = {
 		const email = elementFactory.newFormOption("email","email@email.com", store.email, "email")
 		const phone = elementFactory.newFormOption("phone","(xx) xxxx-xxxx", store.phone, "tel")
 
-		const saveMessage = elementFactory.createHtmlTag("p", "saveMessage", "saveMessage");
+		const saveMessage = elementFactory.createHtmlTag("p", "saveMessage", "saveMessage"); //TODO
 	
 		storeForm.appendChild(name);
 		storeForm.appendChild(categoryOption);
@@ -164,9 +161,6 @@ window.popUpFactory = {
 		infoContainer.appendChild(divButtons);
 	},
 
-
-	//Category
-
 	updateCategoryFormPopUp: (category) => {
 		const formContainer = document.getElementById("categoryFormContainer");
 
@@ -210,7 +204,6 @@ window.popUpFactory = {
 			elementFactory.newButton("X", "close")
 		);
 
-
 		const categoryForm = elementFactory.createHtmlTag("form", "", "categoryForm");
 		categoryForm.setAttribute("uidcategory", "");
 		const code = elementFactory.newFormOption("code", "Código da Categoria");
@@ -222,7 +215,6 @@ window.popUpFactory = {
 		divButtons.appendChild(
 			elementFactory.newButton("Salvar", "save", infra.createCategoryButtonOnClick)
 		);
-
 
 		formContainer.appendChild(divClose);
 		formContainer.appendChild(categoryForm);
