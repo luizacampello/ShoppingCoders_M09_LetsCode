@@ -1,193 +1,190 @@
 (() => {
     const style = document.createElement('style');
     style.innerHTML = `
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap');
+    * {
+      margin: 0;
+      padding: 0;
+    }
 
-* {
-  margin: 0;
-  padding: 0;
-}
+    header {
+      position: sticky;
+      width: 100%;
+      height: 20vh;
 
-header {
-  position: sticky;
-  width: 100%;
-  height: 20vh;
-  
-  background-color: #189AB4;
+      background-color: #189AB4;
+    
+      display: flex;
+      align-items: center;
+      justify-content:
+    }
 
-  display: flex;
-  align-items: center;
-  justify-content:
-}
+    header nav {
+      width: 90vw;
+    
+      align-self: center;
+    
+      display: flex;
+      justify-content: space-between;
+    
+      font-family: 'Inter', sans-serif;
+      color: white;
+    }
 
-header nav {
-  width: 90vw;
+    #linkStoreContainer, #linkCategoryContainer{
+      font-size: 36px;
+    }
 
-  align-self: center;
+    .HeaderElements{
+        width: 90vw;
+        justify-content: flex-start;
+        display: flex;
+    }
 
-  display: flex;
-  justify-content: space-between;
+    .logo {
+      cursor: pointer;
+      font-size: 48px;
+    }
 
-  font-family: 'Inter', sans-serif;
-  color: white;
-}
+    .LogoMobile{
+      display: none;
+    }
 
-#linkStoreContainer, #linkCategoryContainer{
-  font-size: 36px;
-}
+    .LogoWeb{
+      display: flex;
+    }
 
-.HeaderElements{
-    width: 90vw;
-    justify-content: flex-start;
-    display: flex;
-}
+    nav .menu {
+      display: flex;
+      width: 30%;
+      justify-content: space-evenly;
+      align-items: center;
+    }
 
-.logo {
-  cursor: pointer;
-  font-size: 48px;
-}
+    .logo img{
+    
+        width: 62vw;
+        max-width: 800px; 
+        margin: 2rem;
+    }
 
-.LogoMobile{
-  display: none;
-}
+    .lojas,
+    .categorias {
+      width: auto;
+      align-items: center;
+      cursor: pointer;
+      text-align: center;
+      font-size: 1rem;
+      padding: 0.5rem;
+    
+    }
 
-.LogoWeb{
-  display: flex;
-}
+    .lojas ul,
+    .categorias ul {
+      display: none;
+      padding: 0.5rem;
+      border-radius: 5px;
+    }
+    .lojas ul li,
+    .categorias ul li {
+      list-style: none;
+      margin-top: 0.7rem;
+      margin-bottom: 0.4rem;
+      cursor: pointer;
+    }
 
-nav .menu {
-  display: flex;
-  width: 30%;
-  justify-content: space-evenly;
-  align-items: center;
-}
+    .lojas ul li:hover,
+    .categorias ul li:hover {
+      font-weight: bold;
+    }
 
-.logo img{
+    .lojas:hover,
+    .categorias:hover {
+      font-size: 1rem;
+    }
 
-    width: 62vw;
-    max-width: 800px; 
-    margin: 2rem;
-}
+    .lojas:hover > ul,
+    .categorias:hover > ul {
+      display: table;
+      position: absolute;
 
-.lojas,
-.categorias {
-  width: auto;
-  align-items: center;
-  cursor: pointer;
-  text-align: center;
-  font-size: 1rem;
-  padding: 0.5rem;
+      background-color: #05445E;
+    }
 
-}
+    #iconeMenu{
+      display: none;
+      cursor: pointer;
+    }
 
-.lojas ul,
-.categorias ul {
-  display: none;
-  padding: 0.5rem;
-  border-radius: 5px;
-}
-.lojas ul li,
-.categorias ul li {
-  list-style: none;
-  margin-top: 0.7rem;
-  margin-bottom: 0.4rem;
-  cursor: pointer;
-}
+    @media (max-width: 1155px) {
+      #iconeMenu{
+        display: block;
+        align-self: center;
+      }
+    
+      header{
+        position: sticky;
+        height: auto;
+      }
+    
+      header nav{
+        flex-direction: column;
+        align-items: center;
+      }
+    
+      .LogoMobile{
+        display: flex;
+      }
 
-.lojas ul li:hover,
-.categorias ul li:hover {
-  font-weight: bold;
-}
+      .LogoWeb{
+        display: none;
+      }
+      
+      .logo{
+        align-self: center;
+        text-align: center;
+      }
+    
+      nav .menu{
+        display: none;
+      }
+    
+      nav .menuHide{
+        display: none;
+      }
+    
+      nav .menuShow{
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        width: 100%;
+        background-color: cadetblue;
+        align-items: center;
+        border-radius: 10px;
+      }
+    
+      .material-symbols-outlined{
+        font-size: 36px;
+      }
+    
+      .logo img{
+        width: 150px;
+      }
+    
+      .HeaderElements{
+        justify-content: space-around;
+      }
+    
+      .lojas,
+      .categorias {
+        width: 90%;
+      }
+    }
 
-.lojas:hover,
-.categorias:hover {
-  font-size: 1rem;
-}
-
-.lojas:hover > ul,
-.categorias:hover > ul {
-  display: table;
-  position: absolute;
-  
-  background-color: #05445E;
-}
-
-#iconeMenu{
-  display: none;
-  cursor: pointer;
-}
-
-@media (max-width: 1155px) {
-  #iconeMenu{
-    display: block;
-    align-self: center;
-  }
-
-  header{
-    position: sticky;
-    height: auto;
-  }
-
-  header nav{
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .LogoMobile{
-    display: flex;
-  }
-  
-  .LogoWeb{
-    display: none;
-  }
-  
-
-  .logo{
-    align-self: center;
-    text-align: center;
-  }
-
-  nav .menu{
-    display: none;
-  }
-
-  nav .menuHide{
-    display: none;
-  }
-
-  nav .menuShow{
-    display: flex;
-    position: relative;
-    flex-direction: column;
-    width: 100%;
-    background-color: cadetblue;
-    align-items: center;
-    border-radius: 10px;
-  }
-
-  .material-symbols-outlined{
-    font-size: 36px;
-  }
-
-  .logo img{
-    width: 150px;
-  }
-
-  .HeaderElements{
-    justify-content: space-around;
-  }
-
-  .lojas,
-  .categorias {
-    width: 90%;
-  }
-}
-
-@media (max-width: 700px){
-  .logo {
-    font-size: 36px;
-  }
-}
+    @media (max-width: 700px){
+      .logo {
+        font-size: 36px;
+      }
+    }
     `;
     document.body.appendChild(style);
 })();
