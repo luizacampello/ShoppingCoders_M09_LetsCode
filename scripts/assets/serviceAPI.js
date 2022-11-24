@@ -61,7 +61,6 @@ window.serviceAPI = {
 
 	},
 
-<<<<<<< Updated upstream
     getStoresList: async () => {
 
         let url = serviceAPI.BASE_URL + "/establishment/list";
@@ -69,16 +68,6 @@ window.serviceAPI = {
         body.text = "";
 
         let stores = await serviceAPI.fetchPostRequisition(url, body);
-=======
-	getStoresList: async (keyWord, uidCategory) => {
-		let url = serviceAPI.BASE_URL + "/establishment/list";
-		let body = serviceAPI.uidGroupDefinition;
-		body.text = keyWord;
-		if (uidCategory) {
-			body.category = {"uid": uidCategory};
-		}
-		let stores = await serviceAPI.fetchPostRequisition(url, body);
->>>>>>> Stashed changes
 
 		return stores;
 	},
@@ -186,29 +175,17 @@ window.serviceAPI = {
 		}
 	},
 
-<<<<<<< Updated upstream
 	getCategoriesList: async () => {
         let url = serviceAPI.BASE_URL + "/category/list";
         let body =  serviceAPI.uidGroupDefinition;
         body.text = "";
-=======
-	getCategoriesList: async (keyword = "") => {
-		let url = serviceAPI.BASE_URL + "/category/list";
-		let body =  serviceAPI.uidGroupDefinition;
-		body.text = keyword;
->>>>>>> Stashed changes
 
 		const categories = await serviceAPI.fetchPostRequisition(url, body);
 		return categories;
 	},
 
-<<<<<<< Updated upstream
     updateCategory: async (upCategory) => {
 		//verificar se posso passar a category e pegar aqui os itens separados category.uid e afins //TODO
-=======
-	updateCategory: async (upCategory) => {
-		//verificar se posso passar a category e pegar aqui os itens separados category.uid e afins
->>>>>>> Stashed changes
 		//MODIFICANDO O UPDATE CATEGORY
 
 		//validar se code e name são diferentes de vazio, caso contrário abrir notificação na tela
@@ -286,13 +263,12 @@ window.serviceAPI = {
 			}
 		})
 		.catch((error) => {
-<<<<<<< Updated upstream
           console.error('Error:', error);
         });
 		return await []; //TODO
     },
 
-    createGroup: async (groupName, studentName) => { //TODO será que tem que colocar uma opção de fazer isso no site? 
+    createGroup: async (groupName, studentName) => { //TODO será que tem que colocar uma opção de fazer isso no site?
         let url = serviceAPI.BASE_URL + "/group";
         let body = {
             "name": groupName,
@@ -300,28 +276,9 @@ window.serviceAPI = {
                 studentName
             ]
         }
-        let data = await serviceAPI.fetchPostRequisition(url, body); 
+        let data = await serviceAPI.fetchPostRequisition(url, body);
         console.log(data);
         return data;
     },
-=======
-			console.error('Error:', error);
-		});
-		return await [];
-	},
-
-	createGroup: async (groupName, studentName) => {
-		let url = serviceAPI.BASE_URL + "/group";
-		let body = {
-			"name": groupName,
-			"students": [
-				studentName
-			]
-		}
-		let data = await serviceAPI.fetchPostRequisition(url, body);
-		console.log(data);
-		return data;
-	},
->>>>>>> Stashed changes
 
 }
