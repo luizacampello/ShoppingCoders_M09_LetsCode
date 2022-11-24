@@ -113,7 +113,6 @@ window.serviceAPI = {
 		let url = serviceAPI.BASE_URL + "/establishment";
         let body = serviceAPI.uidGroupDefinition;
 		body.uid = storeUid;
-        console.log(body);
 		await serviceAPI.fetchRequisition({
 			fetchMethod: "DELETE",
 			url: url,
@@ -134,25 +133,28 @@ window.serviceAPI = {
 		});
     },
 
-    createCategory: async (catCode, catName) => {
+    createCategory: async (newCategory) => {
         let url = serviceAPI.BASE_URL + "/category";
         let body = serviceAPI.uidGroupDefinition;
-        body.code = catCode;
-        body.name = catName;
+        body.code = newCategory.code;
+        body.name = newCategory.name;
         delete body.text;
 		let exists = false;
 		const categories = await serviceAPI.getCategoriesList("");
-		categories.forEach(category => {
-			if (category.name == catName || category.code == catCode)
-			{
-				basePage.notification.create({
-					text: "Já existe categoria com este NOME ou CÓDIGO.",
-					type: 'error'
-				});
-				exists = true;
-			}
-		})
 
+		if (categories != null)
+		{
+			categories.forEach(category => {
+				if (category.name == newCategory.name || category.code == newCategory.code)
+				{
+					basePage.notification.create({
+						text: "Já existe categoria com este NOME ou CÓDIGO.",
+						type: 'error'
+					});
+					exists = true;
+				}
+			})
+		}
 		if (!exists) {
 			await serviceAPI.fetchRequisition({
 				fetchMethod: "POST",
@@ -183,7 +185,10 @@ window.serviceAPI = {
         return categories;
     },
 
-    updateCategory: async (catUid, catCode, catName) => {
+    updateCategory: async (upCategory) => {
+		//verificar se posso passar a category e pegar aqui os itens separados category.uid e afins
+		//MODIFICANDO O UPDATE CATEGORY
+
         //validar se code e name são diferentes de vazio, caso contrário abrir notificação na tela
         //validar qual o campo está sendo alterado, buscando o objeto no getlist via uid
         //fazendo o comparativo no currObj e newObj
@@ -191,9 +196,9 @@ window.serviceAPI = {
 
         let url = serviceAPI.BASE_URL + "/category";
         let body = serviceAPI.uidGroupDefinition;
-        body.uid = catUid;
-        body.code = catCode;
-        body.name = catName;
+        body.uid = upCategory.uid;
+        body.code = upCategory.code;
+        body.name = upCategory.name;
         delete body.text;
 		await serviceAPI.fetchRequisition({
 			fetchMethod: "PUT",
@@ -204,7 +209,6 @@ window.serviceAPI = {
 					text: "Editou a categoria com sucesso.",
 					type: 'success'
 				});
-				infra.refresStoresCategory(catUid);
 				infra.refreshFooter();
 			},
 			onError: (data, response) => {

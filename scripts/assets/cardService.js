@@ -6,7 +6,7 @@ window.cardService = {
 
         const storeCategory = document.createElement('h3');
         storeCategory.textContent = `${store.category.code}`;
-        
+
         const storeName = document.createElement('h2');
         storeName.textContent = `${store.name}`;
 
@@ -23,15 +23,15 @@ window.cardService = {
 
         const categoryId = document.createElement('h3');
         categoryId.textContent = `${category.code}`;
-        
+
         const categoryName = document.createElement('h2');
         categoryName.textContent = `${category.name}`;
-        
+
         const EditButton = document.createElement('button');
         EditButton.textContent = 'Editar';
         EditButton.classList.add('card-button');
         EditButton.addEventListener('click', onClickEdit);
-        
+
         const StoresButton = document.createElement('button');
         StoresButton.textContent = 'Lojas';
         StoresButton.classList.add('card-button');
@@ -61,7 +61,11 @@ window.cardService = {
 
     resetCards: (container) => {
 		const storesContainer = document.getElementById(container);
+		if (storesContainer == null)
+			return;
 		const storesCards = storesContainer.querySelectorAll("div");
+		if (storeCards == null)
+			return;
 		storesCards.forEach(item => {
 			cardService.showCards(item);
 		})
