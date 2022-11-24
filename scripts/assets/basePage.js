@@ -1,31 +1,32 @@
 window.basePage = {
-    createMainContainer: () =>{
-        const searchContainer = elementFactory.createHtmlTag(
-            "div",
-            "searchContainer",
-            "searchContainer"
-        );
-        const storesContainer = elementFactory.createHtmlTag(
-            "div",
-            "innerContainer",
-            "storesContainer"
-        );
-        const categoriesContainer = elementFactory.createHtmlTag(
-            "div",
-            "innerContainer",
-            "categoriesContainer"
-        );
-        const popUpContainer = elementFactory.createHtmlTag(
-            "div",
-            "popUpContainer",
-            "popUpContainer"
-        );
-        const mainContainer = elementFactory.createHtmlTag(
-            "div",
-            "mainContainer",
-            "mainContainer"
-        );
+	createMainContainer: () =>{
+		const searchContainer = elementFactory.createHtmlTag(
+			"div",
+			"searchContainer",
+			"searchContainer"
+		);
+		const storesContainer = elementFactory.createHtmlTag(
+			"div",
+			"innerContainer",
+			"storesContainer"
+		);
+		const categoriesContainer = elementFactory.createHtmlTag(
+			"div",
+			"innerContainer",
+			"categoriesContainer"
+		);
+		const popUpContainer = elementFactory.createHtmlTag(
+			"div",
+			"popUpContainer",
+			"popUpContainer"
+		);
+		const mainContainer = elementFactory.createHtmlTag(
+			"div",
+			"mainContainer",
+			"mainContainer"
+		);
 
+<<<<<<< Updated upstream
         mainContainer.appendChild(popUpContainer);
         mainContainer.appendChild(searchContainer);
         mainContainer.appendChild(storesContainer);
@@ -33,19 +34,34 @@ window.basePage = {
 
         document.body.appendChild(mainContainer);
     },
+=======
+		mainContainer.appendChild(popUpContainer);
+		mainContainer.appendChild(searchContainer);
+		mainContainer.appendChild(storesContainer);
+		mainContainer.appendChild(categoriesContainer);
+		document.body.appendChild(mainContainer);
+	},
+>>>>>>> Stashed changes
 
-    addFooter: () => {
-        const footer = elementFactory.createHtmlTag("footer", "footer", "footer");
-        const title = elementFactory.createHtmlTagAndSetContent("p", "Categorias", "footer-title");
-        const footerList = elementFactory.createHtmlTagAndSetContent("ul", "", "footer-list");
+	addFooter: () => {
+		const footer = elementFactory.createHtmlTag("footer", "footer", "footer");
+		const title = elementFactory.createHtmlTagAndSetContent("p", "Categorias", "footer-title");
+		const footerList = elementFactory.createHtmlTagAndSetContent("ul", "", "footer-list");
 
+<<<<<<< Updated upstream
         footer.appendChild(title);
         footer.appendChild(footerList);
         infra.refreshFooter(); 
+=======
+		footer.appendChild(title);
+		footer.appendChild(footerList);
+		infra.refreshFooter();
+>>>>>>> Stashed changes
 		document.body.appendChild(footer);
-        infra.addFooterCategorySearchEvent();
-    },
+		infra.addFooterCategorySearchEvent();
+	},
 
+<<<<<<< Updated upstream
 	notification: { //TODO
         timer: null,
         element: null,
@@ -162,4 +178,29 @@ window.basePage = {
             menu.className = 'menuHide';
         }
     }
+=======
+	notification: {
+		timer: null,
+		element: null,
+		create: ({text, type}) => {
+			basePage.notification.remove();
+			const element = document.createElement('div');
+			element.classList.add('notification');
+			element.classList.add(`notification-${type}`);
+			element.textContent = text;
+			basePage.notification.element = element;
+			document.body.appendChild(element);
+			basePage.notification.timer = setTimeout(() => {
+				basePage.notification.remove();
+			}, 5000);
+		},
+		remove: () => {
+			if (basePage.notification.element) {
+				clearTimeout(basePage.notification.timer);
+				document.body.removeChild(basePage.notification.element);
+				basePage.notification.element = null;
+			}
+		}
+	},
+>>>>>>> Stashed changes
 }
