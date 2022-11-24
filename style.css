@@ -238,12 +238,10 @@ form select {
 footer {
   display: flex;
   flex-direction: column;
-  position: fixed;
-  left: 0;
-  bottom: 0;
   width: 100%;
   background-color: #189AB4;
-  height: auto;
+  min-height: 10vh;
+  max-height: auto;
   text-align: center;
 }
 

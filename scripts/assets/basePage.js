@@ -40,10 +40,8 @@ window.basePage = {
 
         footer.appendChild(title);
         footer.appendChild(footerList);
-        document.body.appendChild(footer);
-
-        infra.createCategoriesQuantities();
-        infra.updateCategoriesQuantities();
+        infra.refreshFooter();
+		document.body.appendChild(footer);
         infra.addFooterCategorySearchEvent();
     },
 
