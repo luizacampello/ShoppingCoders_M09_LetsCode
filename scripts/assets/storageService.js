@@ -39,7 +39,6 @@ window.storageService = {
     getStoresList: () => {
         const stringStoresList = localStorage.getItem("storesList");
         const storesList = JSON.parse(stringStoresList);
-        console.log(storesList);
 
         return storesList;              
     },
