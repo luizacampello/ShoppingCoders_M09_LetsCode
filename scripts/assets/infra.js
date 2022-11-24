@@ -156,13 +156,14 @@ window.infra = {
 				categoriesContainer.classList.add("innerContainer");
     },
 
-    showSearchKeyWordStores: (keyword) => {
+    showSearchKeyWordStores: (keyword = '') => {
                 const storesContainer = document.getElementById("storesContainer");
 				const storesCards = storesContainer.querySelectorAll("div");
                 
 
 				storesCards.forEach(item => {
-					const itemNodes = item.childNodes;
+					if (keyword != '') {
+                        const itemNodes = item.childNodes;
                     const re = new RegExp(keyword + '.*')
                     
                     if (itemNodes[1].innerText.toLowerCase().match(re)) {
@@ -172,6 +173,10 @@ window.infra = {
 					else{
                         cardService.hideCards(item);
                     }
+                    } else {
+                        cardService.showCards(item);
+                    }
+                    
                     
 				})
 
@@ -328,9 +333,17 @@ window.infra = {
     },
 
     linkCardsStoreOnClick: () => {
-        const storesContainer = document.getElementById('newStoreFormContainer');
-        infra.populateCategoryContainer(storesContainer);
+        const storesContainer = document.getElementById('storesContainer');
+        search.containerChangeClass();
+        infra.populateStoreContainer(storesContainer);
         infra.displayInnerContainer("storesContainer");
+        
+        const categoriesContainer = document.getElementById('categoriesContainer');
+        categoriesContainer.classList.add("innerContainer");
+		categoriesContainer.classList.remove("activeInnerContainer");
+        console.log(categoriesContainer.className)
+        search.containerChangeClass();
+        
     },
 
     linkNewCategoryOnClick: () => {

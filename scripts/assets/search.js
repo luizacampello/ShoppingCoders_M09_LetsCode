@@ -18,9 +18,9 @@ window.search = {
             optionKeyWord.setAttribute('class','option-group');
             optionKeyWord.setAttribute('id','optionKeyWord');
         
-        const typeCategory = elementFactory.createHtmlTag('select','searchCategory','typeCategory');
+        const typeCategory = elementFactory.createHtmlTag('select','searchCategoryHide','typeCategory');
 
-        const keyWordSearch = elementFactory.createHtmlTag('input','searchKeyWordHide','keyWordSearch');
+        const keyWordSearch = elementFactory.createHtmlTag('input','searchKeyWord','keyWordSearch');
         keyWordSearch.setAttribute('type', 'text');
         keyWordSearch.setAttribute('placeholder', '    Digite a palavra chave');
 
@@ -30,8 +30,8 @@ window.search = {
         searchIcon.id = 'iconeBusca';
         
 
-        typeSearch.add(optionCategory);
         typeSearch.add(optionKeyWord);
+        typeSearch.add(optionCategory);
         searchForm.appendChild(typeSearch);
         searchForm.appendChild(typeCategory);
         searchForm.appendChild(keyWordSearch);
@@ -97,7 +97,7 @@ window.search = {
             const inputKeyWordValue = inputKeyWord.value.toLowerCase();
             const storesContainer = document.getElementById("storesContainer").className;
             const categoriesContainer = document.getElementById("categoriesContainer").className;
-            console.log(storesContainer)
+            
 
             if (storesContainer == 'activeInnerContainer') {
                 infra.showSearchKeyWordStores(inputKeyWordValue)
@@ -114,11 +114,12 @@ window.search = {
 
     containerChangeClass: () => {
         const categoriesContainer = document.getElementById("categoriesContainer").className;
+        const storesContainer = document.getElementById("storesContainer").className;
         const optionCategory = document.getElementById('optionCategory');
         const inputKeyWord = document.getElementById('keyWordSearch');
         const selectTypeCategory = document.getElementById('typeCategory');
-
-
+        console.log(categoriesContainer)
+        
         if(categoriesContainer == 'activeInnerContainer') {
             optionCategory.hidden = true;
             optionCategory.disabled = true;
@@ -129,8 +130,10 @@ window.search = {
             inputKeyWord.setAttribute('class', 'searchKeyWord');          
         }
         else {
-            optionCategory.disabled = false;
-            optionCategory.hidden = false;
+            if(storesContainer == 'activeInnerContainer') {
+                
+                optionCategory.disabled = false;
+                optionCategory.hidden = false;
 
             const selectTypeSearch = document.getElementById('typeSearch');
             const selectSearchValue = selectTypeSearch.options[selectTypeSearch.selectedIndex].value;
@@ -139,6 +142,8 @@ window.search = {
                 selectTypeCategory.setAttribute('class', 'searchCategory');
                 inputKeyWord.setAttribute('class', 'searchKeyWordHide');
             }
+            }
+            
         }
     }, 
 
