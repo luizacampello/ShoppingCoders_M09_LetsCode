@@ -4,10 +4,10 @@ window.popUpFactory = {
 		const infoContainer = elementFactory.createHtmlTag("div", "infoPopUp", "storeInfoContainer");
 		const formContainer = elementFactory.createHtmlTag("div", "formPopUp", "storeFormContainer");
 
-		popUpContainer.appendChild(infoContainer);	
-		popUpContainer.appendChild(formContainer);	
+		popUpContainer.appendChild(infoContainer);
+		popUpContainer.appendChild(formContainer);
 		popUpContainer.classList.add("show");
-		popUpFactory.storeInfoPopUp(store);	
+		popUpFactory.storeInfoPopUp(store);
 		popUpFactory.updateStoreFormPopUp(store);
 	},
 
@@ -16,8 +16,8 @@ window.popUpFactory = {
 		const formContainer = elementFactory.createHtmlTag("div", "formPopUp", "newStoreFormContainer");
 
 		popUpContainer.appendChild(formContainer);
-		popUpContainer.classList.add("show");	
-		
+		popUpContainer.classList.add("show");
+
 		popUpFactory.newStoreFormPopUp();
 	},
 
@@ -47,7 +47,7 @@ window.popUpFactory = {
 		divCloseButton.appendChild(
 			elementFactory.newButton("X", "close")
 		);
-	
+
 		const storeForm = elementFactory.createHtmlTag("form", "", "storeForm");
 		storeForm.setAttribute("uidstore", store.uid);
 
@@ -69,7 +69,8 @@ window.popUpFactory = {
 		postalCode.setAttribute('required', '');
 		email.setAttribute('required', '');
 		phone.setAttribute('required', '');
-	
+
+
 		storeForm.appendChild(name);
 		storeForm.appendChild(categoryOption);
 		storeForm.appendChild(address);
@@ -78,10 +79,10 @@ window.popUpFactory = {
 		storeForm.appendChild(phone);
 
 		const divButtons = elementFactory.createHtmlTag("div", "", "divButtons");
-	
+
 		divButtons.appendChild(
 			elementFactory.newButton("Remover Loja", "delete", infra.deleteStoreButtonOnClick)
-		);	
+		);
 
 		divButtons.appendChild(
 			elementFactory.saveSubmit("Salvar", "save", infra.updateStoreButtonOnClick)
@@ -94,13 +95,13 @@ window.popUpFactory = {
 
 	newStoreFormPopUp: () => {
 		const formContainer = document.getElementById("newStoreFormContainer");
-	
+
 		const divCloseButton = document.createElement("div");
 		divCloseButton.setAttribute("id", "divClose");
 		divCloseButton.appendChild(
 			elementFactory.newButton("X", "close")
 		);
-	
+
 		const storeForm = elementFactory.createHtmlTag("form", "", "storeForm");
 		storeForm.setAttribute("uidstore", "")
 
@@ -121,7 +122,7 @@ window.popUpFactory = {
 		postalCode.setAttribute('required', '');
 		email.setAttribute('required', '');
 		phone.setAttribute('required', '');
-	
+
 		storeForm.appendChild(name);
 		storeForm.appendChild(categoryOption);
 		storeForm.appendChild(address);
@@ -132,14 +133,14 @@ window.popUpFactory = {
 		storeForm.appendChild(
 			elementFactory.saveSubmit("Salvar", "save", infra.createStoreButtonOnClick)
 		);
-	
+
 		formContainer.appendChild(divCloseButton);
 		formContainer.appendChild(storeForm);
 	},
 
 	storeInfoPopUp: (storeObject) => {
 		const infoContainer = document.getElementById("storeInfoContainer");
-	
+
 		const storeInfo = elementFactory.createHtmlTag("div", "storeInfo");
 
 		const nameStore = elementFactory.createHtmlTagAndSetContent("h2", storeObject.name);
@@ -148,24 +149,22 @@ window.popUpFactory = {
 		const cepStore = elementFactory.createHtmlTagAndSetContent("p", storeObject.postal_code);
 		const emailStore = elementFactory.createHtmlTagAndSetContent("p", storeObject.email);
 		const phoneStore = elementFactory.createHtmlTagAndSetContent("p", storeObject.phone);
-	
+
 		storeInfo.appendChild(nameStore);
 		storeInfo.appendChild(categoryStore);
 		storeInfo.appendChild(addresStore);
 		storeInfo.appendChild(cepStore);
 		storeInfo.appendChild(emailStore);
 		storeInfo.appendChild(phoneStore);
-	
+
 		const divButtons = elementFactory.createHtmlTag("div", "divButtons");
 
-		divButtons.appendChild(
-			elementFactory.newButton("X", "close")
-		);
+		const closeButton = elementFactory.newButton("X", "close");
+		const editButton = elementFactory.newButton("Editar", "edit", infra.editButtonOnClick);
 
-		divButtons.appendChild(
-			elementFactory.newButton("Editar", "edit", infra.editButtonOnClick)
-		);
-	
+		divButtons.appendChild(closeButton);
+		divButtons.appendChild(editButton);
+
 		infoContainer.appendChild(storeInfo);
 		infoContainer.appendChild(divButtons);
 	},

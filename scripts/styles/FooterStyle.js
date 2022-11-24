@@ -26,7 +26,7 @@
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
-    
+
       list-style-type: none;
       text-align: center;
       align-items: center;
@@ -35,11 +35,11 @@
       margin: 5px 30px;
       color: azure;
       box-sizing: border-box;
-        
+
       overflow: hidden;
       height: 100%;
       margin-bottom: 10px;
-    
+
       position: relative;
     }
 
@@ -48,6 +48,10 @@
       box-sizing: border-box;
       padding: 0 10px;
     }
+
+	.list-item:hover {
+		color: yellow;
+	  }
 
     div.notification {
       position: fixed;
