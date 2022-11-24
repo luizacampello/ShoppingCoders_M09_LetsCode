@@ -1,6 +1,6 @@
 window.elementFactory = {
     
-    createHtmlTag: (tag, cssClass, id = "") => {
+    createHtmlTag: (tag, cssClass, id = "") => { //TODO
         const container = document.createElement(tag);
         
         if (cssClass){
@@ -14,7 +14,7 @@ window.elementFactory = {
         return container;
     },
 
-    createHtmlTagAndSetContent: (tag, tagContent, id = '') => {
+    createHtmlTagAndSetContent: (tag, tagContent, id = '') => { //TODO
         const container = document.createElement(tag);
         
         container.textContent = tagContent;
@@ -26,7 +26,7 @@ window.elementFactory = {
         return container;
     },
 
-    newCategoryOption: (category) => {
+    newCategoryOption: (category) => { 
         let newOption = document.createElement("option");
 
         newOption.text = category.name;
@@ -35,7 +35,7 @@ window.elementFactory = {
         return newOption;
     },
 
-    newButton: (value, id, onClickFunction = () => {}) => {
+    newButton: (value, id, onClickFunction = () => {}) => { //TODO
         const buttonBox = elementFactory.createHtmlTag("div", "", `box${id}`);
         const buttonElement = elementFactory.createHtmlTag("input", "", id); 
         buttonElement.type = "button";
@@ -48,7 +48,7 @@ window.elementFactory = {
         return buttonBox;
     },
 
-    newFormOption: (name, placeholder, value, type = "") => {
+    newFormOption: (name, placeholder, value, type = "") => { //TODO
         const formOption = document.createElement("input");
         formOption.name = name;
 		formOption.placeholder = placeholder;
@@ -64,7 +64,7 @@ window.elementFactory = {
         return formOption;
     },
 
-    emptyFormOption: (name, placeholder, type = "") => {
+    emptyFormOption: (name, placeholder, type = "") => { //TODO
         const formOption = document.createElement("input");
         formOption.name = name;
 		formOption.placeholder = placeholder;

@@ -8,13 +8,13 @@ window.search = {
 
         const typeSearch = elementFactory.createHtmlTag('select', 'input-group', 'typeSearch');
 
-            const optionCategory = elementFactory.createHtmlTagAndSetContent('option', 'Categorias', 'optionCategory');
-            optionCategory.setAttribute('value', 'category');
-            optionCategory.setAttribute('class', 'option-group');
+        const optionCategory = elementFactory.createHtmlTagAndSetContent('option', 'Categorias', 'optionCategory');
+        optionCategory.setAttribute('value', 'category');
+        optionCategory.setAttribute('class', 'option-group');
 
-            const optionKeyWord = elementFactory.createHtmlTagAndSetContent('option','Palavra-Chave', 'optionKeyWord');
-            optionKeyWord.setAttribute('value', 'keyWord');
-            optionKeyWord.setAttribute('class', 'option-group');
+        const optionKeyWord = elementFactory.createHtmlTagAndSetContent('option','Palavra-Chave', 'optionKeyWord');
+        optionKeyWord.setAttribute('value', 'keyWord');
+        optionKeyWord.setAttribute('class', 'option-group');
         
         const typeCategory = elementFactory.createHtmlTag('select','searchCategoryHide','typeCategory');
 
@@ -42,13 +42,13 @@ window.search = {
     populateTypeCategory: async () => {
         const selectTypeCategory = document.getElementById('typeCategory');
 
-        const optionDefault = elementFactory.createHtmlTagAndSetContent('option','Selecione a categoria');
-        optionDefault.setAttribute('value','default');
-        optionDefault.setAttribute('class','option-group')
+        const optionDefault = elementFactory.createHtmlTagAndSetContent('option', 'Selecione a categoria');
+        optionDefault.setAttribute('value', 'default');
+        optionDefault.setAttribute('class', 'option-group')
         optionDefault.hidden = true;
         selectTypeCategory.add(optionDefault);
 
-        const categoriesList =  await serviceAPI.getCategoriesList();
+        const categoriesList =  await serviceAPI.getCategoriesList(); //API
 
         for (let index = 0; index < categoriesList.length; index++) {
             const category = categoriesList[index];
@@ -106,10 +106,8 @@ window.search = {
         if (activeContainer[0].id == 'categoriesContainer') {
             const inputKeyWord = document.getElementById('keyWordSearch');
             const inputKeyWordValue = inputKeyWord.value.toLowerCase().trim();
-            infra.showCategoriesByKeyword(inputKeyWordValue);
-                
-        }
- 
+            infra.showCategoriesByKeyword(inputKeyWordValue);     
+        } 
     },
 
     containerChangeClass: () => {
@@ -127,8 +125,7 @@ window.search = {
             selectTypeSearch.style.visibility = 'hidden';
             selectTypeCategory.setAttribute('class', 'searchCategoryHide');
             inputKeyWord.setAttribute('class', 'searchKeyWord');
-        }
-            
+        }            
     }, 
 
 }

@@ -27,8 +27,8 @@ window.storageService = {
 
     updateLocalStorage: async () => {
         localStorage.clear();
-        const categoriesList = await serviceAPI.GetCategoriesList();
-        const storesList = await serviceAPI.GetStoresList("");
+        const categoriesList = await serviceAPI.getCategoriesList();
+        const storesList = await serviceAPI.getStoresList("");
 
         localStorage.setItem("categoriesList", JSON.stringify(categoriesList));
         localStorage.setItem("storesList", JSON.stringify(storesList));

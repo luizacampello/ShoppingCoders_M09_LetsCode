@@ -1,14 +1,14 @@
 
 window.cardService = {
     CardStore: ({store, onClickCard = () =>{}}) =>{
-        const CardStoreElement = document.createElement('div');
+        const CardStoreElement = document.createElement('div'); //TODO
         CardStoreElement.classList.add('card-content');
 
         const storeCategory = document.createElement('h3');
-        storeCategory.textContent = `${store.category.code}`;
+        storeCategory.textContent = store.category.code;
 
-        const storeName = document.createElement('h2');
-        storeName.textContent = `${store.name}`;
+        const storeName = document.createElement('h2'); 
+        storeName.textContent = store.name;
 
         CardStoreElement.addEventListener('click', onClickCard)
         CardStoreElement.appendChild(storeCategory);
@@ -22,17 +22,17 @@ window.cardService = {
         CardStoreElement.classList.add('card-content');
 
         const categoryId = document.createElement('h3');
-        categoryId.textContent = `${category.code}`;
+        categoryId.textContent = category.code;
 
         const categoryName = document.createElement('h2');
-        categoryName.textContent = `${category.name}`;
+        categoryName.textContent = category.name;
 
-        const EditButton = document.createElement('button');
+        const EditButton = document.createElement('button'); //TODO
         EditButton.textContent = 'Editar';
         EditButton.classList.add('card-button');
         EditButton.addEventListener('click', onClickEdit);
 
-        const StoresButton = document.createElement('button');
+        const StoresButton = document.createElement('button'); //TODO
         StoresButton.textContent = 'Lojas';
         StoresButton.classList.add('card-button');
         StoresButton.addEventListener('click', onClickStores);
@@ -45,18 +45,18 @@ window.cardService = {
         return CardStoreElement;
     },
 
-    hideCards: (item) => {
+    hideCards: (item) => {  
 		item.classList.add("hide");
 		item.classList.remove("card-content");
-		item.querySelector("h3").classList.add("hide");
-		item.querySelector("h3").classList.remove("show");
+		item.querySelector("h3").classList.add("hide"); //TODO
+		item.querySelector("h3").classList.remove("show"); //TODO
 	},
 
 	showCards: (item) => {
 		item.classList.remove("hide");
 		item.classList.add("card-content");
-		item.querySelector("h3").classList.add("show");
-		item.querySelector("h3").classList.remove("hide");
+		item.querySelector("h3").classList.add("show"); //TODO
+		item.querySelector("h3").classList.remove("hide"); //TODO
 	},
 
     resetCards: (container) => {

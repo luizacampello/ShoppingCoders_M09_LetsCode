@@ -61,17 +61,17 @@ function addJSScriptFiles(jsFiles) {
     }
 }
 
-function addClearPageEventTo() {
-    const containerId = "popUpContainer";
-    const pageCard = document.getElementById(containerId);
-    pageCard.classList.add("show");
-    pageCard.addEventListener("click", (e) => {
-        if (e.target.id == containerId || e.target.id == "close") {
-            pageCard.classList.remove("show");
-            pageCard.textContent = "";
-        }
-    });
-}
+// function addClearPageEventTo() {
+//     const containerId = "popUpContainer";
+//     const pageCard = document.getElementById(containerId);
+//     pageCard.classList.add("show");
+//     pageCard.addEventListener("click", (e) => {
+//         if (e.target.id == containerId || e.target.id == "close") {
+//             pageCard.classList.remove("show");
+//             pageCard.textContent = "";
+//         }
+//     });
+// }
  
 function addHeader() {
     const body = document.querySelector('body');

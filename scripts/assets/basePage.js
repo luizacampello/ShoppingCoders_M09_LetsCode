@@ -30,6 +30,7 @@ window.basePage = {
         mainContainer.appendChild(searchContainer);
         mainContainer.appendChild(storesContainer);
         mainContainer.appendChild(categoriesContainer);
+
         document.body.appendChild(mainContainer);
     },
 
@@ -40,12 +41,12 @@ window.basePage = {
 
         footer.appendChild(title);
         footer.appendChild(footerList);
-        infra.refreshFooter();
+        infra.refreshFooter(); 
 		document.body.appendChild(footer);
         infra.addFooterCategorySearchEvent();
     },
 
-	notification: {
+	notification: { //TODO
         timer: null,
         element: null,
         create: ({text, type}) => {
