@@ -39,9 +39,6 @@ window.popUpFactory = {
 		popUpFactory.newCategoryFormPopUp();
 	},
 
-
-	//Store
-
 	updateStoreFormPopUp: (store) => {
 		const formContainer = document.getElementById("storeFormContainer");
 
@@ -62,11 +59,16 @@ window.popUpFactory = {
 		address.placeholder = "Endereço";
 		address.value = store.address;
 		address.name = "address";
-		const postalCode = elementFactory.newFormOption("postalCode", "CEP", store.postal_code)
-		const email = elementFactory.newFormOption("email","email@email.com", store.email, "email")
-		const phone = elementFactory.newFormOption("phone","(xx) xxxx-xxxx", store.phone, "tel")
+		const postalCode = elementFactory.newFormOption("postalCode", "CEP", store.postal_code);
+		const email = elementFactory.newFormOption("email","email@email.com", store.email, "email");
+		const phone = elementFactory.newFormOption("phone","(xx) xxxx-xxxx", store.phone, "tel");
 
-		const saveMessage = elementFactory.createHtmlTag("p", "saveMessage", "saveMessage");
+		name.setAttribute('required', '');
+		categoryOption.setAttribute('required', '');
+		address.setAttribute('required', '');
+		postalCode.setAttribute('required', '');
+		email.setAttribute('required', '');
+		phone.setAttribute('required', '');
 	
 		storeForm.appendChild(name);
 		storeForm.appendChild(categoryOption);
@@ -102,16 +104,23 @@ window.popUpFactory = {
 		const storeForm = elementFactory.createHtmlTag("form", "", "storeForm");
 		storeForm.setAttribute("uidstore", "")
 
-		const name = elementFactory.newFormOption("name", "Nome")
+		const name = elementFactory.newFormOption("name", "Nome");
 		const categoryOption = document.createElement("select");
 		infra.populateFormCategory(categoryOption);
 		categoryOption.name = "categorySelect";
 		const address = document.createElement("textArea");
 		address.placeholder = "Endereço";
 		address.name = "address";
-		const postalCode = elementFactory.newFormOption("postalCode", "CEP")
-		const email = elementFactory.newFormOption("email","email@email.com", "", "email")
-		const phone = elementFactory.newFormOption("phone","(xx) xxxx-xxxx", "", "tel")
+		const postalCode = elementFactory.newFormOption("postalCode", "CEP");
+		const email = elementFactory.newFormOption("email","email@email.com", "", "email");
+		const phone = elementFactory.newFormOption("phone","(xx) xxxx-xxxx", "", "tel");
+
+		name.setAttribute('required', '');
+		categoryOption.setAttribute('required', '');
+		address.setAttribute('required', '');
+		postalCode.setAttribute('required', '');
+		email.setAttribute('required', '');
+		phone.setAttribute('required', '');
 	
 		storeForm.appendChild(name);
 		storeForm.appendChild(categoryOption);
@@ -164,9 +173,6 @@ window.popUpFactory = {
 		infoContainer.appendChild(divButtons);
 	},
 
-
-	//Category
-
 	updateCategoryFormPopUp: (category) => {
 		const formContainer = document.getElementById("categoryFormContainer");
 
@@ -182,11 +188,11 @@ window.popUpFactory = {
 		const code = elementFactory.newFormOption("code", "Código da Categoria", category.code);
 		const name = elementFactory.newFormOption("name", "Nome da Categoria", category.name);
 		
-		const saveMessage = elementFactory.createHtmlTag("p", "saveMessage", "saveMessage");
+		code.setAttribute('required', '');
+		name.setAttribute('required', '');
 		
 		categoryForm.appendChild(code);
 		categoryForm.appendChild(name);
-		categoryForm.appendChild(saveMessage);
 
 		const divButtons = document.createElement("div");
 		divButtons.setAttribute("id", "divButtons");
@@ -215,6 +221,10 @@ window.popUpFactory = {
 		categoryForm.setAttribute("uidcategory", "");
 		const code = elementFactory.newFormOption("code", "Código da Categoria");
 		const name = elementFactory.newFormOption("name", "Nome da Categoria");
+
+		code.setAttribute('required', '');
+		name.setAttribute('required', '');
+
 		categoryForm.appendChild(code);
 		categoryForm.appendChild(name);
 
