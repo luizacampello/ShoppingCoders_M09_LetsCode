@@ -18,6 +18,11 @@
 			flex-direction: column;
 			justify-content: flex-end;
 		}
+
+		.card-content:hover {
+			background-color: #189AB4;
+		}
+
 		.card-content h2 {
 			margin: 0px;
 			margin-left: 12px;
