@@ -25,11 +25,10 @@
         infra.addClearPageEventTo();
         basePage.addFooter();
        
- 
         const storesContainer = document.getElementById('storesContainer');
         const categoriesContainer = document.getElementById('categoriesContainer');
- 
-        infra.populateCategoryContainer(categoriesContainer); //TODO: Mudar para receber os parametros da busca
+
+        infra.populateCategoryContainer(categoriesContainer);
         infra.populateStoreContainer(storesContainer); //TODO: Mudar para receber os parametros da busca
         infra.displayInnerContainer("storesContainer")
     });
