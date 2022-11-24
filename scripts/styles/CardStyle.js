@@ -12,9 +12,6 @@
             border-radius: 10px;
             color: #D4F1F4;
 
-            -webkit-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.25);
-            -moz-box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.25);
-            box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.25);
             
             font-family: 'Inter', sans-serif;
 
