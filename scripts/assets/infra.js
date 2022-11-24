@@ -58,25 +58,37 @@ window.infra = {
     },
 
 	refreshFooter: async () => {
-		infra.createCategoriesQuantities();
+		await infra.createCategoriesQuantities();
+		//console.log("aqui1");
 		setTimeout(function () {
 			infra.updateCategoriesQuantities()
-		}, 1000);
+			//console.log("aqui6");
+		}, 2000);
 	},
 
 	createCategoriesQuantities: async () => {
 		const stores = await serviceAPI.getStoresList("", "");
 		const categories = await serviceAPI.getCategoriesList("");
+		setTimeout(() => {
 
-		categories.forEach(element => {
-			element.quantity = 0;
-			for (i = 0; i < stores.length; i++) {
-				if (element.uid == stores[i].category.uid)
-					element.quantity++;
-			}
-		});
-
-		localStorage.setItem("CategoriesQuantities", JSON.stringify(categories));
+			//console.log("aqui2");
+			//console.log(stores);
+			if (categories == null)
+				return;
+			categories.forEach(element => {
+				element.quantity = 0;
+				for (i = 0; i < stores.length; i++) {
+					if (element.uid == stores[i].category.uid)
+						element.quantity++;
+				}
+			});
+			//console.log(categories);
+			//console.log("aqui3");
+			setTimeout(() => {
+				localStorage.setItem("CategoriesQuantities", JSON.stringify(categories));
+				//console.log("aqui4");
+			}, 500)
+		}, 1000);
 	},
 
     updateCategoriesQuantities: () => {
@@ -96,6 +108,7 @@ window.infra = {
 				list.appendChild(listItem);
 			}
 		})
+		//console.log("aqui5");
     },
 
     populateFormCategory: async (categoryForm, defaultCategory = "") => {
@@ -333,15 +346,19 @@ window.infra = {
     },
 
     linkCardsStoreOnClick: () => {
-        const storesContainer = document.getElementById('storesContainer');
-        search.containerChangeClass();
-        infra.populateStoreContainer(storesContainer);
-        infra.displayInnerContainer("storesContainer");
-        
         const categoriesContainer = document.getElementById('categoriesContainer');
         categoriesContainer.classList.add("innerContainer");
 		categoriesContainer.classList.remove("activeInnerContainer");
-        console.log(categoriesContainer.className)
+
+        const storesContainer = document.getElementById('storesContainer');
+        storesContainer.classList.remove("innerContainer");
+		storesContainer.classList.add("activeInnerContainer");
+        
+		cardService.resetCards(storesContainer);
+        infra.displayInnerContainer("storesContainer");
+        infra.showSearchKeyWordStores();
+        
+        console.log(storesContainer.className)
         search.containerChangeClass();
         
     },
@@ -359,9 +376,32 @@ window.infra = {
 
         const categoriesContainer = document.getElementById('categoriesContainer');
         infra.populateCategoryContainer(categoriesContainer);
+		cardService.resetCards(categoriesContainer);
         infra.displayInnerContainer("categoriesContainer");
         categoriesContainer.classList.remove("innerContainer");
         search.containerChangeClass();
     },
 
+	/*refreshStoresCategory: async (upCategory) => {
+		let stores = await serviceAPI.getStoresList("", upCategory.uid);
+		console.log(stores);
+		console.log("cheguei aqui");
+		debugger;
+		if (stores == null)
+			return;
+		// stores.forEach(item => {
+		// 	item.category.name = upCategory.name;
+		// 	item.category.code = upCategory.code;
+		// 	serviceAPI.updateStore(item);
+		// 	console.log(item);
+		// })
+
+		stores[0].category.name = upCategory.name;
+		stores[0].category.code = upCategory.code;
+		serviceAPI.updateStore(stores[0]);
+		console.log(stores[0]);
+
+		stores = await serviceAPI.getStoresList("", upCategory.uid);
+		console.log(stores);
+	},*/
 }

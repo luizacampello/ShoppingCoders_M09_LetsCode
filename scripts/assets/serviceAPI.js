@@ -113,7 +113,6 @@ window.serviceAPI = {
 		let url = serviceAPI.BASE_URL + "/establishment";
         let body = serviceAPI.uidGroupDefinition;
 		body.uid = storeUid;
-        console.log(body);
 		await serviceAPI.fetchRequisition({
 			fetchMethod: "DELETE",
 			url: url,
@@ -142,17 +141,20 @@ window.serviceAPI = {
         delete body.text;
 		let exists = false;
 		const categories = await serviceAPI.getCategoriesList("");
-		categories.forEach(category => {
-			if (category.name == newCategory.name || category.code == newCategory.code)
-			{
-				basePage.notification.create({
-					text: "Já existe categoria com este NOME ou CÓDIGO.",
-					type: 'error'
-				});
-				exists = true;
-			}
-		})
 
+		if (categories != null)
+		{
+			categories.forEach(category => {
+				if (category.name == newCategory.name || category.code == newCategory.code)
+				{
+					basePage.notification.create({
+						text: "Já existe categoria com este NOME ou CÓDIGO.",
+						type: 'error'
+					});
+					exists = true;
+				}
+			})
+		}
 		if (!exists) {
 			await serviceAPI.fetchRequisition({
 				fetchMethod: "POST",
@@ -207,6 +209,7 @@ window.serviceAPI = {
 					text: "Editou a categoria com sucesso.",
 					type: 'success'
 				});
+				infra.refreshFooter();
 			},
 			onError: (data, response) => {
 				basePage.notification.create({
@@ -230,6 +233,7 @@ window.serviceAPI = {
 					text: "Deletou a categoria com sucesso.",
 					type: 'success'
 				});
+				infra.refreshFooter();
 			},
 			onError: (data, response) => {
 				basePage.notification.create({
