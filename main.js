@@ -4,13 +4,13 @@
         "assets/serviceAPI.js",
         "assets/basePage.js",
         "assets/popUpFactory.js",
-        "assets/search.js",
         "assets/infra.js",
         "assets/elementFactory.js",
         "assets/cardService.js",
         "assets/basePage.js",
         "styles/cardStyle.js",
-        "styles/headerStyle.js"
+        "styles/headerStyle.js",
+        "styles/footerStyle.js"
     ];
  
     addCSSFile();
@@ -20,15 +20,13 @@
         addHeader();      
         basePage.createMainContainer();
         infra.addLinksToHeader();
-        search.addSearchBar();
         infra.addClearPageEventTo();
         basePage.addFooter();
        
- 
         const storesContainer = document.getElementById('storesContainer');
         const categoriesContainer = document.getElementById('categoriesContainer');
- 
-        infra.populateCategoryContainer(categoriesContainer); //TODO: Mudar para receber os parametros da busca
+
+        infra.populateCategoryContainer(categoriesContainer);
         infra.populateStoreContainer(storesContainer); //TODO: Mudar para receber os parametros da busca
         infra.displayInnerContainer("storesContainer")
     });
@@ -97,15 +95,15 @@ function addHeader() {
     iconeMenu.textContent = 'menu';
     iconeMenu.id = 'iconeMenu';
     iconeMenu.addEventListener("click", clickMenu);
-
-    const menu = elementFactory.createHtmlTag('div', 'menu','menu');
-
+ 
+    const menu = elementFactory.createHtmlTag('div', 'menu');
+ 
     const lojas = elementFactory.createHtmlTag('div', 'lojas');
  
     const lojash3 = elementFactory.createHtmlTagAndSetContent('h3', 'Lojas', 'linkStoreContainer');
-
-    const lojasUl = elementFactory.createHtmlTag('ul', 'storeHeader', 'storeHeader');
-
+ 
+    const lojasUl = document.createElement('ul');
+ 
     const lojasLi1 = elementFactory.createHtmlTagAndSetContent('li', '+Nova Loja', 'linkPopupNewStore');
  
     const lojasLi2 = elementFactory.createHtmlTagAndSetContent('li', 'Todas as Lojas', 'linkStores');
@@ -118,9 +116,9 @@ function addHeader() {
     const categorias = elementFactory.createHtmlTag('div', 'categorias');
  
     const categoriash3 = elementFactory.createHtmlTagAndSetContent('h3', 'Categorias', 'linkCategoryContainer');
-
-    const categoriasUl = elementFactory.createHtmlTag('ul', 'categoryHeader', 'categoryHeader');
-
+ 
+    const categoriasUl = document.createElement('ul');
+ 
     const categoriasLi1 = elementFactory.createHtmlTagAndSetContent('li', '+Nova Categoria', 'linkPopupNewCategory');
  
     const categoriasLi2 = elementFactory.createHtmlTagAndSetContent('li', 'Todas as Categorias', 'linkCategories');
@@ -142,31 +140,38 @@ function addHeader() {
     body.appendChild(header);
  
     iconeMenu.addEventListener("click", clickMenu);
+ 
     document.body.onresize = () => showMenu();
-
+ 
+    function showMenu() {
+        if (document.body.clientWidth > 1155) {
+            menu.className = 'menu';
+        }
+ 
+        if (document.body.clientWidth < 1155) {
+            menu.className = 'menuHide';
+        }
+    }
+ 
+    function clickMenu() {
+        const display = window.getComputedStyle(menu, null).display;
+ 
+        if (display == 'none') {
+            menu.className = 'menuShow';
+        }
+ 
+        if (display == 'flex') {
+            menu.className = 'menuHide';
+        }
+    }
+ 
 }
-
-function showMenu() {
-   const menu = document.getElementById('menu');
-
-    if (document.body.clientWidth > 1155) {
-        menu.className = 'menu';
-    }
-
-    if (document.body.clientWidth < 1155) {
-        menu.className = 'menuHide';
-    }
-}
-
-function clickMenu() {
-    const menu = document.getElementById('menu');
-    const display = window.getComputedStyle(menu, null).display;
-
-    if (display == 'none') {
-        menu.className = 'menuShow';
-    }
-
-    if (display == 'flex') {
-        menu.className = 'menuHide';
-    }
-}
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

@@ -15,14 +15,11 @@ window.infra = {
         activeContainer.classList.add("activeInnerContainer");
     },
 
-    populateStoreContainer: async (
-        container,
-        keyword = "",
-        idCategory = ""
-    ) => {
+    populateStoreContainer: async (container, keyword = '', idCategory = '') => {
         const storesList = await serviceAPI.getStoresList(keyword, idCategory);
         for (let index = 0; index < storesList.length; index++) {
             const store = storesList[index];
+            // console.log("Populando Stories");
             container.appendChild(
                 cardService.CardStore({
                     store: store,
@@ -37,11 +34,9 @@ window.infra = {
 
     populateCategoryContainer: async (container, keyword = "") => {
         const categoryList = await serviceAPI.getCategoriesList(keyword);
-        const categoriesContainer = document.getElementById(
-            "categoriesContainer"
-        );
+        const categoryContainer = document.getElementById("categoriesContainer");
+        categoryContainer.innerHTML = "";
         for (let index = 0; index < categoryList.length; index++) {
-            console.log("Hey função chamada");
             const category = categoryList[index];
             container.appendChild(
                 cardService.CardCategory({
@@ -100,6 +95,26 @@ window.infra = {
             }, 500);
         }, 1000);
     },
+
+			//console.log("aqui2");
+			//console.log(stores);
+			if (categories == null)
+				return;
+			categories.forEach(element => {
+				element.quantity = 0;
+				for (i = 0; i < stores.length; i++) {
+					if (element.uid == stores[i].category.uid)
+						element.quantity++;
+				}
+			});
+			//console.log(categories);
+			//console.log("aqui3");
+			setTimeout(() => {
+				localStorage.setItem("CategoriesQuantities", JSON.stringify(categories));
+				//console.log("aqui4");
+			}, 500)
+		}, 1000);
+	},
 
     updateCategoriesQuantities: () => {
         const response = localStorage.getItem("CategoriesQuantities");
@@ -278,8 +293,6 @@ window.infra = {
         // TODO: Chamar a pagina com todas as lojas
     },
 
-    // OnClick de Category
-
     getCategoryFormElements: (form) => {
         const category = {};
         category.uid = form.getAttribute("uidcategory");
@@ -367,26 +380,4 @@ window.infra = {
         search.containerChangeClass();
     },
 
-    /*refreshStoresCategory: async (upCategory) => {
-		let stores = await serviceAPI.getStoresList("", upCategory.uid);
-		console.log(stores);
-		console.log("cheguei aqui");
-		debugger;
-		if (stores == null)
-			return;
-		// stores.forEach(item => {
-		// 	item.category.name = upCategory.name;
-		// 	item.category.code = upCategory.code;
-		// 	serviceAPI.updateStore(item);
-		// 	console.log(item);
-		// })
-
-		stores[0].category.name = upCategory.name;
-		stores[0].category.code = upCategory.code;
-		serviceAPI.updateStore(stores[0]);
-		console.log(stores[0]);
-
-		stores = await serviceAPI.getStoresList("", upCategory.uid);
-		console.log(stores);
-	},*/
-};
+}
