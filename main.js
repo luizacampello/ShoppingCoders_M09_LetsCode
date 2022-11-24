@@ -2,6 +2,7 @@
    
     const jsFiles = [
         "assets/serviceAPI.js",
+        "assets/storageService.js",
         "assets/basePage.js",
         "assets/popUpFactory.js",
         "assets/search.js",
@@ -17,6 +18,7 @@
     addJSScriptFiles(jsFiles)
  
     window.addEventListener("load", () => {
+        storageService.createLocalStorage();
         addHeader();      
         basePage.createMainContainer();
         infra.addLinksToHeader();

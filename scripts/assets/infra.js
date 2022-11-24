@@ -333,9 +333,6 @@ window.infra = {
             infra.linkCardsCategoryOnClick
         );
 
-        // const linkStoreContainer = document.getElementById("linkStoreContainer");
-        // linkStoreContainer.addEventListener("click", function);
-
         const linkPopupNewStore = document.getElementById("linkPopupNewStore");
         linkPopupNewStore.addEventListener("click", infra.linkNewStoreOnClick);
 
@@ -367,26 +364,4 @@ window.infra = {
         search.containerChangeClass();
     },
 
-    /*refreshStoresCategory: async (upCategory) => {
-		let stores = await serviceAPI.getStoresList("", upCategory.uid);
-		console.log(stores);
-		console.log("cheguei aqui");
-		debugger;
-		if (stores == null)
-			return;
-		// stores.forEach(item => {
-		// 	item.category.name = upCategory.name;
-		// 	item.category.code = upCategory.code;
-		// 	serviceAPI.updateStore(item);
-		// 	console.log(item);
-		// })
-
-		stores[0].category.name = upCategory.name;
-		stores[0].category.code = upCategory.code;
-		serviceAPI.updateStore(stores[0]);
-		console.log(stores[0]);
-
-		stores = await serviceAPI.getStoresList("", upCategory.uid);
-		console.log(stores);
-	},*/
 };
