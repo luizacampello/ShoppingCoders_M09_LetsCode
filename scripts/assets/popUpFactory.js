@@ -4,10 +4,10 @@ window.popUpFactory = {
 		const infoContainer = elementFactory.createHtmlTag("div", "infoPopUp", "storeInfoContainer");
 		const formContainer = elementFactory.createHtmlTag("div", "formPopUp", "storeFormContainer");
 
-		popUpContainer.appendChild(infoContainer);	
-		popUpContainer.appendChild(formContainer);	
+		popUpContainer.appendChild(infoContainer);
+		popUpContainer.appendChild(formContainer);
 		popUpContainer.classList.add("show");
-		popUpFactory.storeInfoPopUp(store);	
+		popUpFactory.storeInfoPopUp(store);
 		popUpFactory.updateStoreFormPopUp(store);
 	},
 
@@ -16,8 +16,8 @@ window.popUpFactory = {
 		const formContainer = elementFactory.createHtmlTag("div", "formPopUp", "newStoreFormContainer");
 
 		popUpContainer.appendChild(formContainer);
-		popUpContainer.classList.add("show");	
-		
+		popUpContainer.classList.add("show");
+
 		popUpFactory.newStoreFormPopUp();
 	},
 
@@ -50,7 +50,7 @@ window.popUpFactory = {
 		divCloseButton.appendChild(
 			elementFactory.newButton("X", "close")
 		);
-	
+
 		const storeForm = elementFactory.createHtmlTag("form", "", "storeForm");
 		storeForm.setAttribute("uidstore", store.uid);
 
@@ -67,7 +67,7 @@ window.popUpFactory = {
 		const phone = elementFactory.newFormOption("phone","(xx) xxxx-xxxx", store.phone, "tel")
 
 		const saveMessage = elementFactory.createHtmlTag("p", "saveMessage", "saveMessage");
-	
+
 		storeForm.appendChild(name);
 		storeForm.appendChild(categoryOption);
 		storeForm.appendChild(address);
@@ -76,10 +76,10 @@ window.popUpFactory = {
 		storeForm.appendChild(phone);
 
 		const divButtons = elementFactory.createHtmlTag("div", "", "divButtons");
-	
+
 		divButtons.appendChild(
 			elementFactory.newButton("Remover Loja", "delete", infra.deleteStoreButtonOnClick)
-		);	
+		);
 
 		divButtons.appendChild(
 			elementFactory.newButton("Salvar", "save", infra.updateStoreButtonOnClick)
@@ -88,17 +88,17 @@ window.popUpFactory = {
 		formContainer.appendChild(divCloseButton);
 		formContainer.appendChild(storeForm);
 		formContainer.appendChild(divButtons);
-	},	
+	},
 
 	newStoreFormPopUp: () => {
 		const formContainer = document.getElementById("newStoreFormContainer");
-	
+
 		const divCloseButton = document.createElement("div");
 		divCloseButton.setAttribute("id", "divClose");
 		divCloseButton.appendChild(
 			elementFactory.newButton("X", "close")
 		);
-	
+
 		const storeForm = elementFactory.createHtmlTag("form", "", "storeForm");
 		storeForm.setAttribute("uidstore", "")
 
@@ -112,20 +112,20 @@ window.popUpFactory = {
 		const postalCode = elementFactory.newFormOption("postalCode", "CEP")
 		const email = elementFactory.newFormOption("email","email@email.com", "", "email")
 		const phone = elementFactory.newFormOption("phone","(xx) xxxx-xxxx", "", "tel")
-	
+
 		storeForm.appendChild(name);
 		storeForm.appendChild(categoryOption);
 		storeForm.appendChild(address);
 		storeForm.appendChild(postalCode);
 		storeForm.appendChild(email);
 		storeForm.appendChild(phone);
-		
+
 		const divSaveButton = elementFactory.createHtmlTag("div", "", "divSave"); //TODO: arrumar o botao
 		divSaveButton.setAttribute("id", "divSave");
 		divSaveButton.appendChild(
 			elementFactory.newButton("Salvar", "save", infra.createStoreButtonOnClick)
 		);
-	
+
 		formContainer.appendChild(divCloseButton);
 		formContainer.appendChild(storeForm);
 		formContainer.appendChild(divSaveButton);
@@ -133,7 +133,7 @@ window.popUpFactory = {
 
 	storeInfoPopUp: (storeObject) => {
 		const infoContainer = document.getElementById("storeInfoContainer");
-	
+
 		const storeInfo = elementFactory.createHtmlTag("div", "storeInfo");
 
 		const nameStore = elementFactory.createHtmlTagAndSetContent("h2", storeObject.name);
@@ -142,24 +142,22 @@ window.popUpFactory = {
 		const cepStore = elementFactory.createHtmlTagAndSetContent("p", storeObject.postal_code);
 		const emailStore = elementFactory.createHtmlTagAndSetContent("p", storeObject.email);
 		const phoneStore = elementFactory.createHtmlTagAndSetContent("p", storeObject.phone);
-	
+
 		storeInfo.appendChild(nameStore);
 		storeInfo.appendChild(categoryStore);
 		storeInfo.appendChild(addresStore);
 		storeInfo.appendChild(cepStore);
 		storeInfo.appendChild(emailStore);
 		storeInfo.appendChild(phoneStore);
-	
+
 		const divButtons = elementFactory.createHtmlTag("div", "divButtons");
 
-		divButtons.appendChild(
-			elementFactory.newButton("X", "close")
-		);
+		const closeButton = elementFactory.newButton("X", "close");
+		const editButton = elementFactory.newButton("Editar", "edit", infra.editButtonOnClick);
 
-		divButtons.appendChild(
-			elementFactory.newButton("Editar", "edit", infra.editButtonOnClick)
-		);
-	
+		divButtons.appendChild(closeButton);
+		divButtons.appendChild(editButton);
+
 		infoContainer.appendChild(storeInfo);
 		infoContainer.appendChild(divButtons);
 	},
@@ -181,9 +179,9 @@ window.popUpFactory = {
 
 		const code = elementFactory.newFormOption("code", "Código da Categoria", category.code);
 		const name = elementFactory.newFormOption("name", "Nome da Categoria", category.name);
-		
+
 		const saveMessage = elementFactory.createHtmlTag("p", "saveMessage", "saveMessage");
-		
+
 		categoryForm.appendChild(code);
 		categoryForm.appendChild(name);
 		categoryForm.appendChild(saveMessage);
