@@ -5,6 +5,7 @@
         "assets/serviceAPI.js",
         "assets/basePage.js",
         "assets/popUpFactory.js",
+        "assets/search.js",
         "assets/infra.js",
         "assets/elementFactory.js",
         "assets/cardFactory.js",
@@ -18,6 +19,7 @@
     window.addEventListener("load", () => {
         addHeader();
         basePage.createMainContainer();
+        search.addSearchBar();
         basePage.addFooter();
 
 
@@ -179,7 +181,7 @@ function formPage(store) {
     const divSaveButton = document.createElement("div");
     divSaveButton.setAttribute("id", "divSave");
     divSaveButton.appendChild(saveButton());
-
+    
     formContainer.appendChild(divCloseButton);
     formContainer.appendChild(divForm);
     formContainer.appendChild(divSaveButton);
@@ -210,13 +212,13 @@ function addHeader() {
     iconeMenu.id = 'iconeMenu';
     iconeMenu.addEventListener("click", clickMenu);
 
-    const menu = elementFactory.createHtmlTag('div', 'menu');
+    const menu = elementFactory.createHtmlTag('div', 'menu','menu');
 
     const lojas = elementFactory.createHtmlTag('div', 'lojas');
 
     const lojash3 = elementFactory.createHtmlTagAndSetContent('h3', 'Lojas', 'linkStoreContainer');
 
-    const lojasUl = document.createElement('ul');
+    const lojasUl = elementFactory.createHtmlTag('ul', 'storeHeader', 'storeHeader');
 
     const lojasLi1 = elementFactory.createHtmlTagAndSetContent('li', '+Nova Loja', 'linkPopupNewStore');
 
@@ -231,7 +233,7 @@ function addHeader() {
 
     const categoriash3 = elementFactory.createHtmlTagAndSetContent('h3', 'Categorias', 'linkCategoryContainer');
 
-    const categoriasUl = document.createElement('ul');
+    const categoriasUl = elementFactory.createHtmlTag('ul', 'categoryHeader', 'categoryHeader');
 
     const categoriasLi1 = elementFactory.createHtmlTagAndSetContent('li', '+Nova Categoria', 'linkPopupNewCategory');
 
@@ -252,37 +254,31 @@ function addHeader() {
     body.appendChild(header);
 
     iconeMenu.addEventListener("click", clickMenu);
-
     document.body.onresize = () => showMenu();
-
-    function showMenu() {
-        if (document.body.clientWidth > 750) {
-            menu.className = 'menu';
-        }
-
-        if (document.body.clientWidth < 750) {
-            menu.className = 'menuHide';
-        }
-    }
-
-    function clickMenu() {
-        const display = window.getComputedStyle(menu, null).display;
-
-        if (display == 'none') {
-            menu.className = 'menuShow';
-        }
-
-        if (display == 'flex') {
-            menu.className = 'menuHide';
-        }
-    }
 
 }
 
+function showMenu() {
+   const menu = document.getElementById('menu');
 
+    if (document.body.clientWidth > 750) {
+        menu.className = 'menu';
+    }
 
+    if (document.body.clientWidth < 750) {
+        menu.className = 'menuHide';
+    }
+}
 
+function clickMenu() {
+    const menu = document.getElementById('menu');
+    const display = window.getComputedStyle(menu, null).display;
 
+    if (display == 'none') {
+        menu.className = 'menuShow';
+    }
 
-
-
+    if (display == 'flex') {
+        menu.className = 'menuHide';
+    }
+}

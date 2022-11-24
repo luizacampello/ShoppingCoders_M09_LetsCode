@@ -32,6 +32,7 @@ window.infra = {
 
     populateCategoryContainer: async (container, keyword='') => {
         const categoryList = await serviceAPI.getCategoriesList(keyword);
+        const categoriesContainer = document.getElementById('categoriesContainer')
         for (let index = 0; index < categoryList.length; index++) {
             const category = categoryList[index];
             container.appendChild(
@@ -41,10 +42,13 @@ window.infra = {
                         window.alert("Click 1"); //TODO: Chamar a função de editar
                     },
                     onClickStores: () => {
-                        window.alert("Click 2"); //TODO: Chamar páginas de lojas com filtro
+                        infra.showSelectCategory(category.code);
+                        categoriesContainer.classList.remove("activeInnerContainer");
+				        categoriesContainer.classList.add("innerContainer");
                     },
                 })
             );
+        
         };
     },
 
@@ -104,19 +108,85 @@ window.infra = {
             if (event.target.tagName == 'LI') {
 				//inserir aqui a alteração na busca
 
+                infra.showSelectCategory(event.target.getAttribute("name"));
+				
+            }
+        });
+    },
 
-				const storesContainer = document.getElementById("storesContainer");
+    showSelectCategory: (categoryCode = '') => {
+        const categoriesContainer = document.getElementById("categoriesContainer");
+        const storesContainer = document.getElementById("storesContainer");
 				const storesCards = storesContainer.querySelectorAll("div");
 				storesCards.forEach(item => {
-					if (item.firstChild.innerText != event.target.getAttribute("name"))
-						infra.hideCards(item);
-					else
-						infra.showCards(item);
+                    if(categoryCode != null || categoryCode != ''){
+                        
+                        if (item.firstChild.innerText != categoryCode){
+                            infra.hideCards(item);
+                        }
+						
+					    else {
+                            infra.showCards(item);
+                        }
+						
+                    }
+                    else{
+                        infra.showCards(item);
+                        console.log('SASASA')
+                    }
+                    
 				})
 				storesContainer.classList.add("activeInnerContainer");
 				storesContainer.classList.remove("innerContainer");
-            }
-        });
+                categoriesContainer.classList.remove("activeInnerContainer");
+				categoriesContainer.classList.add("innerContainer");
+    },
+
+    showSearchKeyWordStores: (keyword) => {
+                const storesContainer = document.getElementById("storesContainer");
+				const storesCards = storesContainer.querySelectorAll("div");
+                
+
+				storesCards.forEach(item => {
+					const itemNodes = item.childNodes;
+                    const re = new RegExp(keyword + '.*')
+                    
+                    if (itemNodes[1].innerText.toLowerCase().match(re)) {
+                        infra.showCards(item);
+                    }
+						
+					else{
+                        infra.hideCards(item);
+                    }
+                    
+				})
+
+				storesContainer.classList.add("activeInnerContainer");
+				storesContainer.classList.remove("innerContainer");
+                search.containerChangeClass();
+    },
+
+    showSearchKeyWordCategories: (keyword) => {
+        const categoriesContainer = document.getElementById("categoriesContainer");
+                const categoriesCards = categoriesContainer.querySelectorAll("div");
+
+                categoriesCards.forEach(item => {
+					const itemNodes = item.childNodes;
+                    const re = new RegExp(keyword + '.*')
+                    
+                    if (itemNodes[1].innerText.toLowerCase().match(re)) {
+                        infra.showCards(item);
+                    }
+						
+					else{
+                        infra.hideCards(item);
+                    }
+                    
+				})
+
+                categoriesContainer.classList.add("activeInnerContainer");
+				categoriesContainer.classList.remove("innerContainer");
+                search.containerChangeClass();
     },
 
 	hideCards: (item) => {
