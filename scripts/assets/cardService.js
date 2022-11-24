@@ -64,7 +64,7 @@ window.cardService = {
 		if (storesContainer == null)
 			return;
 		const storesCards = storesContainer.querySelectorAll("div");
-		if (storeCards == null)
+		if (storesCards == null)
 			return;
 		storesCards.forEach(item => {
 			cardService.showCards(item);

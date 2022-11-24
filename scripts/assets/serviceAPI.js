@@ -210,10 +210,6 @@ window.serviceAPI = {
 					type: 'success'
 				});
 				infra.refreshFooter();
-				//aqui
-				const storesContainer = document.getElementById('storesContainer');
-				console.log(storesContainer);
-				infra.populateStoreContainer(storesContainer);
 			},
 			onError: (data, response) => {
 				basePage.notification.create({
