@@ -15,7 +15,8 @@
         "styles/footerStyle.js",
         "styles/notificationStyle.js",
         "styles/SearchStyle.js",
-        "styles/popUpStyle.js"
+        "styles/popUpStyle.js",
+        "styles/mainContainerStyle.js"
     ];
  
     addCSSFile();
