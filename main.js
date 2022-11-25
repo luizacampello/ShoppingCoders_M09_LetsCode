@@ -19,7 +19,7 @@
         "styles/mainContainerStyle.js"
     ];
  
-    addCSSFile();
+    // addCSSFile();
     addJSScriptFiles(jsFiles)
  
     window.addEventListener("load", () => {
@@ -41,22 +41,22 @@
     });
 })();
  
-function addCSSFile() {
-    const cssLink = document.createElement("link");
+// function addCSSFile() {
+//     const cssLink = document.createElement("link");
  
-    cssLink.rel = "stylesheet";
-    cssLink.type = "text/css";
-    cssLink.href = "style.css";
+//     cssLink.rel = "stylesheet";
+//     cssLink.type = "text/css";
+//     cssLink.href = "style.css";
  
-    const cssLinkIcon = document.createElement('link');
+//     const cssLinkIcon = document.createElement('link');
  
-    cssLinkIcon.rel = 'stylesheet';
-    cssLinkIcon.type = 'text/css';
-    cssLinkIcon.href = 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200';
+//     cssLinkIcon.rel = 'stylesheet';
+//     cssLinkIcon.type = 'text/css';
+//     cssLinkIcon.href = 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200';
  
-    document.head.appendChild(cssLink);
-    document.head.appendChild(cssLinkIcon);
-}
+//     document.head.appendChild(cssLink);
+//     document.head.appendChild(cssLinkIcon);
+// }
  
 function addJSScriptFiles(jsFiles) {
     for (const file of jsFiles) {

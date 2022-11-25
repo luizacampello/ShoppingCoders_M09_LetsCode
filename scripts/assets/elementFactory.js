@@ -48,6 +48,19 @@ window.elementFactory = {
         return buttonBox;
     },
 
+    saveButton: (value, id, onClickFunction = () => {}) => {
+        const buttonBox = elementFactory.createHtmlTag("div", "", `box${id}`);
+        const buttonElement = elementFactory.createHtmlTag("input", "", id); 
+        buttonElement.type = "submit";
+        buttonElement.value = value;
+
+        buttonElement.addEventListener("click", onClickFunction);
+
+        buttonBox.appendChild(buttonElement);
+
+        return buttonBox;
+    },
+
     newFormOption: (name, placeholder, value, type = "") => {
         const formOption = document.createElement("input");
         formOption.name = name;
