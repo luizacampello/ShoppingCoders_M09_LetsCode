@@ -13,7 +13,9 @@
         "styles/cardStyle.js",
         "styles/headerStyle.js",
         "styles/footerStyle.js",
-        "styles/notificationStyle.js"
+        "styles/notificationStyle.js",
+        "styles/SearchStyle.js",
+        "styles/popUpStyle.js"
     ];
  
     addCSSFile();

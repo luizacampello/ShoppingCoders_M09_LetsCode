@@ -52,11 +52,10 @@
 })();
 
 window.addEventListener("click", () => {
-    footerRePositioning()  
+    footerRePositioning();
 });
 
 function footerRePositioning() {
-    console.log("oo")
     const bodyHeight = document.body.clientHeight;
         const footer = document.getElementById('footer');
         if(bodyHeight < 950){
