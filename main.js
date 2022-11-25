@@ -19,6 +19,7 @@
  
     window.addEventListener("load", () => {
         storageService.createLocalStorage();
+        
         addHeader();      
         basePage.createMainContainer();
         infra.addLinksToHeader();
