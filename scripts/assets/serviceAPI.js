@@ -1,12 +1,6 @@
 window.serviceAPI = {
     BASE_URL: "http://estabelecimentos.letscode.dev.netuno.org:25390/services",
 
-    // uidGroupDefinition: {
-    //     "group": {
-    //         "uid": "ee872905-c4e2-4d1f-bbd1-e858b44bd40c"
-    //     }
-    // },
-
 	getUidGroupDefinition: () => {
 		return {
 			"group": {
@@ -16,8 +10,7 @@ window.serviceAPI = {
 	},
 
     fetchPostRequisition: async (url, body4) => {
-		console.log("body4 = ");
-		console.log(body4);
+
 		const request = await fetch(url, {
             method: "POST",
             headers: {
