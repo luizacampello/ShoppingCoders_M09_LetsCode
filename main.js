@@ -74,6 +74,7 @@ function addClearPageEventTo() {
         if (e.target.id == containerId || e.target.id == "close") {
             pageCard.classList.remove("show");
             pageCard.textContent = "";
+            
         }
     });
 }
