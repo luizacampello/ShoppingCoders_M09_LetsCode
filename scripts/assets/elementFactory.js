@@ -50,11 +50,21 @@ window.elementFactory = {
 
     saveButton: (value, id, onClickFunction = () => {}) => {
         const buttonBox = elementFactory.createHtmlTag("div", "", `box${id}`);
-        const buttonElement = elementFactory.createHtmlTag("input", "", id); 
+        const buttonElement = elementFactory.createHtmlTag("input", "", id);
         buttonElement.type = "submit";
         buttonElement.value = value;
 
-        buttonElement.addEventListener("click", onClickFunction);
+        const containerId = "popUpContainer";
+        const pageCard = document.getElementById(containerId);
+
+        buttonElement.addEventListener("click", function(event){
+            event.preventDefault();
+            onClickFunction();
+            pageCard.classList.remove("show");
+            pageCard.textContent = "";
+          });
+
+        // buttonElement.addEventListener("click", onClickFunction);
 
         buttonBox.appendChild(buttonElement);
 
