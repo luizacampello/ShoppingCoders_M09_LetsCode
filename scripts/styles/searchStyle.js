@@ -3,8 +3,8 @@
     style.innerHTML = `
     .searchContainer {
         width: 100vw;
-        margin-top: 3rem;
-        margin-bottom: 3rem;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
       }
       
       .searchBar {
@@ -30,6 +30,13 @@
         align-self: flex-start;
         
       }
+
+      #titlePage {
+        text-align: center;
+        margin-bottom: 2vh;
+        font-family: 'Inter', sans-serif;
+        font-size: 2rem;
+      }
       
       .searchCategory {
         display: flex;
@@ -41,9 +48,10 @@
       
       .searchKeyWord {
         display: flex;
-        width: 60%;
+        width: 100%;
         height: 2rem;
         margin-left: 2rem;
+        padding-left: 20px;
         border-radius: 20px;
       }
       
@@ -54,6 +62,7 @@
       
       #iconeBusca {
         cursor: pointer;
+        margin-left: 1vw;
       }
       @media (max-width: 1155px){
 

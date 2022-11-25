@@ -1,5 +1,8 @@
 window.search = {
     addSearchBar: () => {
+        const titlePage = document.getElementById('titlePage');
+        titlePage.textContent = 'Lojas';
+
         const searchContainer = document.getElementById('searchContainer');
 
         const searchBar = elementFactory.createHtmlTag('div', 'searchBar');
@@ -8,13 +11,13 @@ window.search = {
 
         const typeSearch = elementFactory.createHtmlTag('select', 'input-group', 'typeSearch');
 
-            const optionCategory = elementFactory.createHtmlTagAndSetContent('option', 'Categorias', 'optionCategory');
-            optionCategory.setAttribute('value', 'category');
-            optionCategory.setAttribute('class', 'option-group');
+        const optionCategory = elementFactory.createHtmlTagAndSetContent('option', 'Categorias', 'optionCategory');
+        optionCategory.setAttribute('value', 'category');
+        optionCategory.setAttribute('class', 'option-group');
 
-            const optionKeyWord = elementFactory.createHtmlTagAndSetContent('option','Palavra-Chave', 'optionKeyWord');
-            optionKeyWord.setAttribute('value', 'keyWord');
-            optionKeyWord.setAttribute('class', 'option-group');
+        const optionKeyWord = elementFactory.createHtmlTagAndSetContent('option','Palavra-Chave', 'optionKeyWord');
+        optionKeyWord.setAttribute('value', 'keyWord');
+        optionKeyWord.setAttribute('class', 'option-group');
         
         const typeCategory = elementFactory.createHtmlTag('select','searchCategoryHide','typeCategory');
 
@@ -114,6 +117,7 @@ window.search = {
     },
 
     containerChangeClass: () => {
+        const titlePage = document.getElementById('titlePage');
         const activeContainer = document.getElementsByClassName('activeInnerContainer');
         const inputKeyWord = document.getElementById('keyWordSearch');
         const selectTypeCategory = document.getElementById('typeCategory');
@@ -122,14 +126,13 @@ window.search = {
         if(activeContainer[0].id == 'storesContainer') {
             selectTypeSearch.style.visibility = 'visible';
             selectTypeCategory.setAttribute('class', 'searchCategoryHide');
-            inputKeyWord.setAttribute('class', 'searchKeyWord');          
-        }
-        else {
+            inputKeyWord.setAttribute('class', 'searchKeyWord');
+            titlePage.textContent = 'Lojas';        
+        } else {
             selectTypeSearch.style.visibility = 'hidden';
             selectTypeCategory.setAttribute('class', 'searchCategoryHide');
             inputKeyWord.setAttribute('class', 'searchKeyWord');
+            titlePage.textContent = 'Categorias';
         }
-            
     }, 
-
 }

@@ -26,7 +26,14 @@ window.basePage = {
             "mainContainer"
         );
 
+        const titlePage = elementFactory.createHtmlTag(
+            'h3',
+            'titlePage',
+            'titlePage'
+        );
+
         mainContainer.appendChild(popUpContainer);
+        searchContainer.appendChild(titlePage);
         mainContainer.appendChild(searchContainer);
         mainContainer.appendChild(storesContainer);
         mainContainer.appendChild(categoriesContainer);
