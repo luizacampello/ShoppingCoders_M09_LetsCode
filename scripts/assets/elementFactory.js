@@ -58,10 +58,10 @@ window.elementFactory = {
         const pageCard = document.getElementById(containerId);
 
         buttonElement.addEventListener("click", function(event){
-            event.preventDefault();
+            // event.preventDefault();
             onClickFunction();
-            pageCard.classList.remove("show");
-            pageCard.textContent = "";
+            // pageCard.classList.remove("show");
+            // pageCard.textContent = "";
         });
 
         buttonBox.appendChild(buttonElement);

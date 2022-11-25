@@ -183,5 +183,15 @@ window.basePage = {
         infra.populateCategoryContainer();
         infra.refreshFooter();
         search.populateTypeCategory();
-    }
+    },
+
+    noResultsPage: () => {
+        const noResultsPage = createHtmlTag("div", "noResultsPage", "noResultsPage");
+        const noResultsImg = elementFactory.newImage('/imgs/404.jpg', '404search', '404search', 'mi4u 404 mi4u');
+        noResultsPage.appendChild(noResultsImg);
+
+        const mainContainer = document.getElementById("mainContainer");
+        mainContainer.appendChild(noResultsPage);
+    },
+    
 }
