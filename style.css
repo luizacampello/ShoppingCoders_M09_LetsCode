@@ -19,7 +19,6 @@
   justify-content: space-around;
   align-items: center;
   /* margin-top: 10vh; */
-  padding-top: 10vh;
 }
 
 .show {
@@ -253,8 +252,8 @@ div.notification-info {
 /* style da busca */
 .searchContainer{
   width: 100vw;
-  margin-top: 3rem;
-  margin-bottom: 3rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .searchBar{

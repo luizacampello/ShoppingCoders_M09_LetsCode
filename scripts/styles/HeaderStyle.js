@@ -124,6 +124,7 @@
       header{
         position: sticky;
         height: auto;
+        justify-content: center;
       }
     
       header nav{
@@ -160,6 +161,8 @@
         background-color: cadetblue;
         align-items: center;
         border-radius: 10px;
+
+        margin-bottom: 20px;
       }
     
       .material-symbols-outlined{

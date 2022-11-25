@@ -2,7 +2,7 @@
     const style = document.createElement('style');
     style.innerHTML = `
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap');
-        .card-content{
+        .card-content {
             width: 240px;
             height: 120px;
             padding: 0px;
@@ -18,7 +18,7 @@
             flex-direction: column;
             justify-content: flex-end;
         }
-        .card-content h2{
+        .card-content h2 {
             margin: 0px;
             margin-left: 12px;
             margin-bottom: 12px;
@@ -37,11 +37,11 @@
             font-weight: 300;
             font-size: 16px;
         }
-        .card-content:has(button){
+        .card-content:has(button) {
             max-height: 185px;
             height: 185px;
         }
-        .card-content:has(button) h2{
+        .card-content:has(button) h2 {
             
             margin-bottom: 12px;
             text-overflow: ellipsis;
@@ -50,11 +50,11 @@
             width: 210px;
             white-space: nowrap;
         }
-        .card-content:has(button) h3{
+        .card-content:has(button) h3 {
             
             margin-top: 12px;
         }
-        .card-content button;
+        .card-content button {
             width: 195px;
             height: 35px;
             margin-top: 0px;

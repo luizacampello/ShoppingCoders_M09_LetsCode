@@ -70,13 +70,18 @@
     document.body.appendChild(style);
 })();
 
-window.addEventListener("click", () => {
-        const bodyHeight = document.body.clientHeight;
+window.addEventListener("change", () => {
+    footerRePositioning()  
+});
+
+
+
+function footerRePositioning() {
+    const bodyHeight = document.body.clientHeight;
         const footer = document.getElementById('footer');
-        if(bodyHeight < 900){
+        if(bodyHeight < 950){
             footer.classList.add('pageHeight');
         } else {
             footer.classList.remove('pageHeight');
         }
-});
-
+} 
