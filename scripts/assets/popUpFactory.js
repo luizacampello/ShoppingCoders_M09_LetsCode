@@ -196,7 +196,6 @@ window.popUpFactory = {
 		
 		categoryForm.appendChild(code);
 		categoryForm.appendChild(name);
-		categoryForm.appendChild(saveMessage);
 
 		const divButtons = document.createElement("div");
 		divButtons.setAttribute("id", "divButtons");
