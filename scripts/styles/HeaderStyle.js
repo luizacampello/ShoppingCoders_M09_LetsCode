@@ -108,7 +108,6 @@ nav .menu {
 .categorias:hover > ul {
   display: table;
   position: absolute;
-  
   background-color: #05445E;
 }
 
@@ -126,12 +125,19 @@ nav .menu {
   header{
     position: sticky;
     height: auto;
+
+    padding-bottom: 20px;
   }
 
   header nav{
     flex-direction: column;
     align-items: center;
   }
+
+  .lojas:hover > ul,
+.categorias:hover > ul {
+  display: contents; 
+}
 
   .LogoMobile{
     display: flex;
@@ -160,9 +166,10 @@ nav .menu {
     position: relative;
     flex-direction: column;
     width: 100%;
-    background-color: cadetblue;
+    background-color: #05445E;
     align-items: center;
-    border-radius: 10px;
+    align-self: baseline;
+    width: 100vw;
   }
 
   .material-symbols-outlined{

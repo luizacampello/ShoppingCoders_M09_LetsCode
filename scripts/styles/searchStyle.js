@@ -55,6 +55,32 @@
       #iconeBusca {
         cursor: pointer;
       }
+      @media (max-width: 1155px){
+
+        .searchBar{
+          width: 85%;
+          margin: auto;
+        }
+      
+        #typeSearch{
+          margin-left: 2vw;
+          font-size: 0.7rem;
+        }
+      
+        .searchKeyWord{
+          margin-left: 2vw;
+        }
+      
+        .searchCategory{
+          margin-left: 2vw;
+        }
+      
+        #iconeBusca {
+          cursor: pointer;
+          font-size: 2rem;
+          margin-right: 2vw;
+      }
+      }
     `;
     document.body.appendChild(style);
 })();
