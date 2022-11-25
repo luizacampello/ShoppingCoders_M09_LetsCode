@@ -161,5 +161,20 @@ window.basePage = {
         if (display == 'flex') {
             menu.className = 'menuHide';
         }
+    },
+
+    resetMainContainer: () => {
+        const storesContainer = document.getElementById("storesContainer");
+        const categoriesContainer = document.getElementById("categoriesContainer");
+        storesContainer.innerHTML = "";
+        categoriesContainer.innerHTML = "";     
+    },
+
+    resetPageAfterCrud: () => {
+        basePage.resetMainContainer();
+
+        infra.populateStoreContainer();
+        infra.populateCategoryContainer();
+        infra.refreshFooter();
     }
 }

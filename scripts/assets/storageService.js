@@ -2,7 +2,7 @@ window.storageService = {
     
     createLocalStorage: async () => {
         const categoriesList = await serviceAPI.getCategoriesList();
-        const storesList = await serviceAPI.getStoresList("");
+        const storesList = await serviceAPI.getStoresList();
 
         localStorage.setItem("categoriesList", JSON.stringify(categoriesList));
         localStorage.setItem("storesList", JSON.stringify(storesList));
@@ -55,9 +55,16 @@ window.storageService = {
     updateLocalStorage: async () => {
         localStorage.clear();
         const categoriesList = await serviceAPI.getCategoriesList();
-        const storesList = await serviceAPI.getStoresList("");
+        const storesList = await serviceAPI.getStoresList();
 
         localStorage.setItem("categoriesList", JSON.stringify(categoriesList));
         localStorage.setItem("storesList", JSON.stringify(storesList));
+        storageService.createCategoriesQuantities();
+
+        basePage.resetPageAfterCrud();
     },
+
+    
+
+    
 }

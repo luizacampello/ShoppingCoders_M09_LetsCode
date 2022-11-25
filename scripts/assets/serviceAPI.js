@@ -49,7 +49,7 @@ window.serviceAPI = {
 					text: "Criou o estabelecimento com sucesso.",
 					type: 'success'
 				});
-				infra.refreshFooter();
+				storageService.updateLocalStorage();
 			},
 			onError: (data, response) => {
 				basePage.notification.create({
@@ -96,7 +96,7 @@ window.serviceAPI = {
 					text: "Editou o estabelecimento com sucesso.",
 					type: 'success'
 				});
-				infra.refreshFooter();
+				storageService.updateLocalStorage();
 			},
 			onError: (data, response) => {
 				basePage.notification.create({
@@ -121,7 +121,7 @@ window.serviceAPI = {
 					text: "Deletou a loja com sucesso.",
 					type: 'success'
 				});
-				infra.refreshFooter();
+				storageService.updateLocalStorage();
 			},
 			onError: (data, response) => {
 				basePage.notification.create({
@@ -208,7 +208,7 @@ window.serviceAPI = {
 					text: "Editou a categoria com sucesso.",
 					type: 'success'
 				});
-				infra.refreshFooter();
+				storageService.updateLocalStorage();
 			},
 			onError: (data, response) => {
 				basePage.notification.create({
@@ -232,7 +232,7 @@ window.serviceAPI = {
 					text: "Deletou a categoria com sucesso.",
 					type: 'success'
 				});
-				infra.refreshFooter();
+				storageService.updateLocalStorage();
 			},
 			onError: (data, response) => {
 				basePage.notification.create({
