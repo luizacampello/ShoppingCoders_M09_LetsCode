@@ -19,7 +19,6 @@
         "styles/mainContainerStyle.js"
     ];
  
-    // addCSSFile();
     addJSScriptFiles(jsFiles)
  
     window.addEventListener("load", async () => {
