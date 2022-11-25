@@ -49,7 +49,7 @@ window.serviceAPI = {
 					text: "Criou o estabelecimento com sucesso.",
 					type: 'success'
 				});
-				infra.refreshFooter();
+				storageService.updateLocalStorage();
 			},
 			onError: (data, response) => {
 				basePage.notification.create({
@@ -61,13 +61,12 @@ window.serviceAPI = {
 
     },
 
-    getStoresList: async (keyWord, uidCategory) => {
+    getStoresList: async () => {
+
         let url = serviceAPI.BASE_URL + "/establishment/list";
         let body = serviceAPI.uidGroupDefinition;
-        body.text = keyWord;
-        if (uidCategory) {
-            body.category = {"uid": uidCategory};
-        }
+        body.text = "";
+
         let stores = await serviceAPI.fetchPostRequisition(url, body);
 
         return stores;
@@ -97,7 +96,7 @@ window.serviceAPI = {
 					text: "Editou o estabelecimento com sucesso.",
 					type: 'success'
 				});
-				infra.refreshFooter();
+				storageService.updateLocalStorage();
 			},
 			onError: (data, response) => {
 				basePage.notification.create({
@@ -122,7 +121,7 @@ window.serviceAPI = {
 					text: "Deletou a loja com sucesso.",
 					type: 'success'
 				});
-				infra.refreshFooter();
+				storageService.updateLocalStorage();
 			},
 			onError: (data, response) => {
 				basePage.notification.create({
@@ -140,9 +139,9 @@ window.serviceAPI = {
         body.name = newCategory.name;
         delete body.text;
 		let exists = false;
-		const categories = await serviceAPI.getCategoriesList("");
+		const categories = await serviceAPI.getCategoriesList(); //TODO
 
-		if (categories != null)
+		if (categories != null) //TODO
 		{
 			categories.forEach(category => {
 				if (category.name == newCategory.name || category.code == newCategory.code)
@@ -155,6 +154,7 @@ window.serviceAPI = {
 				}
 			})
 		}
+
 		if (!exists) {
 			await serviceAPI.fetchRequisition({
 				fetchMethod: "POST",
@@ -165,6 +165,7 @@ window.serviceAPI = {
 						text: "Criou a categoria com sucesso.",
 						type: 'success'
 					});
+					storageService.updateLocalStorage();
 				},
 				onError: (data, response) => {
 					basePage.notification.create({
@@ -176,17 +177,17 @@ window.serviceAPI = {
 		}
     },
 
-	getCategoriesList: async (keyword = "") => {
+	getCategoriesList: async () => {
         let url = serviceAPI.BASE_URL + "/category/list";
         let body =  serviceAPI.uidGroupDefinition;
-        body.text = keyword;
+        body.text = "";
 
         const categories = await serviceAPI.fetchPostRequisition(url, body);
         return categories;
     },
 
     updateCategory: async (upCategory) => {
-		//verificar se posso passar a category e pegar aqui os itens separados category.uid e afins
+		//verificar se posso passar a category e pegar aqui os itens separados category.uid e afins //TODO
 		//MODIFICANDO O UPDATE CATEGORY
 
         //validar se code e name são diferentes de vazio, caso contrário abrir notificação na tela
@@ -209,7 +210,7 @@ window.serviceAPI = {
 					text: "Editou a categoria com sucesso.",
 					type: 'success'
 				});
-				infra.refreshFooter();
+				storageService.updateLocalStorage();
 			},
 			onError: (data, response) => {
 				basePage.notification.create({
@@ -233,7 +234,7 @@ window.serviceAPI = {
 					text: "Deletou a categoria com sucesso.",
 					type: 'success'
 				});
-				infra.refreshFooter();
+				storageService.updateLocalStorage();
 			},
 			onError: (data, response) => {
 				basePage.notification.create({
@@ -266,10 +267,10 @@ window.serviceAPI = {
 		.catch((error) => {
           console.error('Error:', error);
         });
-		return await [];
+		return await []; //TODO
     },
 
-    createGroup: async (groupName, studentName) => {
+    createGroup: async (groupName, studentName) => { //TODO será que tem que colocar uma opção de fazer isso no site? 
         let url = serviceAPI.BASE_URL + "/group";
         let body = {
             "name": groupName,
@@ -277,7 +278,7 @@ window.serviceAPI = {
                 studentName
             ]
         }
-        let data = await serviceAPI.fetchPostRequisition(url, body);
+        let data = await serviceAPI.fetchPostRequisition(url, body); 
         console.log(data);
         return data;
     },
