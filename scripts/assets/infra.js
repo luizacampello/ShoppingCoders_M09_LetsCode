@@ -67,13 +67,6 @@ window.infra = {
         infra.updateCategoriesQuantities();
     },
 
-    // refreshFooter: async () => {
-    //     await storageService.createCategoriesQuantities();
-    //     setTimeout(function () {
-    //         infra.updateCategoriesQuantities();
-    //     }, 2000); //TODO
-    // },
-
     updateCategoriesQuantities: () => {
         const categoriesQuantities = storageService.getCategoriesQuantity();
 

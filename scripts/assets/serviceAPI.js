@@ -154,6 +154,7 @@ window.serviceAPI = {
 				}
 			})
 		}
+
 		if (!exists) {
 			await serviceAPI.fetchRequisition({
 				fetchMethod: "POST",
@@ -164,6 +165,7 @@ window.serviceAPI = {
 						text: "Criou a categoria com sucesso.",
 						type: 'success'
 					});
+					storageService.updateLocalStorage();
 				},
 				onError: (data, response) => {
 					basePage.notification.create({

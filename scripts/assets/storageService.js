@@ -9,25 +9,25 @@ window.storageService = {
 
     },
 
-    createCategoriesQuantities: () => {  //TODO como mudar isso pra adicionar ali em cima
+    createCategoriesQuantities: () => {
         const stores = storageService.getStoresList();
         const categories = storageService.getCategoriesList();
+        
+        if (categories){
+            let listCategories = categories.map((x) => x);
+            listCategories.forEach((element) => {
+                element.quantity = 0;
+    
+                for (i = 0; i < stores.length; i++) {
+                    if (element.uid == stores[i].category.uid){
+                        element.quantity++; 
+                    }                    
+                }
+            });   
 
-        if (categories == null){
-            return;
-        } 
-
-        categories.forEach((element) => {
-            element.quantity = 0; //TODO
-
-            for (i = 0; i < stores.length; i++) {
-                if (element.uid == stores[i].category.uid){
-                    element.quantity++; 
-                }                    
-            }
-        });
-
-        localStorage.setItem("CategoriesQuantities", JSON.stringify(categories));
+            localStorage.setItem("CategoriesQuantities", JSON.stringify(categories));
+        }
+        
     },
 
     getCategoriesList: () => {
@@ -45,26 +45,18 @@ window.storageService = {
     },
 
     getCategoriesQuantity: () => {
-        const response = localStorage.getItem("CategoriesQuantities"); //TODO
-        const categoriesQuantities = JSON.parse(response); //TODO
+        const response = localStorage.getItem("CategoriesQuantities");
+        const categoriesQuantities = JSON.parse(response);
 
         return categoriesQuantities;
-
     },
 
     updateLocalStorage: async () => {
-        localStorage.clear();
-        const categoriesList = await serviceAPI.getCategoriesList();
-        const storesList = await serviceAPI.getStoresList();
-
-        localStorage.setItem("categoriesList", JSON.stringify(categoriesList));
-        localStorage.setItem("storesList", JSON.stringify(storesList));
+        localStorage.clear();        
+        await storageService.createLocalStorage();
         storageService.createCategoriesQuantities();
 
         basePage.resetPageAfterCrud();
     },
-
-    
-
     
 }
