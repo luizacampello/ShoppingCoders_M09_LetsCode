@@ -2,7 +2,7 @@
     const style = document.createElement('style');
     style.innerHTML = `
     .searchContainer {
-        width: 100vw;
+        width: 100%;
         margin-top: 2rem;
         margin-bottom: 2rem;
       }

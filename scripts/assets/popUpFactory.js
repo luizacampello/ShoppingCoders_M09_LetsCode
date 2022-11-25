@@ -39,9 +39,6 @@ window.popUpFactory = {
 		popUpFactory.newCategoryFormPopUp();
 	},
 
-
-	//Store
-
 	updateStoreFormPopUp: (store) => {
 		const formContainer = document.getElementById("storeFormContainer");
 
