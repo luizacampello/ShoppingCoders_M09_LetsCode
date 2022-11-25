@@ -1,19 +1,29 @@
 window.serviceAPI = {
     BASE_URL: "http://estabelecimentos.letscode.dev.netuno.org:25390/services",
 
-    uidGroupDefinition: {
-        "group": {
-            "uid": "ee872905-c4e2-4d1f-bbd1-e858b44bd40c"
-        }
-    },
+    // uidGroupDefinition: {
+    //     "group": {
+    //         "uid": "ee872905-c4e2-4d1f-bbd1-e858b44bd40c"
+    //     }
+    // },
 
-    fetchPostRequisition: async (url, body) => {
-        const request = await fetch(url, {
+	getUidGroupDefinition: () => {
+		return {
+			"group": {
+				"uid": "ee872905-c4e2-4d1f-bbd1-e858b44bd40c"
+			}
+		};
+	},
+
+    fetchPostRequisition: async (url, body4) => {
+		console.log("body4 = ");
+		console.log(body4);
+		const request = await fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(body)
+            body: JSON.stringify(body4)
         }).catch((error) => {
             console.log("Erro na comunicação:", error);
         });
@@ -30,7 +40,7 @@ window.serviceAPI = {
 
 	createStore: async (store) => {
         let url = serviceAPI.BASE_URL + "/establishment";
-        let body = serviceAPI.uidGroupDefinition;
+        let body = serviceAPI.getUidGroupDefinition();
         body.address = store.address;
 		body.phone = store.phone;
         body.name = store.name;
@@ -64,10 +74,12 @@ window.serviceAPI = {
     getStoresList: async () => {
 
         let url = serviceAPI.BASE_URL + "/establishment/list";
-        let body = serviceAPI.uidGroupDefinition;
-        body.text = "";
+        let body2 = serviceAPI.getUidGroupDefinition();
+        body2.text = "";
+		console.log("body2 = ");
+		console.log(body2);
 
-        let stores = await serviceAPI.fetchPostRequisition(url, body);
+        let stores = await serviceAPI.fetchPostRequisition(url, body2);
 
         return stores;
     },
@@ -75,7 +87,7 @@ window.serviceAPI = {
 	updateStore: async (store) => {
 		console.log(store);
 		let url = serviceAPI.BASE_URL + "/establishment";
-        let body = serviceAPI.uidGroupDefinition;
+        let body = serviceAPI.getUidGroupDefinition();
 		body.uid = store.uid;
         body.address = store.address;
 		body.phone = store.phone;
@@ -110,7 +122,7 @@ window.serviceAPI = {
 
 	deleteStore: async (storeUid) => {
 		let url = serviceAPI.BASE_URL + "/establishment";
-        let body = serviceAPI.uidGroupDefinition;
+        let body = serviceAPI.getUidGroupDefinition();
 		body.uid = storeUid;
 		await serviceAPI.fetchRequisition({
 			fetchMethod: "DELETE",
@@ -134,7 +146,7 @@ window.serviceAPI = {
 
     createCategory: async (newCategory) => {
         let url = serviceAPI.BASE_URL + "/category";
-        let body = serviceAPI.uidGroupDefinition;
+        let body = serviceAPI.getUidGroupDefinition();
         body.code = newCategory.code;
         body.name = newCategory.name;
         delete body.text;
@@ -179,10 +191,12 @@ window.serviceAPI = {
 
 	getCategoriesList: async () => {
         let url = serviceAPI.BASE_URL + "/category/list";
-        let body =  serviceAPI.uidGroupDefinition;
-        body.text = "";
+        let body3 = serviceAPI.getUidGroupDefinition();
+        body3.text = "";
+		console.log("body3 = ");
+		console.log(body3);
 
-        const categories = await serviceAPI.fetchPostRequisition(url, body);
+        const categories = await serviceAPI.fetchPostRequisition(url, body3);
         return categories;
     },
 
@@ -196,7 +210,7 @@ window.serviceAPI = {
         //alinhar se concordam c a criação
 
         let url = serviceAPI.BASE_URL + "/category";
-        let body = serviceAPI.uidGroupDefinition;
+        let body = serviceAPI.getUidGroupDefinition();
         body.uid = upCategory.uid;
         body.code = upCategory.code;
         body.name = upCategory.name;
@@ -223,7 +237,7 @@ window.serviceAPI = {
 
     deleteCategory: async (catUid) => {
 		let url = serviceAPI.BASE_URL + "/category";
-        let body = serviceAPI.uidGroupDefinition;
+        let body = serviceAPI.getUidGroupDefinition();
 		body.uid = catUid;
 		await serviceAPI.fetchRequisition({
 			fetchMethod: "DELETE",
