@@ -11,7 +11,8 @@
         "assets/cardService.js",
         "assets/basePage.js",
         "styles/cardStyle.js",
-        "styles/headerStyle.js"
+        "styles/headerStyle.js",
+        "styles/footerStyle.js"
     ];
  
     addCSSFile();
