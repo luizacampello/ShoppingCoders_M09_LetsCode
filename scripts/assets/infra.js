@@ -15,115 +15,99 @@ window.infra = {
         activeContainer.classList.add("activeInnerContainer");
     },
 
-    populateStoreContainer: async (container, keyword='', idCategory='') => {
-        const storesList = await serviceAPI.getStoresList(keyword, idCategory);
+    populateStoreContainer: () => {
+        const storesList = storageService.getStoresList();
+
+        const storesContainer = document.getElementById("storesContainer");
+
         for (let index = 0; index < storesList.length; index++) {
             const store = storesList[index];
-            container.appendChild(
+            storesContainer.appendChild(
                 cardService.CardStore({
                     store: store,
                     onClickCard: () => {
                         popUpFactory.viewStorePopUpContainer(store);
-                        //infra.addClearPageEventTo();
                     },
                 })
             );
-        };
+        }
     },
 
-    populateCategoryContainer: async (container, keyword='') => {
-        const categoryList = await serviceAPI.getCategoriesList(keyword);
-        const categoriesContainer = document.getElementById('categoriesContainer')
+    populateCategoryContainer: () => {
+        const categoryList = storageService.getCategoriesList(); 
+
+        const categoriesContainer = document.getElementById("categoriesContainer");
+
         for (let index = 0; index < categoryList.length; index++) {
-            console.log("Hey função chamada")
             const category = categoryList[index];
-            container.appendChild(
+            categoriesContainer.appendChild(
                 cardService.CardCategory({
                     category: category,
                     onClickEdit: () => {
                         popUpFactory.categoryPopUpContainer(category);
-                        const formCategory = document.getElementById("categoryFormContainer");
-                        formCategory.style.display = "flex";
+                        const formCategory = document.getElementById(
+                            "categoryFormContainer"
+                        );
+                        formCategory.style.display = "flex"; //TODO
                     },
                     onClickStores: () => {
                         infra.showSelectCategory(category.code);
-                        categoriesContainer.classList.remove("activeInnerContainer");
-				        categoriesContainer.classList.add("innerContainer");
+                        categoriesContainer.classList.remove(
+                            "activeInnerContainer"
+                        ); //TODO
+                        categoriesContainer.classList.add("innerContainer"); //TODO
                         search.containerChangeClass();
                     },
                 })
             );
-        
-        };
+        }
     },
 
-	refreshFooter: async () => {
-		await infra.createCategoriesQuantities();
-		//console.log("aqui1");
-		setTimeout(function () {
-			infra.updateCategoriesQuantities()
-			//console.log("aqui6");
-		}, 2000);
-	},
-
-	createCategoriesQuantities: async () => {
-		const stores = await serviceAPI.getStoresList("", "");
-		const categories = await serviceAPI.getCategoriesList("");
-		setTimeout(() => {
-
-			//console.log("aqui2");
-			//console.log(stores);
-			if (categories == null)
-				return;
-			categories.forEach(element => {
-				element.quantity = 0;
-				for (i = 0; i < stores.length; i++) {
-					if (element.uid == stores[i].category.uid)
-						element.quantity++;
-				}
-			});
-			//console.log(categories);
-			//console.log("aqui3");
-			setTimeout(() => {
-				localStorage.setItem("CategoriesQuantities", JSON.stringify(categories));
-				//console.log("aqui4");
-			}, 500)
-		}, 1000);
-	},
+    refreshFooter: async () => {
+        await storageService.createCategoriesQuantities();
+        setTimeout(function () {
+            infra.updateCategoriesQuantities();
+        }, 2000); //TODO
+    },
 
     updateCategoriesQuantities: () => {
-        const response = localStorage.getItem("CategoriesQuantities");
-        const categoriesQuantities = JSON.parse(response);
-		let list = document.querySelector("#footer-list");
-		list.innerHTML = "";
-        if (categoriesQuantities == null)
-            return;
-		categoriesQuantities.forEach(item => {
-			if (item.quantity != 0)
-			{
-				const content = item.name + ": " + item.quantity;
-				const listItem = elementFactory.createHtmlTagAndSetContent("li", content, item.uid);
-				listItem.classList.add("list-item");
-				listItem.setAttribute("name", item.code);
-				list.appendChild(listItem);
-			}
-		})
-		//console.log("aqui5");
+        const response = localStorage.getItem("CategoriesQuantities"); //TODO
+        const categoriesQuantities = JSON.parse(response); //TODO
+
+        let list = document.querySelector("#footer-list");
+        list.innerHTML = "";
+        if (categoriesQuantities == null) return;
+        categoriesQuantities.forEach((item) => {
+            if (item.quantity != 0) {
+                const content = item.name + ": " + item.quantity;
+                const listItem = elementFactory.createHtmlTagAndSetContent(
+                    "li",
+                    content,
+                    item.uid
+                );
+                listItem.classList.add("list-item");
+                listItem.setAttribute("name", item.code);
+                list.appendChild(listItem);
+            }
+        });
     },
 
-    populateFormCategory: async (categoryForm, defaultCategory = "") => {
+    populateFormCategory: (categoryForm, defaultCategory = "") => {
         if (defaultCategory) {
-            const defaultOption = elementFactory.newCategoryOption(defaultCategory);
+            const defaultOption =
+                elementFactory.newCategoryOption(defaultCategory);
             categoryForm.add(defaultOption);
             categoryForm.selectedIndex = 0;
         }
 
-        const categoriesList = await serviceAPI.getCategoriesList();
+        const categoriesList = storageService.getCategoriesList();
 
         for (let index = 0; index < categoriesList.length; index++) {
             const categoryOption = categoriesList[index];
             if (categoryOption.uid != defaultCategory.uid) {
-                categoryForm.add(elementFactory.newCategoryOption(categoryOption));
+                categoryForm.add(
+                    elementFactory.newCategoryOption(categoryOption)
+                );
             }
         }
     },
@@ -131,89 +115,80 @@ window.infra = {
     addFooterCategorySearchEvent: () => {
         let list = document.querySelector("#footer-list");
 
-        list.addEventListener("click", function(event) {
-            if (event.target.tagName == 'LI') {
-				//inserir aqui a alteração na busca
+        list.addEventListener("click", function (event) { 
+            if (event.target.tagName == "LI") { 
+                //inserir aqui a alteração na busca //TODO
 
                 infra.showSelectCategory(event.target.getAttribute("name"));
-				
             }
         });
     },
 
-    showSelectCategory: (categoryCode = '') => {
-        const categoriesContainer = document.getElementById("categoriesContainer");
+    showSelectCategory: (categoryCode = "") => {
+        const categoriesContainer = document.getElementById(
+            "categoriesContainer"
+        );
         const storesContainer = document.getElementById("storesContainer");
-				const storesCards = storesContainer.querySelectorAll("div");
-				storesCards.forEach(item => {
-                    if(categoryCode != null || categoryCode != ''){
-                        
-                        if (item.firstChild.innerText != categoryCode){
-                            cardService.hideCards(item);
-                        }
-					    else {
-                            cardService.showCards(item);
-                        }
-						
-                    }
-                    else{
-                        cardService.showCards(item);
-                    }
-                    
-				})
+        const storesCards = storesContainer.querySelectorAll("div");
+        storesCards.forEach((item) => {
+            if (categoryCode) {
+                if (item.firstChild.innerText != categoryCode) {
+                    cardService.hideCards(item);
+                } else {
+                    cardService.showCards(item);
+                }
+            } else {
+                cardService.showCards(item);
+            }
+        });
 
-				storesContainer.classList.add("activeInnerContainer");
-                categoriesContainer.classList.remove("activeInnerContainer");
-
+        storesContainer.classList.add("activeInnerContainer"); //TODO
+        categoriesContainer.classList.remove("activeInnerContainer"); //TODO
     },
 
-    showStoresByKeyword: (keyword = '') => {
-                const storesContainer = document.getElementById("storesContainer");
-				const storesCards = storesContainer.querySelectorAll("div");
-                
+    showStoresByKeyword: (keyword = "") => {
+        const storesContainer = document.getElementById("storesContainer");
+        const storesCards = storesContainer.querySelectorAll("div");
 
-				storesCards.forEach(item => {
-					if (keyword != '') {
-                        const itemNodes = item.childNodes;
-                    const re = new RegExp(keyword + '.*')
-                    
-                    if (itemNodes[1].innerText.toLowerCase().match(re)) {
-                        cardService.showCards(item);
-                    }
-						
-					else{
-                        cardService.hideCards(item);
-                    }
-                    } else {
-                        cardService.showCards(item);
-                    }
-                    
-				})
+        storesCards.forEach((item) => {
+            if (keyword != "") {
+                const itemNodes = item.childNodes;
+                const re = new RegExp(keyword + ".*");
 
-				storesContainer.classList.add("activeInnerContainer");
-                search.containerChangeClass();
+                if (itemNodes[1].innerText.toLowerCase().match(re)) {
+                    cardService.showCards(item);
+                } else {
+                    cardService.hideCards(item);
+                }
+            } 
+            else {
+                cardService.showCards(item);
+            }
+        });
+
+        storesContainer.classList.add("activeInnerContainer"); //TODO
+        search.containerChangeClass();
     },
 
     showCategoriesByKeyword: (keyword) => {
-        const categoriesContainer = document.getElementById("categoriesContainer");
-                const categoriesCards = categoriesContainer.querySelectorAll("div");
+        const categoriesContainer = document.getElementById(
+            "categoriesContainer"
+        );
+        const categoriesCards = categoriesContainer.querySelectorAll("div");
 
-                categoriesCards.forEach(item => {
-					const itemNodes = item.childNodes;
-                    const re = new RegExp(keyword + '.*')
-                    console.log('foi')
-                    if (itemNodes[1].innerText.toLowerCase().match(re)) {
-                        cardService.showCards(item);
-                    }
-						
-					else{
-                        cardService.hideCards(item);
-                    }
-                    
-				})
+        categoriesCards.forEach((item) => {
+            const itemNodes = item.childNodes;
+            const re = new RegExp(keyword + ".*");
+            console.log("foi");
+            if (itemNodes[1].innerText.toLowerCase().match(re)) {
+                cardService.showCards(item);
+            } else {
+                cardService.hideCards(item);
+            }
+        });
 
-                categoriesContainer.classList.add("activeInnerContainer");
-                search.containerChangeClass();
+        categoriesContainer.classList.add("activeInnerContainer"); //TODO
+        search.containerChangeClass();  //TODO
     },
 
     editButtonOnClick: () => {
@@ -223,10 +198,10 @@ window.infra = {
         formPage.style.display = "flex";
     },
 
-
     addClearPageEventTo: () => {
         const containerId = "popUpContainer";
         const pageCard = document.getElementById(containerId);
+
         pageCard.addEventListener("click", (e) => {
             if (e.target.id == containerId || e.target.id == "close") {
                 pageCard.classList.remove("show");
@@ -238,15 +213,16 @@ window.infra = {
     updateStoreButtonOnClick: () => {
         const form = document.getElementById("storeForm");
         const store = infra.getStoreFormElements(form);
+        //TODO INSERIR VALIDAÇAO
 
-        serviceAPI.updateStore(store);
+        serviceAPI.updateStore(store); //API
     },
 
     createStoreButtonOnClick: () => {
         const form = document.getElementById("storeForm");
         const store = infra.getStoreFormElements(form);
 
-        serviceAPI.createStore(store);
+        serviceAPI.createStore(store); //API
     },
 
     getStoreFormElements: (form) => {
@@ -258,7 +234,6 @@ window.infra = {
         store.postalCode = form.elements["postalCode"].value;
         store.email = form.elements["email"].value;
         store.phone = form.elements["phone"].value;
-        console.log(store);
 
         return store;
     },
@@ -267,22 +242,21 @@ window.infra = {
         const form = document.getElementById("storeForm");
         const uidstore = form.getAttribute("uidstore");
 
-        serviceAPI.deleteStore(uidstore);
+        serviceAPI.deleteStore(uidstore); //API
         const pageCard = document.getElementById("popUpContainer");
         pageCard.innerHTML = "";
         pageCard.classList.remove("show");
-        // TODO: Chamar a pagina com todas as lojas
+        // TODO: Chamar a pagina com todas as lojas 
     },
 
-
-    // OnClick de Category
+    // OnClick de Category //TODO
 
     getCategoryFormElements: (form) => {
         const category = {};
         category.uid = form.getAttribute("uidcategory");
         category.code = form.elements["code"].value;
         category.name = form.elements["name"].value;
-        console.log(category);
+
         return category;
     },
 
@@ -290,47 +264,47 @@ window.infra = {
         const form = document.getElementById("categoryForm");
         const category = infra.getCategoryFormElements(form);
 
-        serviceAPI.createCategory(category);
+        serviceAPI.createCategory(category); //API
     },
 
     updateCategoryButtonOnClick: () => {
         const form = document.getElementById("categoryForm");
         const category = infra.getCategoryFormElements(form);
-
-        serviceAPI.updateCategory(category);
+        //TODO: ADD VALIDACAO
+        serviceAPI.updateCategory(category); //API
     },
 
     deleteCategoryButtonOnClick: () => {
         const form = document.getElementById("categoryForm");
         const uidcategory = form.getAttribute("uidcategory");
 
-        serviceAPI.deleteCategory(uidcategory);
+        serviceAPI.deleteCategory(uidcategory); //API
         const pageCard = document.getElementById("popUpContainer");
         pageCard.innerHTML = "";
         pageCard.classList.remove("show");
     },
 
-    addLinksToHeader: () => { // TODO: adicionar o restante dos clicks
+    addLinksToHeader: () => {
+        const linkPopupNewCategory = document.getElementById(
+            "linkPopupNewCategory"
+        );
 
-        // const linkCategoryContainer = document.getElementById("linkCategoryContainer");
-        // linkCategoryContainer.addEventListener("click", function);
-
-        const linkPopupNewCategory = document.getElementById("linkPopupNewCategory");
-        linkPopupNewCategory.addEventListener("click", infra.linkNewCategoryOnClick);
+        linkPopupNewCategory.addEventListener(
+            "click",
+            infra.linkNewCategoryOnClick
+        );
 
         const linkCategories = document.getElementById("linkCategories");
-        linkCategories.addEventListener("click", infra.linkCardsCategoryOnClick);
-
-        // const linkStoreContainer = document.getElementById("linkStoreContainer");
-        // linkStoreContainer.addEventListener("click", function);
+        linkCategories.addEventListener(
+            "click",
+            infra.linkCardsCategoryOnClick
+        );
 
         const linkPopupNewStore = document.getElementById("linkPopupNewStore");
         linkPopupNewStore.addEventListener("click", infra.linkNewStoreOnClick);
 
         const linkStores = document.getElementById("linkStores");
         linkStores.addEventListener("click", infra.linkCardsStoreOnClick);
-
-
     },
 
     linkNewStoreOnClick: () => {
@@ -340,10 +314,9 @@ window.infra = {
     },
 
     linkCardsStoreOnClick: () => {
-		cardService.resetCards(storesContainer);
+        cardService.resetCards("storesContainer");
         infra.displayInnerContainer("storesContainer");
-        infra.showStoresByKeyword();
-        search.containerChangeClass();
+        search.containerChangeClass(); //TODO
     },
 
     linkNewCategoryOnClick: () => {
@@ -353,34 +326,9 @@ window.infra = {
     },
 
     linkCardsCategoryOnClick: () => {
-        const categoriesContainer = document.getElementById('categoriesContainer');
-        infra.populateCategoryContainer(categoriesContainer);
-		cardService.resetCards(categoriesContainer);
+        cardService.resetCards("categoriesContainer");
         infra.displayInnerContainer("categoriesContainer");
-        categoriesContainer.classList.remove("innerContainer");
-        search.containerChangeClass();
+        search.containerChangeClass(); //TODO
     },
 
-	/*refreshStoresCategory: async (upCategory) => {
-		let stores = await serviceAPI.getStoresList("", upCategory.uid);
-		console.log(stores);
-		console.log("cheguei aqui");
-		debugger;
-		if (stores == null)
-			return;
-		// stores.forEach(item => {
-		// 	item.category.name = upCategory.name;
-		// 	item.category.code = upCategory.code;
-		// 	serviceAPI.updateStore(item);
-		// 	console.log(item);
-		// })
-
-		stores[0].category.name = upCategory.name;
-		stores[0].category.code = upCategory.code;
-		serviceAPI.updateStore(stores[0]);
-		console.log(stores[0]);
-
-		stores = await serviceAPI.getStoresList("", upCategory.uid);
-		console.log(stores);
-	},*/
-}
+};
