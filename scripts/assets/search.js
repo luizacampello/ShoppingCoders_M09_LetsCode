@@ -15,7 +15,7 @@ window.search = {
         const optionKeyWord = elementFactory.createHtmlTagAndSetContent('option','Palavra-Chave', 'optionKeyWord');
         optionKeyWord.setAttribute('value', 'keyWord');
         optionKeyWord.setAttribute('class', 'option-group');
-        
+
         const typeCategory = elementFactory.createHtmlTag('select','searchCategoryHide','typeCategory');
 
         const keyWordSearch = elementFactory.createHtmlTag('input', 'searchKeyWord', 'keyWordSearch');
@@ -52,7 +52,7 @@ window.search = {
 
         for (let index = 0; index < categoriesList.length; index++) {
             const category = categoriesList[index];
-            
+
             const option = elementFactory.createHtmlTagAndSetContent('option', category.name);
             option.setAttribute('value', category.uid);
             option.setAttribute('name', category.code)
@@ -89,16 +89,16 @@ window.search = {
             if(selectSearchValue == 'category'){
                 const selectCategory = document.getElementById('typeCategory');
                 const selectCategoryName = selectCategory.options[selectCategory.selectedIndex].getAttribute('name');
-                
+
                 infra.showSelectCategory(selectCategoryName);
             }
-    
+
             if(selectSearchValue == 'keyWord'){
                 const inputKeyWord = document.getElementById('keyWordSearch');
                 const inputKeyWordValue = inputKeyWord.value.toLowerCase().trim();
-                
+
                 infra.showStoresByKeyword(inputKeyWordValue)
-                
+
                 inputKeyWord.value = '';
             }
         }
@@ -106,8 +106,8 @@ window.search = {
         if (activeContainer[0].id == 'categoriesContainer') {
             const inputKeyWord = document.getElementById('keyWordSearch');
             const inputKeyWordValue = inputKeyWord.value.toLowerCase().trim();
-            infra.showCategoriesByKeyword(inputKeyWordValue);     
-        } 
+            infra.showCategoriesByKeyword(inputKeyWordValue);
+        }
     },
 
     containerChangeClass: () => {
@@ -115,17 +115,17 @@ window.search = {
         const inputKeyWord = document.getElementById('keyWordSearch');
         const selectTypeCategory = document.getElementById('typeCategory');
         const selectTypeSearch = document.getElementById('typeSearch');
-        
+
         if(activeContainer[0].id == 'storesContainer') {
             selectTypeSearch.style.visibility = 'visible';
             selectTypeCategory.setAttribute('class', 'searchCategoryHide');
-            inputKeyWord.setAttribute('class', 'searchKeyWord');          
+            inputKeyWord.setAttribute('class', 'searchKeyWord');
         }
         else {
             selectTypeSearch.style.visibility = 'hidden';
             selectTypeCategory.setAttribute('class', 'searchCategoryHide');
             inputKeyWord.setAttribute('class', 'searchKeyWord');
-        }            
-    }, 
+        }
+    },
 
 }

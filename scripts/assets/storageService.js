@@ -1,54 +1,54 @@
 window.storageService = {
-    
-    createLocalStorage: async () => {
-        const categoriesList = await serviceAPI.getCategoriesList();
-        const storesList = await serviceAPI.getStoresList("");
 
-        localStorage.setItem("categoriesList", JSON.stringify(categoriesList));
-        localStorage.setItem("storesList", JSON.stringify(storesList));
-    },
+	createLocalStorage: async () => {
+		const categoriesList = await serviceAPI.getCategoriesList();
+		const storesList = await serviceAPI.getStoresList("");
 
-    createCategoriesQuantities: () => {  //TODO como mudar isso pra adicionar ali em cima
-        const stores = storageService.getStoresList();
-        const categories = storageService.getCategoriesList();
+		localStorage.setItem("categoriesList", JSON.stringify(categoriesList));
+		localStorage.setItem("storesList", JSON.stringify(storesList));
+	},
 
-        if (categories == null){
-            return;
-        } 
+	createCategoriesQuantities: () => {  //TODO como mudar isso pra adicionar ali em cima
+		const stores = storageService.getStoresList();
+		const categories = storageService.getCategoriesList();
 
-        categories.forEach((element) => {
-            element.quantity = 0; //TODO
+		if (categories == null){
+			return;
+		}
 
-            for (i = 0; i < stores.length; i++) {
-                if (element.uid == stores[i].category.uid){
-                    element.quantity++; 
-                }                    
-            }
-        });
+		categories.forEach((element) => {
+			element.quantity = 0; //TODO
 
-        localStorage.setItem("CategoriesQuantities", JSON.stringify(categories));
-    },
+			for (i = 0; i < stores.length; i++) {
+				if (element.uid == stores[i].category.uid){
+					element.quantity++;
+				}
+			}
+		});
 
-    getCategoriesList: () => {
-        const stringCategoriesList = localStorage.getItem("categoriesList");
-        const categoriesList = JSON.parse(stringCategoriesList);
+		localStorage.setItem("CategoriesQuantities", JSON.stringify(categories));
+	},
 
-        return categoriesList;              
-    },
+	getCategoriesList: () => {
+		const stringCategoriesList = localStorage.getItem("categoriesList");
+		const categoriesList = JSON.parse(stringCategoriesList);
 
-    getStoresList: () => {
-        const stringStoresList = localStorage.getItem("storesList");
-        const storesList = JSON.parse(stringStoresList);
+		return categoriesList;
+	},
 
-        return storesList;              
-    },
+	getStoresList: () => {
+		const stringStoresList = localStorage.getItem("storesList");
+		const storesList = JSON.parse(stringStoresList);
 
-    updateLocalStorage: async () => {
-        localStorage.clear();
-        const categoriesList = await serviceAPI.getCategoriesList();
-        const storesList = await serviceAPI.getStoresList("");
+		return storesList;
+	},
 
-        localStorage.setItem("categoriesList", JSON.stringify(categoriesList));
-        localStorage.setItem("storesList", JSON.stringify(storesList));
-    },
+	updateLocalStorage: async () => {
+		localStorage.clear();
+		const categoriesList = await serviceAPI.getCategoriesList();
+		const storesList = await serviceAPI.getStoresList("");
+
+		localStorage.setItem("categoriesList", JSON.stringify(categoriesList));
+		localStorage.setItem("storesList", JSON.stringify(storesList));
+	},
 }

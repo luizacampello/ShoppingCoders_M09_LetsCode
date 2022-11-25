@@ -43,6 +43,11 @@
       box-sizing: border-box;
       padding: 0 10px;
     }
+
+	.list-item:hover {
+		color: yellow;
+		}
+
     .pageHeight{
         position: fixed;
         bottom: 0;
@@ -64,3 +69,4 @@ function footerRePositioning() {
             footer.classList.remove('pageHeight');
         }
 } 
+
