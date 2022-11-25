@@ -100,10 +100,6 @@
 
 }
 
-#close:hover {
-	background-color: darkgray;
-}
-
 #edit {
   width: 100%;
   height: 4vh;
@@ -114,10 +110,6 @@
   border-radius: 10px;
   border: none;
   cursor: pointer;
-}
-
-#edit:hover {
-	background-color: #05445E;
 }
 
 .formPopUp {
@@ -213,10 +205,6 @@ form select {
   color: white;
 }
 
-#save:hover {
-	background-color: #05445E;
-}
-
 #delete {
   width: 99%;
   font-size: 15px;
@@ -225,10 +213,6 @@ form select {
   border: none;
   background-color: darkgray;
   color: white;
-}
-
-#delete:hover {
-	background-color: darkslategray;
 }
 
 .saveMessage {
@@ -270,21 +254,30 @@ footer {
 }
 
 #footer-list {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	list-style-type: none;
-	text-align: center;
-	align-items: center;
-	justify-content: center;
-	padding-left: 0;
-	margin: 5px 30px;
-	color: azure;
-	box-sizing: border-box;
-	overflow: hidden;
-	height: 100%;
-	margin-bottom: 10px;
-	position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  /*display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: auto;*/
+
+  list-style-type: none;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  padding-left: 0;
+  margin: 5px 30px;
+  color: azure;
+  box-sizing: border-box;
+
+
+
+  overflow: hidden;
+  height: 100%;
+  margin-bottom: 10px;
+
+  position: relative;
 }
 
 .list-item {
@@ -293,9 +286,6 @@ footer {
   padding: 0 10px;
 }
 
-.list-item:hover {
-	color: yellow;
-}
 
 div.notification {
   position: fixed;
@@ -352,7 +342,7 @@ div.notification-info {
   display: block;
   height: 2rem;
   align-self: flex-start;
-
+  
 }
 
 .searchCategory{
