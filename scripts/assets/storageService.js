@@ -1,5 +1,5 @@
 window.storageService = {
-    
+
     createLocalStorage: async () => {
         const categoriesList = await serviceAPI.getCategoriesList();
         const storesList = await serviceAPI.getStoresList("");
@@ -14,7 +14,7 @@ window.storageService = {
         const stringCategoriesList = localStorage.getItem("categoriesList");
         const categoriesList = JSON.parse(stringCategoriesList);
 
-        return categoriesList;              
+        return categoriesList;
     },
 
     getStoresList: () => {
@@ -22,7 +22,7 @@ window.storageService = {
         const storesList = JSON.parse(stringStoresList);
         console.log(storesList);
 
-        return storesList;              
+        return storesList;
     },
 
     updateLocalStorage: async () => {

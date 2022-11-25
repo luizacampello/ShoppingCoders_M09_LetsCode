@@ -67,38 +67,48 @@ window.infra = {
     },
 
     refreshFooter: async () => {
-        await infra.createCategoriesQuantities();
-        //console.log("aqui1");
+		infra.createCategoriesQuantities();
+        console.log("aqui2");
         setTimeout(function () {
             infra.updateCategoriesQuantities();
-            //console.log("aqui6");
-        }, 2000);
+            console.log("aqui6");
+        }, 3000);
     },
 
     createCategoriesQuantities: async () => {
-        const stores = await serviceAPI.getStoresList("", "");
-        const categories = await serviceAPI.getCategoriesList("");
-        setTimeout(() => {
-            //console.log("aqui2");
-            //console.log(stores);
-            if (categories == null) return;
-            categories.forEach((element) => {
-                element.quantity = 0;
-                for (i = 0; i < stores.length; i++) {
-                    if (element.uid == stores[i].category.uid)
-                        element.quantity++;
-                }
-            });
-            //console.log(categories);
-            //console.log("aqui3");
-            setTimeout(() => {
-                localStorage.setItem(
-                    "CategoriesQuantities",
-                    JSON.stringify(categories)
-                );
-                //console.log("aqui4");
-            }, 500);
-        }, 1000);
+        const stores = await serviceAPI.getStoresList();
+		console.log(stores);
+		console.log("RESULTADO getStores");
+        const categories = "";
+		setTimeout(() => {
+			categories = serviceAPI.getCategoriesList();
+			console.log(categories);
+			console.log("RESULTADO getCategories");
+
+			setTimeout(() => {
+				console.log("aqui2");
+				console.log(stores);
+				if (categories == null) return;
+				categories.forEach((element) => {
+					element.quantity = 0;
+					for (i = 0; i < stores.length; i++) {
+						if (element.uid == stores[i].category.uid)
+							element.quantity++;
+					}
+				});
+				console.log(categories);
+				console.log("aqui3");
+				setTimeout(() => {
+					localStorage.setItem(
+						"CategoriesQuantities",
+						JSON.stringify(categories)
+					);
+					console.log("aqui4");
+				}, 500);
+			}, 500);
+		}, 1000);
+
+
     },
 
     updateCategoriesQuantities: () => {
@@ -120,7 +130,7 @@ window.infra = {
                 list.appendChild(listItem);
             }
         });
-        //console.log("aqui5");
+        console.log("aqui5");
     },
 
     populateFormCategory: async (categoryForm, defaultCategory = "") => {
