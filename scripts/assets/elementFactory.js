@@ -62,9 +62,7 @@ window.elementFactory = {
             onClickFunction();
             pageCard.classList.remove("show");
             pageCard.textContent = "";
-          });
-
-        // buttonElement.addEventListener("click", onClickFunction);
+        });
 
         buttonBox.appendChild(buttonElement);
 
@@ -97,6 +95,19 @@ window.elementFactory = {
         }
 
         return formOption;
+    },
+
+    newImage: (source, cssClass, id, altText = "") => {
+        const image = document.createElement('img');
+        image.setAttribute('src', source);        
+        image.classList.add(cssClass);
+        image.setAttribute('id', id);
+
+        if (altText) {
+            image.setAttribute("alt", altText)    
+        }
+        
+        return image;
     },
     
 }

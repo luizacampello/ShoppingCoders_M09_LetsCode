@@ -48,14 +48,13 @@ window.infra = {
                         const formCategory = document.getElementById(
                             "categoryFormContainer"
                         );
-                        formCategory.style.display = "flex"; //TODO
+                        formCategory.style.display = "flex";
                     },
                     onClickStores: () => {
                         infra.showSelectCategory(category.uid);
                         categoriesContainer.classList.remove(
                             "activeInnerContainer"
-                        ); //TODO
-                        categoriesContainer.classList.add("innerContainer"); //TODO
+                        );
                         search.containerChangeClass();
                     },
                 })
@@ -112,9 +111,8 @@ window.infra = {
         let list = document.querySelector("#footer-list");
 
         list.addEventListener("click", function (event) { 
-            if (event.target.tagName == "LI") { 
-                //inserir aqui a alteração na busca //TODO
-
+            if (event.target.tagName == "LI") {
+                
                 infra.showSelectCategory(event.target.getAttribute("id"));
             }
         });
@@ -180,7 +178,6 @@ window.infra = {
         categoriesCards.forEach((item) => {
             const itemNodes = item.childNodes;
             const re = new RegExp(keyword + ".*");
-            console.log("foi");
             if (itemNodes[1].innerText.toLowerCase().match(re)) {
                 cardService.showCards(item);
             } else {
@@ -216,14 +213,14 @@ window.infra = {
         const store = infra.getStoreFormElements(form);
         //TODO INSERIR VALIDAÇAO
 
-        serviceAPI.updateStore(store); //API
+        serviceAPI.updateStore(store);
     },
 
     createStoreButtonOnClick: () => {
         const form = document.getElementById("storeForm");
         const store = infra.getStoreFormElements(form);
 
-        serviceAPI.createStore(store); //API
+        serviceAPI.createStore(store);
     },
 
     getStoreFormElements: (form) => {
@@ -243,14 +240,11 @@ window.infra = {
         const form = document.getElementById("storeForm");
         const uidstore = form.getAttribute("uidstore");
 
-        serviceAPI.deleteStore(uidstore); //API
+        serviceAPI.deleteStore(uidstore);
         const pageCard = document.getElementById("popUpContainer");
         pageCard.innerHTML = "";
-        pageCard.classList.remove("show");
-        // TODO: Chamar a pagina com todas as lojas 
+        pageCard.classList.remove("show");  
     },
-
-    // OnClick de Category //TODO
 
     getCategoryFormElements: (form) => {
         const category = {};
@@ -265,21 +259,21 @@ window.infra = {
         const form = document.getElementById("categoryForm");
         const category = infra.getCategoryFormElements(form);
 
-        serviceAPI.createCategory(category); //API
+        serviceAPI.createCategory(category);
     },
 
     updateCategoryButtonOnClick: () => {
         const form = document.getElementById("categoryForm");
         const category = infra.getCategoryFormElements(form);
         //TODO: ADD VALIDACAO
-        serviceAPI.updateCategory(category); //API
+        serviceAPI.updateCategory(category);
     },
 
     deleteCategoryButtonOnClick: () => {
         const form = document.getElementById("categoryForm");
         const uidcategory = form.getAttribute("uidcategory");
 
-        serviceAPI.deleteCategory(uidcategory); //API
+        serviceAPI.deleteCategory(uidcategory);
         const pageCard = document.getElementById("popUpContainer");
         pageCard.innerHTML = "";
         pageCard.classList.remove("show");

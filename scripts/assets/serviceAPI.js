@@ -9,14 +9,14 @@ window.serviceAPI = {
 		};
 	},
 
-    fetchPostRequisition: async (url, body4) => {
+    fetchPostRequisition: async (url, body) => {
 
 		const request = await fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(body4)
+            body: JSON.stringify(body)
         }).catch((error) => {
             console.log("Erro na comunicação:", error);
         });
@@ -67,16 +67,15 @@ window.serviceAPI = {
     getStoresList: async () => {
 
         let url = serviceAPI.BASE_URL + "/establishment/list";
-        let body2 = serviceAPI.getUidGroupDefinition();
-        body2.text = "";
+        let body = serviceAPI.getUidGroupDefinition();
+        body.text = "";
 
-        let stores = await serviceAPI.fetchPostRequisition(url, body2);
+        let stores = await serviceAPI.fetchPostRequisition(url, body);
 
         return stores;
     },
 
 	updateStore: async (store) => {
-		console.log(store);
 		let url = serviceAPI.BASE_URL + "/establishment";
         let body = serviceAPI.getUidGroupDefinition();
 		body.uid = store.uid;
@@ -89,7 +88,7 @@ window.serviceAPI = {
 			"uid": store.categoryUid
 		};
         delete body.text;
-		console.log(body);
+
 		await serviceAPI.fetchRequisition({
 			fetchMethod: "PUT",
 			url: url,
@@ -182,10 +181,10 @@ window.serviceAPI = {
 
 	getCategoriesList: async () => {
         let url = serviceAPI.BASE_URL + "/category/list";
-        let body3 = serviceAPI.getUidGroupDefinition();
-        body3.text = "";
+        let body = serviceAPI.getUidGroupDefinition();
+        body.text = "";
 
-        const categories = await serviceAPI.fetchPostRequisition(url, body3);
+        const categories = await serviceAPI.fetchPostRequisition(url, body);
         return categories;
     },
 
@@ -266,7 +265,7 @@ window.serviceAPI = {
 		return await []; //TODO
     },
 
-    createGroup: async (groupName, studentName) => { //TODO será que tem que colocar uma opção de fazer isso no site? 
+    createGroup: async (groupName, studentName) => {
         let url = serviceAPI.BASE_URL + "/group";
         let body = {
             "name": groupName,

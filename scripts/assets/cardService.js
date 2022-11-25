@@ -26,12 +26,12 @@ window.cardService = {
         const categoryName = document.createElement('h2');
         categoryName.textContent = category.name;
 
-        const editButton = document.createElement('button'); //TODO dá pra usar a func de botão?
+        const editButton = document.createElement('button');
         editButton.textContent = 'Editar';
         editButton.classList.add('card-button');
         editButton.addEventListener('click', onClickEdit);
 
-        const categoryButton = document.createElement('button'); //TODO dá pra usar a func de botão?
+        const categoryButton = document.createElement('button');
         categoryButton.textContent = 'Lojas';
         categoryButton.classList.add('card-button');
         categoryButton.addEventListener('click', onClickStores);
@@ -47,15 +47,11 @@ window.cardService = {
     hideCards: (item) => {  
 		item.classList.add("hide");
 		item.classList.remove("card-content");
-		item.querySelector("h3").classList.add("hide"); //TODO
-		item.querySelector("h3").classList.remove("show"); //TODO
 	},
 
 	showCards: (item) => {
 		item.classList.remove("hide");
 		item.classList.add("card-content");
-		item.querySelector("h3").classList.add("show"); //TODO
-		item.querySelector("h3").classList.remove("hide"); //TODO
 	},
 
     resetCards: (container) => {

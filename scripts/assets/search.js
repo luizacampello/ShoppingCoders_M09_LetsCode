@@ -41,6 +41,7 @@ window.search = {
 
     populateTypeCategory: async () => {
         const selectTypeCategory = document.getElementById('typeCategory');
+        selectTypeCategory.innerHTML = "";
 
         const optionDefault = elementFactory.createHtmlTagAndSetContent('option','Selecione a categoria');
         optionDefault.setAttribute('value','default');
@@ -48,7 +49,7 @@ window.search = {
         optionDefault.hidden = true;
         selectTypeCategory.add(optionDefault);
 
-        const categoriesList =  await serviceAPI.getCategoriesList();
+        const categoriesList =  storageService.getCategoriesList();
 
         for (let index = 0; index < categoriesList.length; index++) {
             const category = categoriesList[index];

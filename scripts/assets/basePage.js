@@ -175,5 +175,6 @@ window.basePage = {
         infra.populateStoreContainer();
         infra.populateCategoryContainer();
         infra.refreshFooter();
+        search.populateTypeCategory();
     }
 }
