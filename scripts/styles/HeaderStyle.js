@@ -12,7 +12,7 @@ header {
   position: sticky;
   width: 100%;
   height: 20vh;
-
+  
   background-color: #189AB4;
 
   display: flex;
@@ -65,7 +65,7 @@ nav .menu {
 .logo img{
 
     width: 62vw;
-    max-width: 800px;
+    max-width: 800px; 
     margin: 2rem;
 }
 
@@ -108,7 +108,7 @@ nav .menu {
 .categorias:hover > ul {
   display: table;
   position: absolute;
-
+  
   background-color: #05445E;
 }
 
@@ -136,11 +136,11 @@ nav .menu {
   .LogoMobile{
     display: flex;
   }
-
+  
   .LogoWeb{
     display: none;
   }
-
+  
 
   .logo{
     align-self: center;

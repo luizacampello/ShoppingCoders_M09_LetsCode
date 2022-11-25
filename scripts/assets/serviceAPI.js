@@ -1,45 +1,45 @@
 window.serviceAPI = {
-	BASE_URL: "http://estabelecimentos.letscode.dev.netuno.org:25390/services",
+    BASE_URL: "http://estabelecimentos.letscode.dev.netuno.org:25390/services",
 
-	uidGroupDefinition: {
-		"group": {
-			"uid": "ee872905-c4e2-4d1f-bbd1-e858b44bd40c"
-		}
-	},
+    uidGroupDefinition: {
+        "group": {
+            "uid": "ee872905-c4e2-4d1f-bbd1-e858b44bd40c"
+        }
+    },
 
-	fetchPostRequisition: async (url, body) => {
-		const request = await fetch(url, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(body)
-		}).catch((error) => {
-			console.log("Erro na comunicação:", error);
-		});
+    fetchPostRequisition: async (url, body) => {
+        const request = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body)
+        }).catch((error) => {
+            console.log("Erro na comunicação:", error);
+        });
 
-		if (!request.ok) {
-			errorHandler(request);
-			return [];
-		}
+        if (!request.ok) {
+            errorHandler(request);
+            return [];
+        }
 
-		console.log("Requisition status:", request.status);
+        console.log("Requisition status:", request.status);
 
-		return await request.json();
-	},
+        return await request.json();
+    },
 
 	createStore: async (store) => {
-		let url = serviceAPI.BASE_URL + "/establishment";
-		let body = serviceAPI.uidGroupDefinition;
-		body.address = store.address;
+        let url = serviceAPI.BASE_URL + "/establishment";
+        let body = serviceAPI.uidGroupDefinition;
+        body.address = store.address;
 		body.phone = store.phone;
-		body.name = store.name;
+        body.name = store.name;
 		body.postal_code = store.postalCode;
 		body.email = store.email;
 		body.category = {
 			"uid": store.categoryUid
 		};
-		delete body.text;
+        delete body.text;
 		await serviceAPI.fetchRequisition({
 			fetchMethod: "POST",
 			url: url,
@@ -59,7 +59,7 @@ window.serviceAPI = {
 			}
 		});
 
-	},
+    },
 
     getStoresList: async () => {
 
@@ -69,23 +69,23 @@ window.serviceAPI = {
 
         let stores = await serviceAPI.fetchPostRequisition(url, body);
 
-		return stores;
-	},
+        return stores;
+    },
 
 	updateStore: async (store) => {
 		console.log(store);
 		let url = serviceAPI.BASE_URL + "/establishment";
-		let body = serviceAPI.uidGroupDefinition;
+        let body = serviceAPI.uidGroupDefinition;
 		body.uid = store.uid;
-		body.address = store.address;
+        body.address = store.address;
 		body.phone = store.phone;
-		body.name = store.name;
+        body.name = store.name;
 		body.postal_code = store.postalCode;
 		body.email = store.email;
-		body.category = {
+        body.category = {
 			"uid": store.categoryUid
 		};
-		delete body.text;
+        delete body.text;
 		console.log(body);
 		await serviceAPI.fetchRequisition({
 			fetchMethod: "PUT",
@@ -110,7 +110,7 @@ window.serviceAPI = {
 
 	deleteStore: async (storeUid) => {
 		let url = serviceAPI.BASE_URL + "/establishment";
-		let body = serviceAPI.uidGroupDefinition;
+        let body = serviceAPI.uidGroupDefinition;
 		body.uid = storeUid;
 		await serviceAPI.fetchRequisition({
 			fetchMethod: "DELETE",
@@ -130,14 +130,14 @@ window.serviceAPI = {
 				});
 			}
 		});
-	},
+    },
 
-	createCategory: async (newCategory) => {
-		let url = serviceAPI.BASE_URL + "/category";
-		let body = serviceAPI.uidGroupDefinition;
-		body.code = newCategory.code;
-		body.name = newCategory.name;
-		delete body.text;
+    createCategory: async (newCategory) => {
+        let url = serviceAPI.BASE_URL + "/category";
+        let body = serviceAPI.uidGroupDefinition;
+        body.code = newCategory.code;
+        body.name = newCategory.name;
+        delete body.text;
 		let exists = false;
 		const categories = await serviceAPI.getCategoriesList(); //TODO
 
@@ -173,32 +173,32 @@ window.serviceAPI = {
 				}
 			});
 		}
-	},
+    },
 
 	getCategoriesList: async () => {
         let url = serviceAPI.BASE_URL + "/category/list";
         let body =  serviceAPI.uidGroupDefinition;
         body.text = "";
 
-		const categories = await serviceAPI.fetchPostRequisition(url, body);
-		return categories;
-	},
+        const categories = await serviceAPI.fetchPostRequisition(url, body);
+        return categories;
+    },
 
     updateCategory: async (upCategory) => {
 		//verificar se posso passar a category e pegar aqui os itens separados category.uid e afins //TODO
 		//MODIFICANDO O UPDATE CATEGORY
 
-		//validar se code e name são diferentes de vazio, caso contrário abrir notificação na tela
-		//validar qual o campo está sendo alterado, buscando o objeto no getlist via uid
-		//fazendo o comparativo no currObj e newObj
-		//alinhar se concordam c a criação
+        //validar se code e name são diferentes de vazio, caso contrário abrir notificação na tela
+        //validar qual o campo está sendo alterado, buscando o objeto no getlist via uid
+        //fazendo o comparativo no currObj e newObj
+        //alinhar se concordam c a criação
 
-		let url = serviceAPI.BASE_URL + "/category";
-		let body = serviceAPI.uidGroupDefinition;
-		body.uid = upCategory.uid;
-		body.code = upCategory.code;
-		body.name = upCategory.name;
-		delete body.text;
+        let url = serviceAPI.BASE_URL + "/category";
+        let body = serviceAPI.uidGroupDefinition;
+        body.uid = upCategory.uid;
+        body.code = upCategory.code;
+        body.name = upCategory.name;
+        delete body.text;
 		await serviceAPI.fetchRequisition({
 			fetchMethod: "PUT",
 			url: url,
@@ -217,11 +217,11 @@ window.serviceAPI = {
 				});
 			}
 		});
-	},
+    },
 
-	deleteCategory: async (catUid) => {
+    deleteCategory: async (catUid) => {
 		let url = serviceAPI.BASE_URL + "/category";
-		let body = serviceAPI.uidGroupDefinition;
+        let body = serviceAPI.uidGroupDefinition;
 		body.uid = catUid;
 		await serviceAPI.fetchRequisition({
 			fetchMethod: "DELETE",
@@ -241,16 +241,16 @@ window.serviceAPI = {
 				});
 			}
 		});
-	},
+    },
 
 	fetchRequisition: async ({fetchMethod, url, body, onSuccess, onError}) => {
 		const request = await fetch(url, {
-			method: fetchMethod,
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(body),
-		}).then((response) => {
+            method: fetchMethod,
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body),
+        }).then((response) => {
 			console.log("Response status:", response.status);
 			if (response.ok) {
 				if (onSuccess) {
@@ -261,14 +261,14 @@ window.serviceAPI = {
 					onError(response.json(), response);
 				}
 			}
-		})
+        })
 		.catch((error) => {
           console.error('Error:', error);
         });
 		return await []; //TODO
     },
 
-    createGroup: async (groupName, studentName) => { //TODO será que tem que colocar uma opção de fazer isso no site?
+    createGroup: async (groupName, studentName) => { //TODO será que tem que colocar uma opção de fazer isso no site? 
         let url = serviceAPI.BASE_URL + "/group";
         let body = {
             "name": groupName,
@@ -276,7 +276,7 @@ window.serviceAPI = {
                 studentName
             ]
         }
-        let data = await serviceAPI.fetchPostRequisition(url, body);
+        let data = await serviceAPI.fetchPostRequisition(url, body); 
         console.log(data);
         return data;
     },

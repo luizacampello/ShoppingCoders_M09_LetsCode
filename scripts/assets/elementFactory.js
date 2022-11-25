@@ -1,91 +1,91 @@
 window.elementFactory = {
+    
+    createHtmlTag: (tag, cssClass, id = "") => {
+        const container = document.createElement(tag);
+        
+        if (cssClass){
+            container.setAttribute("class", cssClass);
+        }  
 
-	createHtmlTag: (tag, cssClass, id = "") => {
-		const container = document.createElement(tag);
+        if (id) {
+            container.setAttribute("id", id);
+        }
+    
+        return container;
+    },
 
-		if (cssClass){
-			container.setAttribute("class", cssClass);
-		}
+    createHtmlTagAndSetContent: (tag, tagContent, id = '') => {
+        const container = document.createElement(tag);
+        
+        container.textContent = tagContent;
+    
+        if (id) {
+            container.setAttribute('id', id);
+        }
+    
+        return container;
+    },
 
-		if (id) {
-			container.setAttribute("id", id);
-		}
+    newCategoryOption: (category) => { 
+        let newOption = document.createElement("option");
 
-		return container;
-	},
+        newOption.text = category.name;
+        newOption.value = category.uid;
 
-	createHtmlTagAndSetContent: (tag, tagContent, id = '') => {
-		const container = document.createElement(tag);
+        return newOption;
+    },
 
-		container.textContent = tagContent;
+    newButton: (value, id, onClickFunction = () => {}) => {
+        const buttonBox = elementFactory.createHtmlTag("div", "", `box${id}`);
+        const buttonElement = elementFactory.createHtmlTag("input", "", id); 
+        buttonElement.type = "button";
+        buttonElement.value = value;
 
-		if (id) {
-			container.setAttribute('id', id);
-		}
+        buttonElement.addEventListener("click", onClickFunction);
 
-		return container;
-	},
+        buttonBox.appendChild(buttonElement);
 
-	newCategoryOption: (category) => {
-		let newOption = document.createElement("option");
+        return buttonBox;
+    },
 
-		newOption.text = category.name;
-		newOption.value = category.uid;
+    newFormOption: (name, placeholder, value, type = "") => {
+        const formOption = document.createElement("input");
+        formOption.name = name;
+		formOption.placeholder = placeholder;
+        
+        if (value){
+            formOption.value = value;
+        }
 
-		return newOption;
-	},
+        if (type) {
+            formOption.type = type;
+        }
 
-	newButton: (value, id, onClickFunction = () => {}) => {
-		const buttonBox = elementFactory.createHtmlTag("div", "", `box${id}`);
-		const buttonElement = elementFactory.createHtmlTag("input", "", id);
-		buttonElement.type = "button";
-		buttonElement.value = value;
+        return formOption;
+    },
 
-		buttonElement.addEventListener("click", onClickFunction);
-
-		buttonBox.appendChild(buttonElement);
-
-		return buttonBox;
-	},
-
-	newFormOption: (name, placeholder, value, type = "") => {
-		const formOption = document.createElement("input");
-		formOption.name = name;
+    emptyFormOption: (name, placeholder, type = "") => {
+        const formOption = document.createElement("input");
+        formOption.name = name;
 		formOption.placeholder = placeholder;
 
-		if (value){
-			formOption.value = value;
-		}
+        if (type) {
+            formOption.type = type;
+        }
 
-		if (type) {
-			formOption.type = type;
-		}
+        return formOption;
+    },
+    
+    newImage: (source, cssClass, id, altText = "") => {
+        const image = document.createElement('img');
+        image.setAttribute('src', source);        
+        image.classList.add(cssClass);
+        image.setAttribute('id', id);
 
-		return formOption;
-	},
-
-	emptyFormOption: (name, placeholder, type = "") => {
-		const formOption = document.createElement("input");
-		formOption.name = name;
-		formOption.placeholder = placeholder;
-
-		if (type) {
-			formOption.type = type;
-		}
-
-		return formOption;
-	},
-
-	newImage: (source, cssClass, id, altText = "") => {
-		const image = document.createElement('img');
-		image.setAttribute('src', source);
-		image.classList.add(cssClass);
-		image.setAttribute('id', id);
-
-		if (altText) {
-			image.setAttribute("alt", altText)
-		}
-
-		return image;
-	},
+        if (altText) {
+            image.setAttribute("alt", altText)    
+        }
+        
+        return image;
+    },
 }
