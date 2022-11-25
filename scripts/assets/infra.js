@@ -63,16 +63,19 @@ window.infra = {
         }
     },
 
-    refreshFooter: async () => {
-        await storageService.createCategoriesQuantities();
-        setTimeout(function () {
-            infra.updateCategoriesQuantities();
-        }, 2000); //TODO
+    refreshFooter: () => {
+        infra.updateCategoriesQuantities();
     },
 
+    // refreshFooter: async () => {
+    //     await storageService.createCategoriesQuantities();
+    //     setTimeout(function () {
+    //         infra.updateCategoriesQuantities();
+    //     }, 2000); //TODO
+    // },
+
     updateCategoriesQuantities: () => {
-        const response = localStorage.getItem("CategoriesQuantities"); //TODO
-        const categoriesQuantities = JSON.parse(response); //TODO
+        const categoriesQuantities = storageService.getCategoriesQuantity();
 
         let list = document.querySelector("#footer-list");
         list.innerHTML = "";

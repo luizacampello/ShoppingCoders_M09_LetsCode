@@ -6,6 +6,7 @@ window.storageService = {
 
         localStorage.setItem("categoriesList", JSON.stringify(categoriesList));
         localStorage.setItem("storesList", JSON.stringify(storesList));
+
     },
 
     createCategoriesQuantities: () => {  //TODO como mudar isso pra adicionar ali em cima
@@ -41,6 +42,14 @@ window.storageService = {
         const storesList = JSON.parse(stringStoresList);
 
         return storesList;              
+    },
+
+    getCategoriesQuantity: () => {
+        const response = localStorage.getItem("CategoriesQuantities"); //TODO
+        const categoriesQuantities = JSON.parse(response); //TODO
+
+        return categoriesQuantities;
+
     },
 
     updateLocalStorage: async () => {

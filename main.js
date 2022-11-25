@@ -17,11 +17,12 @@
     addCSSFile();
     addJSScriptFiles(jsFiles)
  
-    window.addEventListener("load", () => {
-        storageService.createLocalStorage();
-
+    window.addEventListener("load", async () => {
         basePage.addHeader();      
         basePage.createMainContainer();
+        await storageService.createLocalStorage();
+        storageService.createCategoriesQuantities();
+        
         infra.addLinksToHeader();
         search.addSearchBar();        
         basePage.addFooter();

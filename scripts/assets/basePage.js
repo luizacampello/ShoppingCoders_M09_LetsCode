@@ -40,9 +40,9 @@ window.basePage = {
         const footerList = elementFactory.createHtmlTagAndSetContent("ul", "", "footer-list");
 
         footer.appendChild(title);
-        footer.appendChild(footerList);
-        infra.refreshFooter(); 
+        footer.appendChild(footerList);    
 		document.body.appendChild(footer);
+        infra.refreshFooter();
         infra.addFooterCategorySearchEvent();
     },
 
