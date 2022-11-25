@@ -141,8 +141,8 @@ window.infra = {
             }
         });
 
-        storesContainer.classList.add("activeInnerContainer"); //TODO
-        categoriesContainer.classList.remove("activeInnerContainer"); //TODO
+        storesContainer.classList.add("activeInnerContainer");
+        categoriesContainer.classList.remove("activeInnerContainer");
     },
 
     showStoresByKeyword: (keyword = "") => {
@@ -165,7 +165,7 @@ window.infra = {
             }
         });
 
-        storesContainer.classList.add("activeInnerContainer"); //TODO
+        storesContainer.classList.add("activeInnerContainer");
         const titlePage = document.getElementById('titlePage');
         titlePage.textContent = 'Lojas';
         search.containerChangeClass();
@@ -187,8 +187,8 @@ window.infra = {
             }
         });
 
-        categoriesContainer.classList.add("activeInnerContainer"); //TODO
-        search.containerChangeClass();  //TODO
+        categoriesContainer.classList.add("activeInnerContainer");
+        search.containerChangeClass();
     },
 
     editButtonOnClick: () => {
@@ -213,7 +213,6 @@ window.infra = {
     updateStoreButtonOnClick: () => {
         const form = document.getElementById("storeForm");
         const store = infra.getStoreFormElements(form);
-        //TODO INSERIR VALIDAÇAO
 
         serviceAPI.updateStore(store);
     },
@@ -267,7 +266,6 @@ window.infra = {
     updateCategoryButtonOnClick: () => {
         const form = document.getElementById("categoryForm");
         const category = infra.getCategoryFormElements(form);
-        //TODO: ADD VALIDACAO
         serviceAPI.updateCategory(category);
     },
 
@@ -313,7 +311,7 @@ window.infra = {
     linkCardsStoreOnClick: () => {
         cardService.resetCards("storesContainer");
         infra.displayInnerContainer("storesContainer");
-        search.containerChangeClass(); //TODO
+        search.containerChangeClass();
     },
 
     linkNewCategoryOnClick: () => {
@@ -325,7 +323,7 @@ window.infra = {
     linkCardsCategoryOnClick: () => {
         cardService.resetCards("categoriesContainer");
         infra.displayInnerContainer("categoriesContainer");
-        search.containerChangeClass(); //TODO
+        search.containerChangeClass();
     },
 
 };

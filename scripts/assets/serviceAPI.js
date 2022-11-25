@@ -141,9 +141,9 @@ window.serviceAPI = {
         body.name = newCategory.name;
         delete body.text;
 		let exists = false;
-		const categories = await serviceAPI.getCategoriesList(); //TODO
+		const categories = await serviceAPI.getCategoriesList();
 
-		if (categories != null) //TODO
+		if (categories)
 		{
 			categories.forEach(category => {
 				if (category.name == newCategory.name || category.code == newCategory.code)
@@ -262,7 +262,7 @@ window.serviceAPI = {
 		.catch((error) => {
           console.error('Error:', error);
         });
-		return await []; //TODO
+		return [];
     },
 
     createGroup: async (groupName, studentName) => {
