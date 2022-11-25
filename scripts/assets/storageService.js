@@ -3,30 +3,11 @@ window.storageService = {
     createLocalStorage: async () => {
         const categoriesList = await serviceAPI.getCategoriesList();
         const storesList = await serviceAPI.getStoresList("");
+        console.log(storesList);
+
 
         localStorage.setItem("categoriesList", JSON.stringify(categoriesList));
         localStorage.setItem("storesList", JSON.stringify(storesList));
-    },
-
-    createCategoriesQuantities: () => {  //TODO como mudar isso pra adicionar ali em cima
-        const stores = storageService.getStoresList();
-        const categories = storageService.getCategoriesList();
-
-        if (categories == null){
-            return;
-        } 
-
-        categories.forEach((element) => {
-            element.quantity = 0; //TODO
-
-            for (i = 0; i < stores.length; i++) {
-                if (element.uid == stores[i].category.uid){
-                    element.quantity++; 
-                }                    
-            }
-        });
-
-        localStorage.setItem("CategoriesQuantities", JSON.stringify(categories));
     },
 
     getCategoriesList: () => {
@@ -39,16 +20,19 @@ window.storageService = {
     getStoresList: () => {
         const stringStoresList = localStorage.getItem("storesList");
         const storesList = JSON.parse(stringStoresList);
+        console.log(storesList);
 
         return storesList;              
     },
 
     updateLocalStorage: async () => {
         localStorage.clear();
-        const categoriesList = await serviceAPI.getCategoriesList();
-        const storesList = await serviceAPI.getStoresList("");
+        const categoriesList = await serviceAPI.GetCategoriesList();
+        const storesList = await serviceAPI.GetStoresList("");
 
         localStorage.setItem("categoriesList", JSON.stringify(categoriesList));
         localStorage.setItem("storesList", JSON.stringify(storesList));
     },
+
+
 }
