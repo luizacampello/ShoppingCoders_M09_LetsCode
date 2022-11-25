@@ -61,12 +61,13 @@ window.serviceAPI = {
 
     },
 
-    getStoresList: async () => {
-
+    getStoresList: async (keyWord, uidCategory) => {
         let url = serviceAPI.BASE_URL + "/establishment/list";
         let body = serviceAPI.uidGroupDefinition;
-        body.text = "";
-
+        body.text = keyWord;
+        if (uidCategory) {
+            body.category = {"uid": uidCategory};
+        }
         let stores = await serviceAPI.fetchPostRequisition(url, body);
 
         return stores;
@@ -139,9 +140,9 @@ window.serviceAPI = {
         body.name = newCategory.name;
         delete body.text;
 		let exists = false;
-		const categories = await serviceAPI.getCategoriesList(); //TODO
+		const categories = await serviceAPI.getCategoriesList("");
 
-		if (categories != null) //TODO
+		if (categories != null)
 		{
 			categories.forEach(category => {
 				if (category.name == newCategory.name || category.code == newCategory.code)
@@ -175,17 +176,17 @@ window.serviceAPI = {
 		}
     },
 
-	getCategoriesList: async () => {
+	getCategoriesList: async (keyword = "") => {
         let url = serviceAPI.BASE_URL + "/category/list";
         let body =  serviceAPI.uidGroupDefinition;
-        body.text = "";
+        body.text = keyword;
 
         const categories = await serviceAPI.fetchPostRequisition(url, body);
         return categories;
     },
 
     updateCategory: async (upCategory) => {
-		//verificar se posso passar a category e pegar aqui os itens separados category.uid e afins //TODO
+		//verificar se posso passar a category e pegar aqui os itens separados category.uid e afins
 		//MODIFICANDO O UPDATE CATEGORY
 
         //validar se code e name são diferentes de vazio, caso contrário abrir notificação na tela
@@ -265,10 +266,10 @@ window.serviceAPI = {
 		.catch((error) => {
           console.error('Error:', error);
         });
-		return await []; //TODO
+		return await [];
     },
 
-    createGroup: async (groupName, studentName) => { //TODO será que tem que colocar uma opção de fazer isso no site? 
+    createGroup: async (groupName, studentName) => {
         let url = serviceAPI.BASE_URL + "/group";
         let body = {
             "name": groupName,
@@ -276,7 +277,7 @@ window.serviceAPI = {
                 studentName
             ]
         }
-        let data = await serviceAPI.fetchPostRequisition(url, body); 
+        let data = await serviceAPI.fetchPostRequisition(url, body);
         console.log(data);
         return data;
     },

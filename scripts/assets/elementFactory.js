@@ -26,7 +26,7 @@ window.elementFactory = {
         return container;
     },
 
-    newCategoryOption: (category) => { 
+    newCategoryOption: (category) => {
         let newOption = document.createElement("option");
 
         newOption.text = category.name;
@@ -76,16 +76,4 @@ window.elementFactory = {
         return formOption;
     },
     
-    newImage: (source, cssClass, id, altText = "") => {
-        const image = document.createElement('img');
-        image.setAttribute('src', source);        
-        image.classList.add(cssClass);
-        image.setAttribute('id', id);
-
-        if (altText) {
-            image.setAttribute("alt", altText)    
-        }
-        
-        return image;
-    },
 }
