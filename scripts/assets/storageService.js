@@ -2,12 +2,32 @@ window.storageService = {
     
     createLocalStorage: async () => {
         const categoriesList = await serviceAPI.getCategoriesList();
-        const storesList = await serviceAPI.getStoresList("");
-        console.log(storesList);
-
+        const storesList = await serviceAPI.getStoresList();
 
         localStorage.setItem("categoriesList", JSON.stringify(categoriesList));
         localStorage.setItem("storesList", JSON.stringify(storesList));
+
+    },
+
+    createCategoriesQuantities: () => {
+        const stores = storageService.getStoresList();
+        const categories = storageService.getCategoriesList();
+        
+        if (categories){
+            let listCategories = categories.map((x) => x);
+            listCategories.forEach((element) => {
+                element.quantity = 0;
+    
+                for (i = 0; i < stores.length; i++) {
+                    if (element.uid == stores[i].category.uid){
+                        element.quantity++; 
+                    }                    
+                }
+            });   
+
+            localStorage.setItem("CategoriesQuantities", JSON.stringify(categories));
+        }
+        
     },
 
     getCategoriesList: () => {
@@ -20,19 +40,23 @@ window.storageService = {
     getStoresList: () => {
         const stringStoresList = localStorage.getItem("storesList");
         const storesList = JSON.parse(stringStoresList);
-        console.log(storesList);
 
         return storesList;              
     },
 
-    updateLocalStorage: async () => {
-        localStorage.clear();
-        const categoriesList = await serviceAPI.GetCategoriesList();
-        const storesList = await serviceAPI.GetStoresList("");
+    getCategoriesQuantity: () => {
+        const response = localStorage.getItem("CategoriesQuantities");
+        const categoriesQuantities = JSON.parse(response);
 
-        localStorage.setItem("categoriesList", JSON.stringify(categoriesList));
-        localStorage.setItem("storesList", JSON.stringify(storesList));
+        return categoriesQuantities;
     },
 
+    updateLocalStorage: async () => {
+        localStorage.clear();        
+        await storageService.createLocalStorage();
+        storageService.createCategoriesQuantities();
 
+        basePage.resetPageAfterCrud();
+    },
+    
 }

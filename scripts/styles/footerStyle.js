@@ -44,7 +44,8 @@
       padding: 0 10px;
     }
 	.list-item:hover {
-		color: yellow;
+		font-weight: 700;
+    cursor: pointer;
 		}
     .pageHeight{
         position: fixed;

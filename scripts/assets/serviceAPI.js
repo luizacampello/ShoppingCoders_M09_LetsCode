@@ -1,14 +1,17 @@
 window.serviceAPI = {
     BASE_URL: "http://estabelecimentos.letscode.dev.netuno.org:25390/services",
 
-    uidGroupDefinition: {
-        "group": {
-            "uid": "ee872905-c4e2-4d1f-bbd1-e858b44bd40c"
-        }
-    },
+	getUidGroupDefinition: () => {
+		return {
+			"group": {
+				"uid": "ee872905-c4e2-4d1f-bbd1-e858b44bd40c"
+			}
+		};
+	},
 
     fetchPostRequisition: async (url, body) => {
-        const request = await fetch(url, {
+
+		const request = await fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -30,7 +33,7 @@ window.serviceAPI = {
 
 	createStore: async (store) => {
         let url = serviceAPI.BASE_URL + "/establishment";
-        let body = serviceAPI.uidGroupDefinition;
+        let body = serviceAPI.getUidGroupDefinition();
         body.address = store.address;
 		body.phone = store.phone;
         body.name = store.name;
@@ -49,7 +52,7 @@ window.serviceAPI = {
 					text: "Criou o estabelecimento com sucesso.",
 					type: 'success'
 				});
-				infra.refreshFooter();
+				storageService.updateLocalStorage();
 			},
 			onError: (data, response) => {
 				basePage.notification.create({
@@ -61,22 +64,20 @@ window.serviceAPI = {
 
     },
 
-    getStoresList: async (keyWord, uidCategory) => {
+    getStoresList: async () => {
+
         let url = serviceAPI.BASE_URL + "/establishment/list";
-        let body = serviceAPI.uidGroupDefinition;
-        body.text = keyWord;
-        if (uidCategory) {
-            body.category = {"uid": uidCategory};
-        }
+        let body = serviceAPI.getUidGroupDefinition();
+        body.text = "";
+
         let stores = await serviceAPI.fetchPostRequisition(url, body);
 
         return stores;
     },
 
 	updateStore: async (store) => {
-		console.log(store);
 		let url = serviceAPI.BASE_URL + "/establishment";
-        let body = serviceAPI.uidGroupDefinition;
+        let body = serviceAPI.getUidGroupDefinition();
 		body.uid = store.uid;
         body.address = store.address;
 		body.phone = store.phone;
@@ -87,7 +88,7 @@ window.serviceAPI = {
 			"uid": store.categoryUid
 		};
         delete body.text;
-		console.log(body);
+
 		await serviceAPI.fetchRequisition({
 			fetchMethod: "PUT",
 			url: url,
@@ -97,7 +98,7 @@ window.serviceAPI = {
 					text: "Editou o estabelecimento com sucesso.",
 					type: 'success'
 				});
-				infra.refreshFooter();
+				storageService.updateLocalStorage();
 			},
 			onError: (data, response) => {
 				basePage.notification.create({
@@ -111,7 +112,7 @@ window.serviceAPI = {
 
 	deleteStore: async (storeUid) => {
 		let url = serviceAPI.BASE_URL + "/establishment";
-        let body = serviceAPI.uidGroupDefinition;
+        let body = serviceAPI.getUidGroupDefinition();
 		body.uid = storeUid;
 		await serviceAPI.fetchRequisition({
 			fetchMethod: "DELETE",
@@ -122,7 +123,7 @@ window.serviceAPI = {
 					text: "Deletou a loja com sucesso.",
 					type: 'success'
 				});
-				infra.refreshFooter();
+				storageService.updateLocalStorage();
 			},
 			onError: (data, response) => {
 				basePage.notification.create({
@@ -135,14 +136,14 @@ window.serviceAPI = {
 
     createCategory: async (newCategory) => {
         let url = serviceAPI.BASE_URL + "/category";
-        let body = serviceAPI.uidGroupDefinition;
+        let body = serviceAPI.getUidGroupDefinition();
         body.code = newCategory.code;
         body.name = newCategory.name;
         delete body.text;
 		let exists = false;
-		const categories = await serviceAPI.getCategoriesList("");
+		const categories = await serviceAPI.getCategoriesList(); //TODO
 
-		if (categories != null)
+		if (categories != null) //TODO
 		{
 			categories.forEach(category => {
 				if (category.name == newCategory.name || category.code == newCategory.code)
@@ -155,6 +156,7 @@ window.serviceAPI = {
 				}
 			})
 		}
+
 		if (!exists) {
 			await serviceAPI.fetchRequisition({
 				fetchMethod: "POST",
@@ -165,6 +167,7 @@ window.serviceAPI = {
 						text: "Criou a categoria com sucesso.",
 						type: 'success'
 					});
+					storageService.updateLocalStorage();
 				},
 				onError: (data, response) => {
 					basePage.notification.create({
@@ -176,26 +179,19 @@ window.serviceAPI = {
 		}
     },
 
-	getCategoriesList: async (keyword = "") => {
+	getCategoriesList: async () => {
         let url = serviceAPI.BASE_URL + "/category/list";
-        let body =  serviceAPI.uidGroupDefinition;
-        body.text = keyword;
+        let body = serviceAPI.getUidGroupDefinition();
+        body.text = "";
 
         const categories = await serviceAPI.fetchPostRequisition(url, body);
         return categories;
     },
 
     updateCategory: async (upCategory) => {
-		//verificar se posso passar a category e pegar aqui os itens separados category.uid e afins
-		//MODIFICANDO O UPDATE CATEGORY
-
-        //validar se code e name são diferentes de vazio, caso contrário abrir notificação na tela
-        //validar qual o campo está sendo alterado, buscando o objeto no getlist via uid
-        //fazendo o comparativo no currObj e newObj
-        //alinhar se concordam c a criação
 
         let url = serviceAPI.BASE_URL + "/category";
-        let body = serviceAPI.uidGroupDefinition;
+        let body = serviceAPI.getUidGroupDefinition();
         body.uid = upCategory.uid;
         body.code = upCategory.code;
         body.name = upCategory.name;
@@ -209,7 +205,7 @@ window.serviceAPI = {
 					text: "Editou a categoria com sucesso.",
 					type: 'success'
 				});
-				infra.refreshFooter();
+				storageService.updateLocalStorage();
 			},
 			onError: (data, response) => {
 				basePage.notification.create({
@@ -222,7 +218,7 @@ window.serviceAPI = {
 
     deleteCategory: async (catUid) => {
 		let url = serviceAPI.BASE_URL + "/category";
-        let body = serviceAPI.uidGroupDefinition;
+        let body = serviceAPI.getUidGroupDefinition();
 		body.uid = catUid;
 		await serviceAPI.fetchRequisition({
 			fetchMethod: "DELETE",
@@ -233,7 +229,7 @@ window.serviceAPI = {
 					text: "Deletou a categoria com sucesso.",
 					type: 'success'
 				});
-				infra.refreshFooter();
+				storageService.updateLocalStorage();
 			},
 			onError: (data, response) => {
 				basePage.notification.create({
@@ -266,7 +262,7 @@ window.serviceAPI = {
 		.catch((error) => {
           console.error('Error:', error);
         });
-		return await [];
+		return await []; //TODO
     },
 
     createGroup: async (groupName, studentName) => {
@@ -277,8 +273,8 @@ window.serviceAPI = {
                 studentName
             ]
         }
-        let data = await serviceAPI.fetchPostRequisition(url, body);
-        console.log(data);
+        let data = await serviceAPI.fetchPostRequisition(url, body); 
+
         return data;
     },
 

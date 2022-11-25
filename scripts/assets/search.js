@@ -41,6 +41,7 @@ window.search = {
 
     populateTypeCategory: async () => {
         const selectTypeCategory = document.getElementById('typeCategory');
+        selectTypeCategory.innerHTML = "";
 
         const optionDefault = elementFactory.createHtmlTagAndSetContent('option','Selecione a categoria');
         optionDefault.setAttribute('value','default');
@@ -48,12 +49,12 @@ window.search = {
         optionDefault.hidden = true;
         selectTypeCategory.add(optionDefault);
 
-        const categoriesList =  await serviceAPI.getCategoriesList();
+        const categoriesList =  storageService.getCategoriesList();
 
         for (let index = 0; index < categoriesList.length; index++) {
             const category = categoriesList[index];
             
-            const option = elementFactory.createHtmlTagAndSetContent('option', category.name);
+            const option = elementFactory.createHtmlTagAndSetContent('option', `${category.code} - ${category.name}`);
             option.setAttribute('value', category.uid);
             option.setAttribute('name', category.code)
             option.setAttribute('class','option-group');
@@ -88,9 +89,9 @@ window.search = {
 
             if(selectSearchValue == 'category'){
                 const selectCategory = document.getElementById('typeCategory');
-                const selectCategoryName = selectCategory.options[selectCategory.selectedIndex].getAttribute('name');
+                const selectCategoryUid = selectCategory.options[selectCategory.selectedIndex].getAttribute('value');
                 
-                infra.showSelectCategory(selectCategoryName);
+                infra.showSelectCategory(selectCategoryUid);
             }
     
             if(selectSearchValue == 'keyWord'){

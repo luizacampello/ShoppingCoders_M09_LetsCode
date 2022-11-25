@@ -173,9 +173,6 @@ window.popUpFactory = {
 		infoContainer.appendChild(divButtons);
 	},
 
-
-	//Category
-
 	updateCategoryFormPopUp: (category) => {
 		const formContainer = document.getElementById("categoryFormContainer");
 
@@ -233,7 +230,6 @@ window.popUpFactory = {
 		categoryForm.appendChild(
 			elementFactory.saveButton("Salvar", "save", infra.createCategoryButtonOnClick)
 		);
-
 
 		formContainer.appendChild(divClose);
 		formContainer.appendChild(categoryForm);

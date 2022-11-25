@@ -15,35 +15,32 @@ window.infra = {
         activeContainer.classList.add("activeInnerContainer");
     },
 
-    populateStoreContainer: async (
-        container,
-        keyword = "",
-        idCategory = ""
-    ) => {
-        const storesList = await serviceAPI.getStoresList(keyword, idCategory);
+    populateStoreContainer: () => {
+        const storesList = storageService.getStoresList();
+
+        const storesContainer = document.getElementById("storesContainer");
+
         for (let index = 0; index < storesList.length; index++) {
             const store = storesList[index];
-            container.appendChild(
+            storesContainer.appendChild(
                 cardService.CardStore({
                     store: store,
                     onClickCard: () => {
                         popUpFactory.viewStorePopUpContainer(store);
-                        //infra.addClearPageEventTo();
                     },
                 })
             );
         }
     },
 
-    populateCategoryContainer: async (container, keyword = "") => {
-        const categoryList = await serviceAPI.getCategoriesList(keyword);
-        const categoriesContainer = document.getElementById(
-            "categoriesContainer"
-        );
+    populateCategoryContainer: () => {
+        const categoryList = storageService.getCategoriesList(); 
+
+        const categoriesContainer = document.getElementById("categoriesContainer");
+
         for (let index = 0; index < categoryList.length; index++) {
-            console.log("Hey função chamada");
             const category = categoryList[index];
-            container.appendChild(
+            categoriesContainer.appendChild(
                 cardService.CardCategory({
                     category: category,
                     onClickEdit: () => {
@@ -54,11 +51,10 @@ window.infra = {
                         formCategory.style.display = "flex";
                     },
                     onClickStores: () => {
-                        infra.showSelectCategory(category.code);
+                        infra.showSelectCategory(category.uid);
                         categoriesContainer.classList.remove(
                             "activeInnerContainer"
                         );
-                        categoriesContainer.classList.add("innerContainer");
                         search.containerChangeClass();
                     },
                 })
@@ -66,44 +62,13 @@ window.infra = {
         }
     },
 
-    refreshFooter: async () => {
-        await infra.createCategoriesQuantities();
-        //console.log("aqui1");
-        setTimeout(function () {
-            infra.updateCategoriesQuantities();
-            //console.log("aqui6");
-        }, 2000);
-    },
-
-    createCategoriesQuantities: async () => {
-        const stores = await serviceAPI.getStoresList("", "");
-        const categories = await serviceAPI.getCategoriesList("");
-        setTimeout(() => {
-            //console.log("aqui2");
-            //console.log(stores);
-            if (categories == null) return;
-            categories.forEach((element) => {
-                element.quantity = 0;
-                for (i = 0; i < stores.length; i++) {
-                    if (element.uid == stores[i].category.uid)
-                        element.quantity++;
-                }
-            });
-            //console.log(categories);
-            //console.log("aqui3");
-            setTimeout(() => {
-                localStorage.setItem(
-                    "CategoriesQuantities",
-                    JSON.stringify(categories)
-                );
-                //console.log("aqui4");
-            }, 500);
-        }, 1000);
+    refreshFooter: () => {
+        infra.updateCategoriesQuantities();
     },
 
     updateCategoriesQuantities: () => {
-        const response = localStorage.getItem("CategoriesQuantities");
-        const categoriesQuantities = JSON.parse(response);
+        const categoriesQuantities = storageService.getCategoriesQuantity();
+
         let list = document.querySelector("#footer-list");
         list.innerHTML = "";
         if (categoriesQuantities == null) return;
@@ -120,10 +85,9 @@ window.infra = {
                 list.appendChild(listItem);
             }
         });
-        //console.log("aqui5");
     },
 
-    populateFormCategory: async (categoryForm, defaultCategory = "") => {
+    populateFormCategory: (categoryForm, defaultCategory = "") => {
         if (defaultCategory) {
             const defaultOption =
                 elementFactory.newCategoryOption(defaultCategory);
@@ -131,7 +95,7 @@ window.infra = {
             categoryForm.selectedIndex = 0;
         }
 
-        const categoriesList = await serviceAPI.getCategoriesList();
+        const categoriesList = storageService.getCategoriesList();
 
         for (let index = 0; index < categoriesList.length; index++) {
             const categoryOption = categoriesList[index];
@@ -146,24 +110,28 @@ window.infra = {
     addFooterCategorySearchEvent: () => {
         let list = document.querySelector("#footer-list");
 
-        list.addEventListener("click", function (event) {
+        list.addEventListener("click", function (event) { 
             if (event.target.tagName == "LI") {
-                //inserir aqui a alteração na busca
-
-                infra.showSelectCategory(event.target.getAttribute("name"));
+                
+                infra.showSelectCategory(event.target.getAttribute("id"));
             }
         });
     },
 
-    showSelectCategory: (categoryCode = "") => {
+    showSelectCategory: (uidCategory = "") => {
         const categoriesContainer = document.getElementById(
             "categoriesContainer"
         );
+
         const storesContainer = document.getElementById("storesContainer");
         const storesCards = storesContainer.querySelectorAll("div");
+
+        
         storesCards.forEach((item) => {
-            if (categoryCode != null || categoryCode != "") {
-                if (item.firstChild.innerText != categoryCode) {
+            if (uidCategory) {
+                const uidItem = item.getAttribute("uidCategory");
+                
+                if (uidCategory != uidItem) {
                     cardService.hideCards(item);
                 } else {
                     cardService.showCards(item);
@@ -173,8 +141,8 @@ window.infra = {
             }
         });
 
-        storesContainer.classList.add("activeInnerContainer");
-        categoriesContainer.classList.remove("activeInnerContainer");
+        storesContainer.classList.add("activeInnerContainer"); //TODO
+        categoriesContainer.classList.remove("activeInnerContainer"); //TODO
     },
 
     showStoresByKeyword: (keyword = "") => {
@@ -191,12 +159,13 @@ window.infra = {
                 } else {
                     cardService.hideCards(item);
                 }
-            } else {
+            } 
+            else {
                 cardService.showCards(item);
             }
         });
 
-        storesContainer.classList.add("activeInnerContainer");
+        storesContainer.classList.add("activeInnerContainer"); //TODO
         search.containerChangeClass();
     },
 
@@ -209,7 +178,6 @@ window.infra = {
         categoriesCards.forEach((item) => {
             const itemNodes = item.childNodes;
             const re = new RegExp(keyword + ".*");
-            console.log("foi");
             if (itemNodes[1].innerText.toLowerCase().match(re)) {
                 cardService.showCards(item);
             } else {
@@ -217,8 +185,8 @@ window.infra = {
             }
         });
 
-        categoriesContainer.classList.add("activeInnerContainer");
-        search.containerChangeClass();
+        categoriesContainer.classList.add("activeInnerContainer"); //TODO
+        search.containerChangeClass();  //TODO
     },
 
     editButtonOnClick: () => {
@@ -231,6 +199,7 @@ window.infra = {
     addClearPageEventTo: () => {
         const containerId = "popUpContainer";
         const pageCard = document.getElementById(containerId);
+
         pageCard.addEventListener("click", (e) => {
             if (e.target.id == containerId || e.target.id == "close") {
                 pageCard.classList.remove("show");
@@ -242,6 +211,7 @@ window.infra = {
     updateStoreButtonOnClick: () => {
         const form = document.getElementById("storeForm");
         const store = infra.getStoreFormElements(form);
+        //TODO INSERIR VALIDAÇAO
 
         serviceAPI.updateStore(store);
     },
@@ -262,7 +232,6 @@ window.infra = {
         store.postalCode = form.elements["postalCode"].value;
         store.email = form.elements["email"].value;
         store.phone = form.elements["phone"].value;
-        console.log(store);
 
         return store;
     },
@@ -274,18 +243,15 @@ window.infra = {
         serviceAPI.deleteStore(uidstore);
         const pageCard = document.getElementById("popUpContainer");
         pageCard.innerHTML = "";
-        pageCard.classList.remove("show");
-        // TODO: Chamar a pagina com todas as lojas
+        pageCard.classList.remove("show");  
     },
-
-    // OnClick de Category
 
     getCategoryFormElements: (form) => {
         const category = {};
         category.uid = form.getAttribute("uidcategory");
         category.code = form.elements["code"].value;
         category.name = form.elements["name"].value;
-        console.log(category);
+
         return category;
     },
 
@@ -299,7 +265,7 @@ window.infra = {
     updateCategoryButtonOnClick: () => {
         const form = document.getElementById("categoryForm");
         const category = infra.getCategoryFormElements(form);
-
+        //TODO: ADD VALIDACAO
         serviceAPI.updateCategory(category);
     },
 
@@ -314,14 +280,10 @@ window.infra = {
     },
 
     addLinksToHeader: () => {
-        // TODO: adicionar o restante dos clicks
-
-        // const linkCategoryContainer = document.getElementById("linkCategoryContainer");
-        // linkCategoryContainer.addEventListener("click", function);
-
         const linkPopupNewCategory = document.getElementById(
             "linkPopupNewCategory"
         );
+
         linkPopupNewCategory.addEventListener(
             "click",
             infra.linkNewCategoryOnClick
@@ -349,7 +311,7 @@ window.infra = {
     linkCardsStoreOnClick: () => {
         cardService.resetCards("storesContainer");
         infra.displayInnerContainer("storesContainer");
-        search.containerChangeClass();
+        search.containerChangeClass(); //TODO
     },
 
     linkNewCategoryOnClick: () => {
@@ -361,7 +323,7 @@ window.infra = {
     linkCardsCategoryOnClick: () => {
         cardService.resetCards("categoriesContainer");
         infra.displayInnerContainer("categoriesContainer");
-        search.containerChangeClass();
+        search.containerChangeClass(); //TODO
     },
 
 };
