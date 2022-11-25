@@ -92,13 +92,10 @@
         right: 0;
       
         position: absolute;
-        /* width: 50px;
-        height: 50px;
-        font-size: 1rem;
-        border-radius: 50%;
-        top: -60px;
-        right: -90%; */
-      
+      }
+
+      #close:hover {
+        background-color: darkgray;
       }
       
       #edit {
@@ -111,6 +108,10 @@
         border-radius: 10px;
         border: none;
         cursor: pointer;
+      }
+
+      #edit:hover {
+        background-color: #05445E;
       }
       
       .formPopUp {
@@ -205,6 +206,10 @@
         background-color: #189AB4;
         color: white;
       }
+
+      #save:hover {
+        background-color: #05445E;
+      }
       
       #delete {
         width: 99%;
@@ -214,7 +219,11 @@
         border: none;
         background-color: darkgray;
         color: white;
-      }      
+      }   
+      
+      #delete:hover {
+        background-color: darkslategray;
+      }   
     `;
     document.body.appendChild(style);
 })();
