@@ -80,7 +80,7 @@ window.popUpFactory = {
 		storeForm.appendChild(email);
 		storeForm.appendChild(phone);
 
-		const divButtons = elementFactory.createHtmlTag("div", "", "divButtons");
+		const divButtons = elementFactory.createHtmlTag("div", "formButtons", "divButtons");
 	
 		divButtons.appendChild(
 			elementFactory.newButton("Remover Loja", "delete", infra.deleteStoreButtonOnClick)

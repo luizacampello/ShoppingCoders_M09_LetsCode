@@ -108,7 +108,7 @@ nav .menu {
 .categorias:hover > ul {
   display: table;
   position: absolute;
-  background-color: #05445E;
+  background-color: #05445E
 }
 
 #iconeMenu{

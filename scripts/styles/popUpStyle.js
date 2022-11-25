@@ -11,6 +11,7 @@
         display: none;
         justify-content: center;
         align-items: center;
+        font-family: 'Inter', sans-serif;
       }
       
       .show {
@@ -63,28 +64,34 @@
         margin-left: 3%;
         width: 13%;
       }
+
+      .formButtons {
+        align-self: center;
+      }
       
       #boxclose {
         position: relative;
       }
       
       #close {
-        padding: 5px;
+        padding: 15px;
         font-weight: bolder;
-        background-color: lightgray;
-        color: #484D52;
-        border: 2px solid #F1F1F1;
+        background-color: white;
+        color: #ff4d4d;
+        border: 1px solid #ff4d4d;
         cursor: pointer;
       
-        width: 40px;
-        border-radius: 10px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
         top: 0;
         right: 0;
       
         position: absolute;
       }
       #close:hover {
-        background-color: darkgray;
+        background-color: #ff4d4d;
+        color: white;
       }
       
       #edit {
@@ -187,25 +194,29 @@
       
       #save {
         width: 99%;
-        height: 100%;
+        height: 6vh;
         font-size: 15px;
         border-radius: 20px;
         border: none;
         background-color: #189AB4;
         color: white;
+        padding: 0;
       }
+
       #save:hover {
         background-color: #05445E;
       }
       
       #delete {
         width: 99%;
+        height: 6vh;
         font-size: 15px;
-        height: 5vh;
-        border-radius: 10px;
+        border-radius: 20px;
         border: none;
         background-color: darkgray;
         color: white;
+
+        padding-left: 0;
       }   
       
       #delete:hover {

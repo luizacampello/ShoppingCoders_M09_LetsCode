@@ -166,6 +166,8 @@ window.infra = {
         });
 
         storesContainer.classList.add("activeInnerContainer"); //TODO
+        const titlePage = document.getElementById('titlePage');
+        titlePage.textContent = 'Lojas';
         search.containerChangeClass();
     },
 
