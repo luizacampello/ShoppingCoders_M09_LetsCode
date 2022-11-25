@@ -11,12 +11,7 @@
         "assets/cardService.js",
         "assets/basePage.js",
         "styles/cardStyle.js",
-        "styles/headerStyle.js",
-        "styles/footerStyle.js",
-        "styles/notificationStyle.js",
-        "styles/SearchStyle.js",
-        "styles/popUpStyle.js",
-        "styles/mainContainerStyle.js"
+        "styles/headerStyle.js"
     ];
 
     addCSSFile();
