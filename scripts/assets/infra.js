@@ -51,7 +51,7 @@ window.infra = {
                         formCategory.style.display = "flex"; //TODO
                     },
                     onClickStores: () => {
-                        infra.showSelectCategory(category.code);
+                        infra.showSelectCategory(category.uid);
                         categoriesContainer.classList.remove(
                             "activeInnerContainer"
                         ); //TODO
@@ -119,20 +119,25 @@ window.infra = {
             if (event.target.tagName == "LI") { 
                 //inserir aqui a alteração na busca //TODO
 
-                infra.showSelectCategory(event.target.getAttribute("name"));
+                infra.showSelectCategory(event.target.getAttribute("id"));
             }
         });
     },
 
-    showSelectCategory: (categoryCode = "") => {
+    showSelectCategory: (uidCategory = "") => {
         const categoriesContainer = document.getElementById(
             "categoriesContainer"
         );
+
         const storesContainer = document.getElementById("storesContainer");
         const storesCards = storesContainer.querySelectorAll("div");
+
+        
         storesCards.forEach((item) => {
-            if (categoryCode) {
-                if (item.firstChild.innerText != categoryCode) {
+            if (uidCategory) {
+                const uidItem = item.getAttribute("uidCategory");
+                
+                if (uidCategory != uidItem) {
                     cardService.hideCards(item);
                 } else {
                     cardService.showCards(item);

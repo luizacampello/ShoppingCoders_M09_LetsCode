@@ -53,7 +53,7 @@ window.search = {
         for (let index = 0; index < categoriesList.length; index++) {
             const category = categoriesList[index];
             
-            const option = elementFactory.createHtmlTagAndSetContent('option', category.name);
+            const option = elementFactory.createHtmlTagAndSetContent('option', `${category.code} - ${category.name}`);
             option.setAttribute('value', category.uid);
             option.setAttribute('name', category.code)
             option.setAttribute('class','option-group');
@@ -88,9 +88,9 @@ window.search = {
 
             if(selectSearchValue == 'category'){
                 const selectCategory = document.getElementById('typeCategory');
-                const selectCategoryName = selectCategory.options[selectCategory.selectedIndex].getAttribute('name');
+                const selectCategoryUid = selectCategory.options[selectCategory.selectedIndex].getAttribute('value');
                 
-                infra.showSelectCategory(selectCategoryName);
+                infra.showSelectCategory(selectCategoryUid);
             }
     
             if(selectSearchValue == 'keyWord'){

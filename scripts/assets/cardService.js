@@ -2,6 +2,7 @@
 window.cardService = {
     CardStore: ({store, onClickCard = () =>{}}) =>{
         const cardStoreElement = elementFactory.createHtmlTag('div', 'card-content');
+        cardStoreElement.setAttribute("uidCategory", store.category.uid);
 
         const storeCategory = document.createElement('h3');
         storeCategory.textContent = store.category.code;
@@ -18,6 +19,7 @@ window.cardService = {
 
     CardCategory: ({category, onClickEdit = () =>{}, onClickStores = () =>{}}) => {
         const cardCategoryElement = elementFactory.createHtmlTag('div', 'card-content')
+        cardCategoryElement.setAttribute("uidCategory", category.uid);
 
         const categoryId = document.createElement('h3');
         categoryId.textContent = category.code;
