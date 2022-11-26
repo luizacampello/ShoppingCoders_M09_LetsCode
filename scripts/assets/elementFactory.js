@@ -1,28 +1,28 @@
 window.elementFactory = {
-    
+
     createHtmlTag: (tag, cssClass, id = "") => {
         const container = document.createElement(tag);
-        
+
         if (cssClass){
             container.setAttribute("class", cssClass);
-        }  
+        }
 
         if (id) {
             container.setAttribute("id", id);
         }
-    
+
         return container;
     },
 
     createHtmlTagAndSetContent: (tag, tagContent, id = '') => {
         const container = document.createElement(tag);
-        
+
         container.textContent = tagContent;
-    
+
         if (id) {
             container.setAttribute('id', id);
         }
-    
+
         return container;
     },
 
@@ -37,7 +37,7 @@ window.elementFactory = {
 
     newButton: (value, id, onClickFunction = () => {}) => {
         const buttonBox = elementFactory.createHtmlTag("div", "", `box${id}`);
-        const buttonElement = elementFactory.createHtmlTag("input", "", id); 
+        const buttonElement = elementFactory.createHtmlTag("input", "", id);
         buttonElement.type = "button";
         buttonElement.value = value;
 
@@ -58,10 +58,10 @@ window.elementFactory = {
         const pageCard = document.getElementById(containerId);
 
         buttonElement.addEventListener("click", function(event){
-            event.preventDefault();
+            //event.preventDefault();
             onClickFunction();
-            pageCard.classList.remove("show");
-            pageCard.textContent = "";
+            //pageCard.classList.remove("show");
+            //pageCard.textContent = "";
         });
 
         buttonBox.appendChild(buttonElement);
@@ -73,7 +73,7 @@ window.elementFactory = {
         const formOption = document.createElement("input");
         formOption.name = name;
 		formOption.placeholder = placeholder;
-        
+
         if (value){
             formOption.value = value;
         }
@@ -99,15 +99,15 @@ window.elementFactory = {
 
     newImage: (source, cssClass, id, altText = "") => {
         const image = document.createElement('img');
-        image.setAttribute('src', source);        
+        image.setAttribute('src', source);
         image.classList.add(cssClass);
         image.setAttribute('id', id);
 
         if (altText) {
-            image.setAttribute("alt", altText)    
+            image.setAttribute("alt", altText)
         }
-        
+
         return image;
     },
-    
+
 }

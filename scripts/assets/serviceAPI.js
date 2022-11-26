@@ -143,7 +143,7 @@ window.serviceAPI = {
 		let exists = false;
 		const categories = await serviceAPI.getCategoriesList();
 
-		if (categories)
+		if (categories != null)
 		{
 			categories.forEach(category => {
 				if (category.name == newCategory.name || category.code == newCategory.code)
@@ -273,7 +273,7 @@ window.serviceAPI = {
                 studentName
             ]
         }
-        let data = await serviceAPI.fetchPostRequisition(url, body); 
+        let data = await serviceAPI.fetchPostRequisition(url, body);
 
         return data;
     },
