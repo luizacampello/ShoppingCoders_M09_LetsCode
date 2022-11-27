@@ -37,10 +37,10 @@ window.serviceAPI = {
         body.address = store.address;
 		body.phone = store.phone;
         body.name = store.name;
-		body.postal_code = store.postalCode;
+		body.postal_code = store.postal_code;
 		body.email = store.email;
 		body.category = {
-			"uid": store.categoryUid
+			"uid": store.category.uid
 		};
         delete body.text;
 		await serviceAPI.fetchRequisition({
@@ -82,10 +82,10 @@ window.serviceAPI = {
         body.address = store.address;
 		body.phone = store.phone;
         body.name = store.name;
-		body.postal_code = store.postalCode;
+		body.postal_code = store.postal_code;
 		body.email = store.email;
         body.category = {
-			"uid": store.categoryUid
+			"uid": store.category.uid
 		};
         delete body.text;
 
@@ -143,7 +143,7 @@ window.serviceAPI = {
 		let exists = false;
 		const categories = await serviceAPI.getCategoriesList();
 
-		if (categories != null)
+		if (categories)
 		{
 			categories.forEach(category => {
 				if (category.name == newCategory.name || category.code == newCategory.code)

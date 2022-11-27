@@ -210,27 +210,38 @@ window.infra = {
         });
     },
 
-    updateStoreButtonOnClick: () => {
+    updateStoreButtonOnClick: (oldStore) => {
         const form = document.getElementById("storeForm");
         const store = infra.getStoreFormElements(form);
 
-        serviceAPI.updateStore(store);
+        const changes = infra.formChangesValidation(store, oldStore);
+        const empty = infra.formEmptyValidation(store);
+        
+        if(changes && !empty){
+            serviceAPI.updateStore(store);            
+        }       
     },
 
-    createStoreButtonOnClick: () => {
+    createStoreButtonOnClick: (oldContent = "") => {
         const form = document.getElementById("storeForm");
         const store = infra.getStoreFormElements(form);
 
-        serviceAPI.createStore(store);
+        const empty = infra.formEmptyValidation(store);
+        
+        if(!empty){
+            serviceAPI.createStore(store);           
+        }        
     },
 
     getStoreFormElements: (form) => {
         const store = {};
         store.uid = form.getAttribute("uidstore");
         store.name = form.elements["name"].value;
-        store.categoryUid = form.elements["categorySelect"].value;
+        store.category = {
+			"uid": form.elements["categorySelect"].value
+		};
         store.address = form.elements["address"].value;
-        store.postalCode = form.elements["postalCode"].value;
+        store.postal_code = form.elements["postalCode"].value;
         store.email = form.elements["email"].value;
         store.phone = form.elements["phone"].value;
 
@@ -256,17 +267,27 @@ window.infra = {
         return category;
     },
 
-    createCategoryButtonOnClick: () => {
+    createCategoryButtonOnClick: (oldContent = "") => {
         const form = document.getElementById("categoryForm");
         const category = infra.getCategoryFormElements(form);
 
-        serviceAPI.createCategory(category);
+        const empty = infra.formEmptyValidation(category);
+        
+        if(!empty){
+            serviceAPI.createCategory(category);
+        }        
     },
 
-    updateCategoryButtonOnClick: () => {
+    updateCategoryButtonOnClick: (oldCategory) => {
         const form = document.getElementById("categoryForm");
         const category = infra.getCategoryFormElements(form);
-        serviceAPI.updateCategory(category);
+
+        const changes = infra.formChangesValidation(category, oldCategory);
+        const empty = infra.formEmptyValidation(category);
+
+        if(changes && !empty){
+            serviceAPI.updateCategory(category);            
+        }        
     },
 
     deleteCategoryButtonOnClick: () => {
@@ -325,5 +346,56 @@ window.infra = {
         infra.displayInnerContainer("categoriesContainer");
         search.containerChangeClass();
     },
+
+    formChangesValidation: (newContent, oldContent) => {
+
+        let changes = false;
+        const objectKeys = Object.keys(newContent);
+
+        for (let index = 0; index < objectKeys.length; index++) {
+            const oldValue = oldContent[objectKeys[index]];
+            const newValue = newContent[objectKeys[index]];
+            
+            if (typeof newValue === 'object'){
+                if (newValue.uid != oldValue.uid){
+                    return true;
+                }
+            }
+            else {
+                if (newValue != oldValue){
+                    return true;
+                }
+            }
+
+        }
+
+        if (!changes) {
+            alert("Não há alterações para salvar. Tente editar alguma coisa");
+            return false;
+        }        
+    },
+
+    formEmptyValidation: (newContent) => {
+        let empty = false;
+        const objectKeys = Object.keys(newContent);
+        console.log(objectKeys);
+
+        for (let index = 0; index < objectKeys.length; index++) {
+            const item = newContent[objectKeys[index]];
+
+            if (!item) {
+                if(objectKeys[index] != "uid") {
+                    empty = true;
+                    break;
+                }                
+            }
+        }
+
+        if(empty){
+            alert("Atenção! Todos os campos devem estar preenchidos antes de salvar!");
+        }
+
+        return empty;
+    }
 
 };

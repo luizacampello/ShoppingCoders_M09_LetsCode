@@ -62,13 +62,6 @@ window.popUpFactory = {
 		const postalCode = elementFactory.newFormOption("postalCode", "CEP", store.postal_code);
 		const email = elementFactory.newFormOption("email","email@email.com", store.email, "email");
 		const phone = elementFactory.newFormOption("phone","(xx) xxxx-xxxx", store.phone, "tel");
-
-		name.setAttribute('required', '');
-		categoryOption.setAttribute('required', '');
-		address.setAttribute('required', '');
-		postalCode.setAttribute('required', '');
-		email.setAttribute('required', '');
-		phone.setAttribute('required', '');
 	
 		storeForm.appendChild(name);
 		storeForm.appendChild(categoryOption);
@@ -84,7 +77,7 @@ window.popUpFactory = {
 		);	
 
 		divButtons.appendChild(
-			elementFactory.saveButton("Salvar", "save", infra.updateStoreButtonOnClick)
+			elementFactory.saveButton("Salvar", "save", infra.updateStoreButtonOnClick, store)
 		);
 
 		formContainer.appendChild(divCloseButton);
@@ -114,13 +107,6 @@ window.popUpFactory = {
 		const postalCode = elementFactory.newFormOption("postalCode", "CEP");
 		const email = elementFactory.newFormOption("email","email@email.com", "", "email");
 		const phone = elementFactory.newFormOption("phone","(xx) xxxx-xxxx", "", "tel");
-
-		name.setAttribute('required', '');
-		categoryOption.setAttribute('required', '');
-		address.setAttribute('required', '');
-		postalCode.setAttribute('required', '');
-		email.setAttribute('required', '');
-		phone.setAttribute('required', '');
 	
 		storeForm.appendChild(name);
 		storeForm.appendChild(categoryOption);
@@ -184,20 +170,16 @@ window.popUpFactory = {
 
 		const code = elementFactory.newFormOption("code", "Código da Categoria", category.code);
 		const name = elementFactory.newFormOption("name", "Nome da Categoria", category.name);
-
-		code.setAttribute('required', '');
-		name.setAttribute('required', '');
 		
 		categoryForm.appendChild(code);
 		categoryForm.appendChild(name);
 
-		const divButtons = document.createElement("div");
-		divButtons.setAttribute("id", "divButtons");
+		const divButtons = elementFactory.createHtmlTag("div", "formButtons", "divButtons");
 		divButtons.appendChild(
 			elementFactory.newButton("Deletar", "delete", infra.deleteCategoryButtonOnClick)
 		);
 		divButtons.appendChild(
-			elementFactory.saveButton("Salvar", "save", infra.updateCategoryButtonOnClick)
+			elementFactory.saveButton("Salvar", "save", infra.updateCategoryButtonOnClick, category)
 		);
 
 		formContainer.appendChild(divCloseButton);
@@ -213,14 +195,10 @@ window.popUpFactory = {
 			elementFactory.newButton("X", "close")
 		);
 
-
 		const categoryForm = elementFactory.createHtmlTag("form", "", "categoryForm");
 		categoryForm.setAttribute("uidcategory", "");
 		const code = elementFactory.newFormOption("code", "Código da Categoria");
 		const name = elementFactory.newFormOption("name", "Nome da Categoria");
-
-		code.setAttribute('required', '');
-		name.setAttribute('required', '');
 
 		categoryForm.appendChild(code);
 		categoryForm.appendChild(name);
