@@ -237,9 +237,11 @@ window.infra = {
         const store = {};
         store.uid = form.getAttribute("uidstore");
         store.name = form.elements["name"].value;
-        store.categoryUid = form.elements["categorySelect"].value;
+        store.category = {
+			"uid": form.elements["categorySelect"].value
+		};
         store.address = form.elements["address"].value;
-        store.postalCode = form.elements["postalCode"].value;
+        store.postal_code = form.elements["postalCode"].value;
         store.email = form.elements["email"].value;
         store.phone = form.elements["phone"].value;
 
@@ -346,21 +348,35 @@ window.infra = {
     },
 
     formChangesValidation: (newContent, oldContent) => {
+        debugger
+        console.log(oldContent);
+        console.log(newContent);
+
         let changes = false;
-        const objectKeys = Object.keys(oldContent);
+        const objectKeys = Object.keys(newContent);
 
         for (let index = 0; index < objectKeys.length; index++) {
             const oldValue = oldContent[objectKeys[index]];
             const newValue = newContent[objectKeys[index]];
-
-            if (newValue != oldValue){
-                return true;
+            console.log(`new = ${newValue}`)
+            console.log(`old = ${oldValue}`)
+            
+            if (typeof newValue === 'object'){
+                if (newValue.uid != oldValue.uid){
+                    return true;
+                }
             }
+            else {
+                if (newValue != oldValue){
+                    return true;
+                }
+            }
+
         }
 
         if (!changes) {
             alert("Não há alterações para salvar. Tente editar alguma coisa");
-            return changes;
+            return false;
         }        
     },
 
