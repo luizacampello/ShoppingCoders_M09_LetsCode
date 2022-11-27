@@ -10,6 +10,7 @@
     text-align: center;
     background-color: #189AB4;
     font-family: 'Inter', sans-serif;
+    z-index:-1;
     }
     #footer-title {
       color: azure;
@@ -36,7 +37,7 @@
       height: 100%;
       margin-bottom: 10px;
     
-      position: relative;
+      // position: relative;
     }
     .list-item {
       height: fit-content;
