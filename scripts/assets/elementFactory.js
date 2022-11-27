@@ -59,8 +59,6 @@ window.elementFactory = {
 
         buttonElement.addEventListener("click", function(event){
             onClickFunction(oldContent);           
-            // pageCard.classList.remove("show");
-            // pageCard.textContent = "";
             event.preventDefault();
         });
 
