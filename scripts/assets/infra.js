@@ -222,7 +222,7 @@ window.infra = {
         }       
     },
 
-    createStoreButtonOnClick: (oldContent) => {
+    createStoreButtonOnClick: (oldContent = "") => {
         const form = document.getElementById("storeForm");
         const store = infra.getStoreFormElements(form);
 
@@ -348,9 +348,6 @@ window.infra = {
     },
 
     formChangesValidation: (newContent, oldContent) => {
-        debugger
-        console.log(oldContent);
-        console.log(newContent);
 
         let changes = false;
         const objectKeys = Object.keys(newContent);
@@ -358,8 +355,6 @@ window.infra = {
         for (let index = 0; index < objectKeys.length; index++) {
             const oldValue = oldContent[objectKeys[index]];
             const newValue = newContent[objectKeys[index]];
-            console.log(`new = ${newValue}`)
-            console.log(`old = ${oldValue}`)
             
             if (typeof newValue === 'object'){
                 if (newValue.uid != oldValue.uid){
@@ -382,20 +377,25 @@ window.infra = {
 
     formEmptyValidation: (newContent) => {
         let empty = false;
-        const contentArray = Object.values(newContent);
+        const objectKeys = Object.keys(newContent);
+        console.log(objectKeys);
 
-        for (let index = 0; index < contentArray.length; index++) {
-            const item = contentArray[index];
+        for (let index = 0; index < objectKeys.length; index++) {
+            const item = newContent[objectKeys[index]];
+
             if (!item) {
-                empty = true;
-                break;     
-            }  
+                if(objectKeys[index] != "uid") {
+                    empty = true;
+                    break;
+                }                
+            }
         }
 
         if(empty){
             alert("Atenção! Todos os campos devem estar preenchidos antes de salvar!");
-            return empty;
-        }     
+        }
+
+        return empty;
     }
 
 };
