@@ -210,18 +210,27 @@ window.infra = {
         });
     },
 
-    updateStoreButtonOnClick: () => {
+    updateStoreButtonOnClick: (oldStore) => {
         const form = document.getElementById("storeForm");
         const store = infra.getStoreFormElements(form);
 
-        serviceAPI.updateStore(store);
+        const changes = infra.formChangesValidation(store, oldStore);
+        const empty = infra.formEmptyValidation(store);
+        
+        if(changes && !empty){
+            serviceAPI.updateStore(store);            
+        }       
     },
 
-    createStoreButtonOnClick: () => {
+    createStoreButtonOnClick: (oldContent) => {
         const form = document.getElementById("storeForm");
         const store = infra.getStoreFormElements(form);
 
-        serviceAPI.createStore(store);
+        const empty = infra.formEmptyValidation(store);
+        
+        if(!empty){
+            serviceAPI.createStore(store);           
+        }        
     },
 
     getStoreFormElements: (form) => {
@@ -256,17 +265,27 @@ window.infra = {
         return category;
     },
 
-    createCategoryButtonOnClick: () => {
+    createCategoryButtonOnClick: (oldContent = "") => {
         const form = document.getElementById("categoryForm");
         const category = infra.getCategoryFormElements(form);
 
-        serviceAPI.createCategory(category);
+        const empty = infra.formEmptyValidation(category);
+        
+        if(!empty){
+            serviceAPI.createCategory(category);
+        }        
     },
 
-    updateCategoryButtonOnClick: () => {
+    updateCategoryButtonOnClick: (oldCategory) => {
         const form = document.getElementById("categoryForm");
         const category = infra.getCategoryFormElements(form);
-        serviceAPI.updateCategory(category);
+
+        const changes = infra.formChangesValidation(category, oldCategory);
+        const empty = infra.formEmptyValidation(category);
+
+        if(changes && !empty){
+            serviceAPI.updateCategory(category);            
+        }        
     },
 
     deleteCategoryButtonOnClick: () => {
@@ -325,5 +344,42 @@ window.infra = {
         infra.displayInnerContainer("categoriesContainer");
         search.containerChangeClass();
     },
+
+    formChangesValidation: (newContent, oldContent) => {
+        let changes = false;
+        const objectKeys = Object.keys(oldContent);
+
+        for (let index = 0; index < objectKeys.length; index++) {
+            const oldValue = oldContent[objectKeys[index]];
+            const newValue = newContent[objectKeys[index]];
+
+            if (newValue != oldValue){
+                return true;
+            }
+        }
+
+        if (!changes) {
+            alert("Não há alterações para salvar. Tente editar alguma coisa");
+            return changes;
+        }        
+    },
+
+    formEmptyValidation: (newContent) => {
+        let empty = false;
+        const contentArray = Object.values(newContent);
+
+        for (let index = 0; index < contentArray.length; index++) {
+            const item = contentArray[index];
+            if (!item) {
+                empty = true;
+                break;     
+            }  
+        }
+
+        if(empty){
+            alert("Atenção! Todos os campos devem estar preenchidos antes de salvar!");
+            return empty;
+        }     
+    }
 
 };

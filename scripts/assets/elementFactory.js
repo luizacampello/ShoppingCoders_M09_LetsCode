@@ -48,7 +48,7 @@ window.elementFactory = {
         return buttonBox;
     },
 
-    saveButton: (value, id, onClickFunction = () => {}) => {
+    saveButton: (value, id, onClickFunction = () => {}, oldContent = "") => {
         const buttonBox = elementFactory.createHtmlTag("div", "", `box${id}`);
         const buttonElement = elementFactory.createHtmlTag("input", "", id);
         buttonElement.type = "submit";
@@ -58,10 +58,10 @@ window.elementFactory = {
         const pageCard = document.getElementById(containerId);
 
         buttonElement.addEventListener("click", function(event){
-            //event.preventDefault();
-            onClickFunction();
-            //pageCard.classList.remove("show");
-            //pageCard.textContent = "";
+            onClickFunction(oldContent);           
+            // pageCard.classList.remove("show");
+            // pageCard.textContent = "";
+            event.preventDefault();
         });
 
         buttonBox.appendChild(buttonElement);
@@ -73,6 +73,7 @@ window.elementFactory = {
         const formOption = document.createElement("input");
         formOption.name = name;
 		formOption.placeholder = placeholder;
+        formOption.setAttribute('required', '');
 
         if (value){
             formOption.value = value;

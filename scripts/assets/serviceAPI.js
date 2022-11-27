@@ -143,7 +143,7 @@ window.serviceAPI = {
 		let exists = false;
 		const categories = await serviceAPI.getCategoriesList();
 
-		if (categories != null)
+		if (categories)
 		{
 			categories.forEach(category => {
 				if (category.name == newCategory.name || category.code == newCategory.code)
