@@ -118,7 +118,7 @@
         width: 60%;
         min-width: 300px;
         max-width: 800px;
-        padding: 4%;
+        padding: 2% 4%;
         position: relative;
       }
       
@@ -226,7 +226,7 @@
       .labelStore, .labelCategory {
         align-self: flex-start;
         margin: 0px 5px;
-        margin-top: 10px;
+        margin-top: 5px;
         font-size: 1.1rem;
         font-weight: bold;
         color: #189ab4;
@@ -239,8 +239,6 @@
         // margin-top: 13px;
         // background-color: #189ab4a6;
       }
-
-
 
     `;
     document.body.appendChild(style);
