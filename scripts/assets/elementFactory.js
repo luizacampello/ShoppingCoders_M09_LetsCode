@@ -40,7 +40,7 @@ window.elementFactory = {
     newCategoryOption: (category) => {
         let newOption = document.createElement("option");
 
-        newOption.text = category.name;
+        newOption.text = `${category.code} - ${category.name}`;
         newOption.value = category.uid;
 
         return newOption;
