@@ -168,10 +168,14 @@ window.popUpFactory = {
 		const categoryForm = elementFactory.createHtmlTag("form", "", "categoryForm");
 		categoryForm.setAttribute("uidcategory", category.uid);
 
+		const codeLabel = elementFactory.createHtmlSetContentAndClass("labelCategory", "Código da Categoria");
 		const code = elementFactory.newFormOption("code", "Código da Categoria", category.code);
+		const nameLabel = elementFactory.createHtmlSetContentAndClass("labelCategory", "Nome da Categoria");
 		const name = elementFactory.newFormOption("name", "Nome da Categoria", category.name);
 		
+		categoryForm.appendChild(codeLabel);
 		categoryForm.appendChild(code);
+		categoryForm.appendChild(nameLabel);
 		categoryForm.appendChild(name);
 
 		const divButtons = elementFactory.createHtmlTag("div", "formButtons", "divButtons");
@@ -197,10 +201,16 @@ window.popUpFactory = {
 
 		const categoryForm = elementFactory.createHtmlTag("form", "", "categoryForm");
 		categoryForm.setAttribute("uidcategory", "");
-		const code = elementFactory.newFormOption("code", "Código da Categoria");
-		const name = elementFactory.newFormOption("name", "Nome da Categoria");
 
+		const codeLabel = elementFactory.createHtmlSetContentAndClass("labelCategory", "Código da Categoria");
+		const code = elementFactory.newFormOption("code", "Código da Categoria");
+		const nameLabel = elementFactory.createHtmlSetContentAndClass("labelCategory", "Nome da Categoria");
+		const name = elementFactory.newFormOption("name", "Nome da Categoria");
+		
+
+		categoryForm.appendChild(codeLabel);
 		categoryForm.appendChild(code);
+		categoryForm.appendChild(nameLabel);
 		categoryForm.appendChild(name);
 		categoryForm.appendChild(
 			elementFactory.saveButton("Salvar", "save", infra.createCategoryButtonOnClick)
