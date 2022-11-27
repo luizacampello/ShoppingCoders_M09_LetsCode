@@ -26,6 +26,17 @@ window.elementFactory = {
         return container;
     },
 
+    createHtmlSetContentAndClass: (className = '', labelContent) => {
+        const label = document.createElement('label');
+        label.textContent = labelContent;
+
+        if (className) {
+            label.setAttribute('class', className);
+        }
+
+        return label;
+    },
+
     newCategoryOption: (category) => {
         let newOption = document.createElement("option");
 
