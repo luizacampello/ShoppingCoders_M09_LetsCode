@@ -26,6 +26,17 @@ window.elementFactory = {
         return container;
     },
 
+    createHtmlSetContentAndClass: (className = '', labelContent) => {
+        const label = document.createElement('label');
+        label.textContent = labelContent;
+
+        if (className) {
+            label.setAttribute('class', className);
+        }
+
+        return label;
+    },
+
     newCategoryOption: (category) => {
         let newOption = document.createElement("option");
 
@@ -59,8 +70,6 @@ window.elementFactory = {
 
         buttonElement.addEventListener("click", function(event){
             onClickFunction(oldContent);           
-            // pageCard.classList.remove("show");
-            // pageCard.textContent = "";
             event.preventDefault();
         });
 

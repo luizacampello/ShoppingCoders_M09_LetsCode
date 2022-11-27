@@ -221,7 +221,27 @@
       
       #delete:hover {
         background-color: darkslategray;
-      }   
+      }
+      
+      .labelStore, .labelCategory {
+        align-self: flex-start;
+        margin: 0px 5px;
+        margin-top: 10px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #189ab4;
+        padding: 3px 10px;
+        font-family: 'Inter', sans-serif;
+
+        // text-align: center;
+        // color: white;
+        // border-radius: 20px;
+        // margin-top: 13px;
+        // background-color: #189ab4a6;
+      }
+
+
+
     `;
     document.body.appendChild(style);
 })();
