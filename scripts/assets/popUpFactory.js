@@ -63,11 +63,25 @@ window.popUpFactory = {
 		const email = elementFactory.newFormOption("email","email@email.com", store.email, "email");
 		const phone = elementFactory.newFormOption("phone","(xx) xxxx-xxxx", store.phone, "tel");
 	
+		const nameLabel = elementFactory.createHtmlSetContentAndClass("labelStore", "Nome da Loja");
+		const categoryLabel = elementFactory.createHtmlSetContentAndClass("labelStore", "Categoria");
+		const addressLabel = elementFactory.createHtmlSetContentAndClass("labelStore", "Endereço");
+		const postalCodeLabel = elementFactory.createHtmlSetContentAndClass("labelStore", "CEP");
+		const emailLabel = elementFactory.createHtmlSetContentAndClass("labelStore", "Email");
+		const phoneLabel = elementFactory.createHtmlSetContentAndClass("labelStore", "Telefone");
+
+	
+		storeForm.appendChild(nameLabel);
 		storeForm.appendChild(name);
+		storeForm.appendChild(categoryLabel);
 		storeForm.appendChild(categoryOption);
+		storeForm.appendChild(addressLabel);
 		storeForm.appendChild(address);
+		storeForm.appendChild(postalCodeLabel);
 		storeForm.appendChild(postalCode);
+		storeForm.appendChild(emailLabel);
 		storeForm.appendChild(email);
+		storeForm.appendChild(phoneLabel);
 		storeForm.appendChild(phone);
 
 		const divButtons = elementFactory.createHtmlTag("div", "formButtons", "divButtons");
@@ -107,12 +121,26 @@ window.popUpFactory = {
 		const postalCode = elementFactory.newFormOption("postalCode", "CEP");
 		const email = elementFactory.newFormOption("email","email@email.com", "", "email");
 		const phone = elementFactory.newFormOption("phone","(xx) xxxx-xxxx", "", "tel");
+
+		const nameLabel = elementFactory.createHtmlSetContentAndClass("labelStore", "Nome da Loja");
+		const categoryLabel = elementFactory.createHtmlSetContentAndClass("labelStore", "Categoria");
+		const addressLabel = elementFactory.createHtmlSetContentAndClass("labelStore", "Endereço");
+		const postalCodeLabel = elementFactory.createHtmlSetContentAndClass("labelStore", "CEP");
+		const emailLabel = elementFactory.createHtmlSetContentAndClass("labelStore", "Email");
+		const phoneLabel = elementFactory.createHtmlSetContentAndClass("labelStore", "Telefone");
+
 	
+		storeForm.appendChild(nameLabel);
 		storeForm.appendChild(name);
+		storeForm.appendChild(categoryLabel);
 		storeForm.appendChild(categoryOption);
+		storeForm.appendChild(addressLabel);
 		storeForm.appendChild(address);
+		storeForm.appendChild(postalCodeLabel);
 		storeForm.appendChild(postalCode);
+		storeForm.appendChild(emailLabel);
 		storeForm.appendChild(email);
+		storeForm.appendChild(phoneLabel);
 		storeForm.appendChild(phone);
 		storeForm.appendChild(
 			elementFactory.saveButton("Salvar", "save", infra.createStoreButtonOnClick)
